@@ -1,0 +1,29 @@
+# Template file for 'libwacom'
+pkgname=libwacom
+version=0.32
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="libgudev-devel"
+short_desc="Library to identify wacom tablets"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="MIT"
+homepage="https://github.com/linuxwacom/libwacom"
+changelog="https://raw.githubusercontent.com/linuxwacom/libwacom/master/NEWS"
+distfiles="https://github.com/linuxwacom/libwacom/releases/download/${pkgname}-${version}/${pkgname}-${version}.tar.bz2"
+checksum=6b9dab8bce0471b839c89d34a1b30839de2c24db03796fa8d572817830f85380
+
+post_install() {
+	vlicense COPYING
+}
+
+libwacom-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+	}
+}

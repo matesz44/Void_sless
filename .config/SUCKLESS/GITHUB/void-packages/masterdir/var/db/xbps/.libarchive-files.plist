@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dirs</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib</string>
+		</dict>
+	</array>
+	<key>files</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib/libarchive.so.13.3.3</string>
+			<key>mtime</key>
+			<integer>1541335727</integer>
+			<key>sha256</key>
+			<string>0c1126dc1e7c4849ba0178f9b892dac90f34c3ab3382258d36b81f7e44a2d88a</string>
+		</dict>
+	</array>
+	<key>links</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib/libarchive.so.13</string>
+			<key>mtime</key>
+			<integer>1541335727</integer>
+			<key>target</key>
+			<string>/usr/lib/libarchive.so.13.3.3</string>
+		</dict>
+	</array>
+</dict>
+</plist>

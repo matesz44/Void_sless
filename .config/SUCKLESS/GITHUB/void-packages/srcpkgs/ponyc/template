@@ -1,0 +1,34 @@
+# Template file for 'ponyc'
+pkgname=ponyc
+version=0.26.0
+revision=1
+only_for_archs="x86_64"
+build_style=gnu-makefile
+hostmakedepends="llvm6.0"
+makedepends="zlib-devel ncurses-devel libatomic-devel"
+depends="libatomic-devel"
+short_desc="OO, actor-model, capabilities-secure, high-performance language"
+maintainer="Brian Mitchell <brian@strmpnk.co>"
+license="BSD-2-Clause"
+homepage="https://ponylang.org/"
+distfiles="https://github.com/ponylang/ponyc/archive/${version}.tar.gz"
+checksum=e65631dbf5418abd465cbd5912794feb61c0db9b76b916b39772ad2f623ad16e
+
+do_build() {
+	vsed -e 's/-Werror //' -i Makefile
+
+	make config=release default_pic=true
+}
+
+do_install() {
+	make config=release destdir=${DESTDIR}/usr/lib/pony/${version} prefix=${DESTDIR}/usr install
+	rm ${DESTDIR}/usr/bin/ponyc ${DESTDIR}/usr/lib/libponyrt.a \
+		${DESTDIR}/usr/lib/libponyc.a ${DESTDIR}/usr/include/pony.h
+	ln -s /usr/lib/pony/${version}/lib/libponyrt.a ${DESTDIR}/usr/lib
+	ln -s /usr/lib/pony/${version}/lib/libponyc.a ${DESTDIR}/usr/lib
+	ln -s /usr/lib/pony/${version}/bin/ponyc ${DESTDIR}/usr/bin
+	ln -s /usr/lib/pony/${version}/include/pony.h ${DESTDIR}/usr/include
+	vlicense LICENSE
+	vdoc README.md
+	vcopy examples usr/share/doc/ponyc/
+}

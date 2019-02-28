@@ -1,0 +1,336 @@
+NAME
+       blind - Collection of command line video editing utilities
+
+DESCRIPTION
+       blind is a collection of command line video editing utilities. blind uses a
+       custom raw video format with a simple container. If you have a video file
+       you want to edit, you first have to convert it with blind-from-video(1). To
+       be able to play your video in a video play, you have to convert it with
+       blind-to-video(1).
+
+       Raw video takes up tremendous amount of space, you should therefore avoid
+       storing the video without first convert it with blind-to-video(1).
+
+UTILITIES
+       blind-affine-colour(1)
+              Apply an affine transformation to the colours in a video
+
+       blind-apply-kernel(1)
+              Apply a convolution matrix to a video
+
+       blind-apply-palette(1)
+              Apply a colour palette to a video
+
+       blind-arithm(1)
+              Perform simple arithmetic on a video
+
+       blind-cat-cols(1)
+              Place videos side by side
+
+       blind-cat-rows(1)
+              Stack videos vertically
+
+       blind-chroma-key(1)
+              Replace a colour range with transparency
+
+       blind-colour-ciexyz(1)
+              Convert CIE XYZ for use with blind-single-colour(1)
+
+       blind-colour-matrix(1)
+              Create colour space conversion matrix
+
+       blind-colour-srgb(1)
+              Convert sRGB for use with blind-single-colour(1) and colour-colour-matrix(1)
+
+       blind-concat(1)
+              Concatenate videos
+
+       blind-cone-gradient(1)
+              Generate a video with a cone gradient
+
+       blind-convert(1)
+              Change pixel format of a video
+
+       blind-coordinate-field(1)
+              Generate a video where each pixel indicate their position
+
+       blind-crop(1)
+              Extract subframes for all frames
+
+       blind-cross-product(1)
+              Calculate the cross product of colours in a video
+
+       blind-cut(1)
+              Retain consecutive frames
+
+       blind-disperse(1)
+              Framewise split a video into multiple videos
+
+       blind-dissolve(1)
+              Fade a video by chaning it's alpha channel
+
+       blind-dot-product(1)
+              Calculate the dot product of colours in a video
+
+       blind-double-sine-wave(1)
+              Apply double-sine-wave repetition to gradient
+
+       blind-dual-key(1)
+              Apply transparency to a video based on two videos and two key
+
+       blind-extend(1)
+              Add margins to a video
+
+       blind-extract-alpha(1)
+              Split a video into an alpha mask video and a colour mask video
+
+       blind-find-rectangle(1)
+              Locate a coloured rectangle
+
+       blind-flip(1)
+              Mirror a video vertically
+
+       blind-flop(1)
+              Mirror a video horizontally
+
+       blind-from-image(1)
+              Convert an image to a frame
+
+       blind-from-named(1)
+              Receive a file descriptor
+
+       blind-from-portable(1)
+              Convert a video from a portable format to a processable format
+
+       blind-from-text(1)
+              Convert text to a video
+
+       blind-from-video(1)
+              Converts a regular, cooked video to a blind video
+
+       blind-gauss-blur(1)
+              Apply Gaussian blur to a video
+
+       blind-get-colours(1)
+              Get a frame with all colours from a video
+
+       blind-hexagon-tessellation(1)
+              Create a frame with tessellated hexagons
+
+       blind-interleave(1)
+              Framewise interleave videos
+
+       blind-invert-luma(1)
+              Invert the luminosity of a video
+
+       blind-invert-matrix(1)
+              Invert matrix-video
+
+       blind-kernel(1)
+              Create a convolution matrix
+
+       blind-linear-gradient(1)
+              Generate a video with a linear gradient
+
+       blind-make-kernel(1)
+              Create a custom convolution matrix
+
+       blind-matrix-orthoproject(1)
+              Create an affine 2D-transformation matrix for othogonal projection
+
+       blind-matrix-reflect(1)
+              Create an affine 2D-transformation matrix for reflection about a line
+
+       blind-matrix-rotate(1)
+              Create an affine 2D-transformation matrix for rotation
+
+       blind-matrix-scale(1)
+              Create an affine 2D-transformation matrix for scaling
+
+       blind-matrix-shear(1)
+              Create an affine 2D-transformation matrix for shearing
+
+       blind-matrix-translate(1)
+              Create an affine 2D-transformation matrix for translation
+
+       blind-matrix-transpose(1)
+              Create an affine 2D-transformation matrix for transposition
+
+       blind-mean(1)
+              Calcuate the mean over videos for each pixel in each frame
+
+       blind-mosaic(1)
+              Redraw each frame in video as a mosaic
+
+       blind-mosaic-corners(1)
+              Find corners in a mosaic video
+
+       blind-mosaic-edges(1)
+              Find edges in a mosaic video
+
+       blind-multiply-matrices(1)
+              Multiply matrix-vidoes
+
+       blind-next-frame(1)
+              Extracts the next frame from a video
+
+       blind-norm(1)
+              Calculate the norm of colours in a video
+
+       blind-peek-head
+              Peeks the head from a video
+
+       blind-premultiply(1)
+              Premultiply the alpha channel of a video
+
+       blind-primary-key(1)
+              Replace a primary with transparency
+
+       blind-quaternion-product(1)
+              Calculate the quaternion product of colours in a video
+
+       blind-radial-gradient(1)
+              Generate a video with a radial gradient
+
+       blind-read-head(1)
+              Reads the head from a video
+
+       blind-rectangle-tessellation(1)
+              Create a frame with tessellated rectangles
+
+       blind-repeat(1)
+              Repeat a video
+
+       blind-repeat-tessellation(1)
+              Repeat a video horizontally and veritically to a specific size
+
+       blind-reverse(1)
+              Reverse a video
+
+       blind-rewrite-head(1)
+              Rewrite the head of a video
+
+       blind-rotate-90(1)
+              Rotate a video 90 degrees clockwise
+
+       blind-rotate-180(1)
+              Rotate a video 180 degrees
+
+       blind-rotate-270(1)
+              Rotate a video 270 degrees clockwise
+
+       blind-round-wave(1)
+              Apply round wave repetition to gradient
+
+       blind-sawtooth-wave(1)
+              Apply sawtooth-wave repetition to gradient
+
+       blind-set-alpha(1)
+              Multiply the alpha channel of a video
+
+       blind-set-luma(1)
+              Multiply the luminosity of a video
+
+       blind-set-saturation(1)
+              Multiply the saturation of a video
+
+       blind-sine-wave(1)
+              Apply sine-wave repetition to gradient
+
+       blind-sinc-wave(1)
+              Apply cardinal sine-wave repetition to gradient
+
+       blind-single-colour(1)
+              Generate a single-colour video
+
+       blind-sine-wave(1)
+              Apply sine-wave repetition to gradient
+
+       blind-skip-pattern(1)
+              Skips frames in a video according to pattern
+
+       blind-spatial-arithm(1)
+              Perform simple arithmetic over all pixels for each frame in a video
+
+       blind-spatial-mean(1)
+              Calculate the mean over all pixel for each frame in a video
+
+       blind-spectrum(1)
+              Transform a gradient into a spectrum
+
+       blind-spiral-gradient(1)
+              Generate a video with a spiral gradient
+
+       blind-split(1)
+              Split a video, by frame, into multiple videos
+
+       blind-split-chans(1)
+              Split colour channels into separate videos
+
+       blind-split-cols(1)
+              Split a video vertically into multiple videos
+
+       blind-split-rows(1)
+              Split a video horizontally into multiple videos
+
+       blind-square-gradient(1)
+              Generate a video with a square gradient
+
+       blind-stack(1)
+              Overlay videos
+
+       blind-tee(1)
+              /dev/fd/ aware tee(1) implementation
+
+       blind-temporal-arithm(1)
+              Perform simple arithmetic over all frames in a video for each pixel
+
+       blind-temporal-mean(1)
+              Calculate the mean over all frames in a video for each pixel
+
+       blind-time-blur(1)
+              Draw new frames on top of old frames with partial alpha
+
+       blind-to-image(1)
+              Convert a frame to an image
+
+       blind-to-named(1)
+              Send a file descriptor
+
+       blind-to-portable(1)
+              Convert a video to a portable format
+
+       blind-to-text(1)
+              Convert a video to text
+
+       blind-to-video(1)
+              Converts blind video to a regular video
+
+       blind-transition(1)
+              Turn a gradient video to transition-gradient video
+
+       blind-translate(1)
+              Perform framewise translation of a video
+
+       blind-transpose(1)
+              Transpose a video
+
+       blind-triangle-tessellation(1)
+              Create a frame with tessellated triangles
+
+       blind-triangular-wave(1)
+              Apply triangular wave repetition to gradient
+
+       blind-unpremultiply(1)
+              Unpremultiply the alpha channel of a video
+
+       blind-vector-projection(1)
+              Calculate the projection or rejection of colours in a video
+
+       blind-write-head(1)
+              Writes the head of a video
+
+SEE ALSO
+       ffmpeg(1), ffprobe(1), convert(1), sox(1), rubberband(1), soundstretch(1)
+
+       blind's website: <http://tools.suckless.org/blind/>.

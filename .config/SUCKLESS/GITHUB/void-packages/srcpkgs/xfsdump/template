@@ -1,0 +1,35 @@
+# Template file for 'xfsdump'
+pkgname=xfsdump
+version=3.1.8
+revision=1
+build_style=gnu-configure
+configure_args="--sbindir=/usr/bin"
+makedepends="libuuid-devel ncurses-devel xfsprogs-devel attr-devel"
+short_desc="XFS filesystem incremental dump/restore utility"
+maintainer="Christian Neukirchen <chneukirchen@gmail.com>"
+license="LGPL-2.1"
+homepage="http://oss.sgi.com/projects/xfs/"
+distfiles="${KERNEL_SITE}/utils/fs/xfs/xfsdump/xfsdump-${version}.tar.xz"
+checksum=ed14e67ae5b273c2698e767b43a46f033d361e540fe13feaaf9b110ee0edc585
+
+post_extract() {
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		sed -i -e 's/SIGCLD/SIGCHLD/g' \
+			-e 's/RLIM64_INFINITY/RLIM_INFINITY/g' \
+			common/main.c
+		sed -i -e 's/constpp/& const/' common/types.h
+		sed -i -e '1i#include <stdio.h>' invutil/invutil.c librmt/rmtioctl.c */inv_fstab.c */content.c */inv_idx.c */inv_mgr.c */inv_stobj.c
+		sed -i -e '1i#include <fcntl.h>' invutil/invidx.c
+		sed -i -e '1i#include <stdlib.h>' common/drive.c
+		sed -i -e '1i#include <limits.h>' */var.c
+		sed -i -e '1i#include <stdio.h>' common/drive_*.c common/global.c
+		sed -i -e '1i#include <sys/types.h>' */content.c
+		sed -i -e 's,sys/signal,signal,' librmt/rmtopen.c
+		sed -i -e 's/__uint32_t/uint32_t/g' */*.h
+	esac
+}
+post_install() {
+	mv ${DESTDIR}/sbin/* ${DESTDIR}/usr/bin
+	rm -rf ${DESTDIR}/usr/share/doc/
+}

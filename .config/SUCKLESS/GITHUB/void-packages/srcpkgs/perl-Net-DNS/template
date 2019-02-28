@@ -1,0 +1,16 @@
+# Template file for 'perl-Net-DNS'
+pkgname=perl-Net-DNS
+version=1.19
+revision=1
+noarch=yes
+wrksrc="${pkgname/perl-/}-${version}"
+build_style=perl-module
+hostmakedepends="perl"
+makedepends="$hostmakedepends"
+depends="$makedepends"
+short_desc="Net::DNS - Perl Interface to the Domain Name System"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="Artistic-1.0-Perl, GPL-1.0-or-later"
+homepage="https://metacpan.org/release/Net-DNS"
+distfiles="${CPAN_SITE}/Net/Net-DNS-${version}.tar.gz"
+checksum=206278bdd9a538bec3e45b50e80cc5a9d7dc6e70ebf0889ef78254f0f710ccd7

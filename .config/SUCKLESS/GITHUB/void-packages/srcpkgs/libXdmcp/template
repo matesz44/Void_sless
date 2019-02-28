@@ -1,0 +1,28 @@
+# Template build file for 'libXdmcp'.
+pkgname=libXdmcp
+version=1.1.2
+revision=3
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="xorgproto"
+short_desc="X Display Manager Control Protocol library"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="MIT"
+homepage="http://xorg.freedesktop.org"
+distfiles="${XORG_SITE}/lib/$pkgname-$version.tar.bz2"
+checksum=81fe09867918fff258296e1e1e159f0dc639cb30d201c53519f25ab73af4e4e2
+
+post_install() {
+	vlicense COPYING
+}
+
+libXdmcp-devel_package() {
+	depends="xorgproto ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+	}
+}

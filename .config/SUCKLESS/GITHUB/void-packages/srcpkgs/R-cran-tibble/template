@@ -1,0 +1,16 @@
+# Template file for 'R-cran-tibble'
+pkgname=R-cran-tibble
+version=2.0.1
+revision=1
+build_style=R-cran
+makedepends="R-cran-cli R-cran-crayon R-cran-pillar R-cran-rlang R-cran-pkgconfig"
+depends="R-cran-cli R-cran-crayon R-cran-pillar>=1.1.0 R-cran-rlang R-cran-pkgconfig"
+short_desc="Simple Data Frames"
+maintainer="Florian Wagner <florian@wagner-flo.net>"
+license="MIT"
+homepage="http://tibble.tidyverse.org/"
+checksum=7ab2cc295eecf00a5310993c99853cd6622ad468e7a60d004b8a73957a713d13
+
+post_install() {
+	vlicense LICENSE
+}

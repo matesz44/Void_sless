@@ -1,0 +1,9 @@
+#!/bin/sh
+
+XBPS_SRC_VERSION="113"
+
+. /etc/xbps/xbps-src.conf
+
+PATH=/void-packages:/usr/bin:/usr/sbin
+
+exec env -i -- SHELL=/bin/sh PATH="$PATH" DISTCC_HOSTS="$XBPS_DISTCC_HOSTS" DISTCC_DIR="/host/distcc" XBPS_ARCH=x86_64      CCACHE_DIR="/host/ccache" IN_CHROOT=1 LC_COLLATE=C LANG=en_US.UTF-8 TERM=linux HOME="/tmp"     PS1="[\u@/home/matesz/DOX/SUCKLESS/GITHUB/void-packages/masterdir \W]$ " /bin/bash +h

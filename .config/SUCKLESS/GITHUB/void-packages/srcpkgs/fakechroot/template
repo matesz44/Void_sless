@@ -1,0 +1,14 @@
+# Template file for 'fakechroot'
+pkgname=fakechroot
+version=2.19
+revision=1
+lib32disabled=yes
+build_style=gnu-configure
+configure_args="--disable-static --sbindir=/usr/bin"
+conf_files="/etc/$pkgname/*"
+short_desc="Gives a fake chroot environment"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="https://github.com/dex4er/fakechroot"
+license="LGPL-2.1"
+distfiles="$homepage/archive/$version.tar.gz"
+checksum=39ffbbbe3a823be7450928b8e3b99ae4cb339c47213b2f1d8ff903e0246f2e15

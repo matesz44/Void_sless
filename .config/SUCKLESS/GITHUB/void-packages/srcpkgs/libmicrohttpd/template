@@ -1,0 +1,26 @@
+# Template file for 'libmicrohttpd'
+pkgname=libmicrohttpd
+version=0.9.63
+revision=1
+build_style=gnu-configure
+makedepends="libgcrypt-devel gnutls-devel libcurl-devel"
+short_desc="Library embedding HTTP server functionality"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://www.gnu.org/software/libmicrohttpd/"
+distfiles="${GNU_SITE}/libmicrohttpd/${pkgname}-${version}.tar.gz"
+checksum=37c36f1be177f0e37ef181a645cd3baac1000bd322a01c2eff70f3cc8c91749c
+
+LDFLAGS=" -lgnutls"
+
+libmicrohttpd-devel_package() {
+	depends="${makedepends} ${sourcepkg}-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+		vmove usr/share
+	}
+}

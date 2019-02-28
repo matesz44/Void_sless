@@ -1,0 +1,28 @@
+# Template file for 'python-MarkupSafe'
+pkgname=python-MarkupSafe
+version=1.1.0
+revision=2
+wrksrc="MarkupSafe-${version}"
+build_style=python-module
+pycompile_module="markupsafe"
+hostmakedepends="python-setuptools python3-setuptools"
+makedepends="python-devel python3-devel"
+short_desc="Implements a XML/HTML/XHTML Markup safe string for Python2"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
+homepage="https://palletsprojects.com/p/markupsafe/"
+license="BSD-3-Clause"
+distfiles="${PYPI_SITE}/M/MarkupSafe/MarkupSafe-${version}.tar.gz"
+checksum=4e97332c9ce444b0c2c38dd22ddc61c743eb208d916e4265a2a3b575bdccb1d3
+
+post_install() {
+	vlicense LICENSE.rst
+}
+
+python3-MarkupSafe_package() {
+	pycompile_module="markupsafe"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+		vlicense LICENSE.rst
+	}
+}

@@ -1,0 +1,37 @@
+# Template file for 'trace-cmd'
+pkgname=trace-cmd
+version=2.7
+revision=2
+wrksrc="${pkgname}-v${version}"
+build_style=gnu-makefile
+make_build_args="all gui doc"
+make_install_args="prefix=/usr install install_gui install_doc"
+hostmakedepends="git asciidoc pkg-config"
+makedepends="gtk+-devel libxml2-devel"
+short_desc="Tools to use ftrace Linux kernel internal tracer"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-2.0-or-later, LGPL-2.1-only"
+homepage="http://git.kernel.org/cgit/linux/kernel/git/rostedt/trace-cmd.git/"
+distfiles="http://git.kernel.org/cgit/linux/kernel/git/rostedt/${pkgname}.git/snapshot/${pkgname}-v${version}.tar.gz"
+checksum=5c3b03c701d124c36b127fd73909725e673105df0d39048a7b78ddf209ea15fb
+
+post_extract() {
+	sed -i '1i#include <limits.h>' trace-listen.c
+}
+
+post_install() {
+	vmkdir usr/share/bash-completion/completions
+	mv ${DESTDIR}/etc/bash_completion.d/* ${DESTDIR}/usr/share/bash-completion/completions
+}
+
+kernelshark_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc="GUI for ftrace Linux kernel internal tracer"
+	pkg_install() {
+		vmove usr/bin/kernelshark
+		vmove usr/bin/trace-graph
+		vmove usr/bin/trace-view
+		vmove usr/share/man/man1/kernelshark.1
+		vmove usr/share/kernelshark/html
+	}
+}

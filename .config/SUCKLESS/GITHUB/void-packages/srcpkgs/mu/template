@@ -1,0 +1,27 @@
+# Template build file for 'mu'.
+pkgname=mu
+version=1.0
+revision=3
+build_style=gnu-configure
+hostmakedepends="automake libtool pkg-config emacs texinfo"
+makedepends="xapian-core-devel gmime-devel libuuid-devel"
+short_desc="A tool for dealing with e-mail messages stored in the Maildir-format"
+maintainer="Benjamin Slade <slade@jnanam.net>"
+homepage="http://www.djcbsoftware.nl/code/mu/"
+license="GPL-3"
+distfiles="https://github.com/djcb/mu/archive/v${version}.tar.gz"
+checksum=533149abab967e2809f72e9fe62c6deb71d45b6ad2a5846247733a1dd2de69a0
+
+pre_configure() {
+	sed -i 's,-I${prefix}/include,,' contrib/Makefile.am
+	autoreconf -fi
+}
+
+mu4e_package() {
+	short_desc+=" - Emacs frontend"
+	depends="${sourcepkg}>=${version}_${revision} emacs"
+	pkg_install() {
+		vmove usr/share/emacs
+		vmove usr/share/info
+	}
+}

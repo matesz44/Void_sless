@@ -1,0 +1,20 @@
+# Template file for 'fd'
+pkgname=fd
+version=7.3.0
+revision=1
+build_style=cargo
+short_desc="Simple, fast and user-friendly alternative to find"
+maintainer="Jerry Tegno <jerrytegno@gmail.com>"
+license="Apache-2.0, MIT"
+homepage="https://github.com/sharkdp/fd"
+distfiles="https://github.com/sharkdp/fd/archive/v${version}.tar.gz"
+checksum=fbd48cc83c90a0ab09fc3bbe865708a3a528876a99f8304a17d07af7fb378170
+
+case "$XBPS_TARGET_MACHINE" in
+	aarch64-musl) broken="MAP_32BIT; not found in libc" ;;
+esac
+
+post_install() {
+	vman doc/fd.1
+	vlicense LICENSE-MIT
+}

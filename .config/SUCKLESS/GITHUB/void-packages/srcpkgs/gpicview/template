@@ -1,0 +1,18 @@
+# Template file for 'gpicview'
+pkgname=gpicview
+version=0.2.5
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config intltool"
+makedepends="libjpeg-turbo-devel gtk+-devel desktop-file-utils"
+depends="desktop-file-utils"
+short_desc="A Simple and Fast Image Viewer for X"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="http://lxde.org/"
+license="GPL-2"
+distfiles="${SOURCEFORGE_SITE}/lxde/${pkgname}-${version}.tar.xz"
+checksum=38466058e53702450e5899193c4b264339959b563dd5cd81f6f690de32d82942
+
+pre_configure() {
+	sed -i '/^Categories=/ s/Utility;//' gpicview.desktop.in
+}

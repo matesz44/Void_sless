@@ -1,0 +1,71 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U system.task_info%b	s-tasinf.adb		375a3ef7 NE OL PK
+W system%s		system.ads		system.ali
+
+U system.task_info%s	s-tasinf.ads		ab92045a EB EE OL PR PK
+W system%s		system.ads		system.ali
+Z system.exception_table%s  s-exctab.adb	s-exctab.ali
+W system.os_interface%s	s-osinte.adb		s-osinte.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-linux.ads		20180111085525 2fda6ad1 system.linux%s
+D s-oscons.ads		20190122111334 67013218 system.os_constants%s
+D s-osinte.ads		20180111085525 c6986a0c system.os_interface%s
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+D s-tasinf.ads		20180111085525 2b3f8252 system.task_info%s
+D s-tasinf.adb		20180111085525 1c65bca5 system.task_info%b
+D s-unstyp.ads		20180111085525 34867c83 system.unsigned_types%s
+X 4 i-c.ads
+37I9*long<long_integer>
+X 5 system.ads
+37K9*System 156e11 12|44r6 46r9 80r23 102r5 13|34r14 55r5
+X 9 s-osinte.ads
+46K16*OS_Interface 681e24 12|44w13 80r30 13|49r13 49r35
+56I12*long{4|37I9}
+242V13*sysconf{56I12} 13|49s26
+246N4*SC_NPROCESSORS_ONLN 13|49r48
+561A9*bit_field(boolean)<integer>
+566R9*cpu_set_t 568e14 12|80r43
+567a7*bits{561A9} 12|82m35 83m35
+X 12 s-tasinf.ads
+46K16*Task_Info 5|37k9 12|47r24 102l12 102e21 13|34b21 55l12 55t21
+80R12*CPU_Set{9|566R9} 82r23 83r23 90r30
+82r4*Any_CPU{80R12} 90r41
+83r4*No_CPU{80R12}
+85X4*Invalid_CPU_Number
+89R9*Thread_Attributes 91e14 93r41 95r38
+90r7*CPU_Affinity{80R12}
+93r4*Default_Thread_Attributes{89R9}
+95P9*Task_Info_Type(89R9) 97r37
+97p4*Unspecified_Task_Info{95P9}
+99V13*Number_Of_Processors{positive} 13|45b13 53l8 53t28
+X 13 s-tasinf.adb
+36i4 N_CPU{natural} 37r19 47r10 48m10 52r14
+

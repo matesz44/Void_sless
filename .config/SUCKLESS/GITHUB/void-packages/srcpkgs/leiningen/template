@@ -1,0 +1,24 @@
+# Template file for 'leiningen'
+pkgname=leiningen
+version=2.9.0
+revision=1
+noarch=yes
+depends="bash virtual?java-runtime"
+short_desc="Automate Clojure projects without setting your hair on fire"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="EPL-2.0"
+homepage="http://leiningen.org/"
+distfiles="https://github.com/technomancy/${pkgname}/archive/${version}.tar.gz
+ https://github.com/technomancy/${pkgname}/releases/download/${version}/leiningen-${version}-standalone.zip"
+checksum="f90a846e99163d5b776764ba036a0017f83f545daae2d163c2f0c5fbbc71f0a5
+ 3566d7c5453cdf85d3bf7d77de44c12059aae5779db6e686a4839fc24541fc1e"
+skip_extraction="leiningen-${version}-standalone.zip"
+
+do_install() {
+	vbin bin/lein-pkg lein
+	vman doc/lein.1
+
+	vinstall ${XBPS_SRCDISTDIR}/${pkgname}-${version}/leiningen-${version}-standalone.zip 644 usr/share/java leiningen-${version}-standalone.jar
+	vinstall zsh_completion.zsh 644 usr/share/zsh/site-functions _lein
+	vinstall bash_completion.bash 644 usr/share/bash-completion/completions lein
+}

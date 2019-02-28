@@ -1,0 +1,128 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_EXCEPTIONS
+RV NO_UNCHECKED_ACCESS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U system.interrupt_management%b  s-intman.adb	71c5de81 NE OL PK
+W system%s		system.ads		system.ali
+W system.task_primitives%s  s-taspri.ads	s-taspri.ali
+
+U system.interrupt_management%s  s-intman.ads	93368995 NE OL PR PK
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W system%s		system.ads		system.ali
+W system.os_interface%s	s-osinte.adb		s-osinte.ali
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-intman.ads		20180111085525 47ba1e06 system.interrupt_management%s
+D s-intman.adb		20180111085525 c275000a system.interrupt_management%b
+D s-linux.ads		20180111085525 2fda6ad1 system.linux%s
+D s-oscons.ads		20190122111334 67013218 system.os_constants%s
+D s-osinte.ads		20180111085525 c6986a0c system.os_interface%s
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+D s-taspri.ads		20180111085525 f40ac08d system.task_primitives%s
+D s-unstyp.ads		20180111085525 34867c83 system.unsigned_types%s
+X 3 interfac.ads
+38K9*Interfaces 184e15 7|48r6 55r29 8|64r8 71r31 116r16
+X 4 i-c.ads
+18K20*C 230e17 7|48w17 55r40 8|64r19 71r42 116r27
+35I9*int<integer> 7|55r42 8|71r44 116r29
+47M9*unsigned_char
+X 5 system.ads
+37K9*System 156e11 7|46r6 50r9 56r17 98r31 102r18 103r18 111r5 8|60r6 62r14
+. 65r8 95r18 96r18 111r18 112r18 151r17 154r31 288r5
+67M9*Address 7|103r25 8|95r25 96r25 111r25 112r25
+X 7 s-intman.ads
+50K16*Interrupt_Management 5|37k9 7|98E9 111l12 111e32 8|62b21 288l12 288t32
+53A9*Interrupt_Mask<11|156A9> 98c9
+55I9*Interrupt_ID<4|35I9> 58r33 73r27 8|67r34 67r60 79r26 209r39 210r33 253r16
+. 263r25 264r19 270r19
+58A9*Interrupt_Set(boolean)<55I9> 77r20 86r14
+73i4*Abort_Task_Interrupt{55I9} 8|169m7 237r17 238r25 239r19
+77a4*Keep_Unmasked{58A9} 8|209r22 216m13 238m10 246m10 255m13 263m10 277m10
+86a4*Reserve{58A9} 8|210r22 217m13 239m10 247m10 256m13 264m10 270m10 278m10
+. 285m7
+92U14*Initialize 8|148b14 286l8 286t18
+101U14 Adjust_Context_For_Raise 102>7 103>7 105b<c,__gnat_adjust_context_for_raise>10
+. 8|128s7
+102i7 Signo{11|83I9}
+103m7 Ucontext{5|67M9}
+X 8 s-intman.adb
+67A9 Interrupt_List(7|55I9)<7|55I9> 68r36
+68a4 Exception_Interrupts{67A9} 199r16 200r20 202r52 214r16 215r20 216r28
+. 217r22 219r23 223r27 230r29
+71i4 Unreserve_All_Interrupts{4|35I9} 73m10 73r10 276r10
+79V13 State{character} 79>20 80b<c,__gnat_get_interrupt_state>22 200s13 215s13
+. 219s16 237s10 245s10 254s13 254s41
+79i20 Int{7|55I9}
+84e4 User{character} 215r49 237r42 245r28
+85e4 Runtime{character} 254r53
+86e4 Default{character} 200r49 219r52 254r25
+93U14 Notify_Exception 94>7 95>7 96>7 109b14 140l8 140t24 171r25
+94i7 signo{11|83I9} 110b7 128r33 133r12
+95m7 siginfo{5|67M9} 111b7 114r28
+96m7 ucontext{5|67M9} 112b7 128r40
+106a4 Signal_Mask{11|156A9} 122m47 122r47 194m30 194r30 202m24 202r24 207r22
+116i7 Result{4|35I9} 122m7 123r22
+146b4 Initialized{boolean} 158r10 162m7
+149r7 act{11|182R9} 171m7 207m7 220m16 225m19 225r35 230m56 230r56
+150r7 old_act{11|182R9} 231m21 231r21
+151i7 Result{11|53I12} 194m7 195r22 201m13 203r28 228m16 232r31
+153b7 Use_Alternate_Stack{boolean} 222r19
+199i11 J<4|35I9> 200r42 202r74
+214i11 J<4|35I9> 215r42 216r50 217r44 219r45 223r49 230r51
+253i11 J{7|55I9} 254r20 254r48 255r28 256r22
+262i11 J{integer} 263r49 264r43
+269i11 J{integer} 270r43
+X 11 s-osinte.ads
+46K16*OS_Interface 7|46w13 56r24 98r38 102r25 8|65r15 151r24 11|681e24
+53I12*int{4|35I9} 8|151r37
+60M12*unsigned_char{4|47M9}
+82N4*Max_Interrupt 7|56r37
+83I9*Signal<4|35I9> 7|102r38 8|94r18 110r18 202r44 230r21
+87N4*SIGINT 8|245r17 246r25 247r19 277r25 278r19
+89N4*SIGILL 8|69r15 135r15
+93N4*SIGFPE 8|69r7 134r15
+95N4*SIGBUS 8|69r32 137r15
+96N4*SIGSEGV 8|69r23 136r15 223r54
+125N4*SIGADAABORT 8|169r31
+129A9*Signal_Set(83I9)<integer>
+131a4*Unmasked{129A9} 8|262r16 263r39 264r33
+152a4*Reserved{129A9} 8|269r16 270r33
+156A9*sigset_t(60M12) 7|98r51 8|106r26
+158V13*sigaddset{53I12} 8|202s13
+170V13*sigemptyset{53I12} 8|194s17
+182R9*struct_sigaction 8|149r25 150r25 11|187e14
+183m7*sa_handler{5|67M9} 8|171m11
+184a7*sa_mask{156A9} 8|207m11
+185i7*sa_flags{53I12} 8|220m20 225m23 225r39
+202N4*SA_SIGINFO 8|220r32
+203N4*SA_ONSTACK 8|225r50
+206N4*SIG_UNBLOCK 8|122r34
+212V13*sigaction{53I12} 8|229s18
+339U14*pthread_init 8|167s7
+353V13*pthread_sigmask{53I12} 8|122s17
+X 14 s-taspri.ads
+43K16*Task_Primitives 8|60w13 154r38 14|120e27
+70N4*Alternate_Stack_Size 8|154r54
+

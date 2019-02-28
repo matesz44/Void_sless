@@ -1,0 +1,31 @@
+# Template file for 'gtkedit'
+pkgname=gtkedit
+version=0.2.4
+revision=1
+wrksrc="gtkwrite-${version}"
+build_style=gnu-makefile
+hostmakedepends="pkgconf"
+makedepends="gtk+-devel"
+depends="desktop-file-utils"
+short_desc="Text Editor written in C and Gtk+2"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/drankinatty/gtkwrite"
+distfiles="https://github.com/drankinatty/gtkwrite/archive/v${version}.tar.gz"
+checksum=93f624a3a64f8a72d29d5a767b019b2740aba8ff00c56ddb6234b4b45f7172b0
+
+# Without GtkSourceView it will compile as 'gtkedit'
+# With GtkSourceView it compiles as 'gtkwrite'
+
+pre_build() {
+	CFLAGS+=" $(pkg-config --cflags gtk+-2.0)"
+	LDFLAGS+=" $(pkg-config --libs gtk+-2.0)"
+}
+
+do_install() {
+	vbin bin/gtkedit_dev gtkedit
+	vdoc README.md
+	vinstall img/gtkwrite.png 644 usr/share/gtkwrite/img
+	vinstall img/gtkwrite.ico 644 usr/share/gtkwrite/img
+	vinstall ${FILESDIR}/gtkedit.desktop 644 usr/share/applications
+}

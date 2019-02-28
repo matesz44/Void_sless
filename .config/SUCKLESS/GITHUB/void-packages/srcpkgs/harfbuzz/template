@@ -1,0 +1,42 @@
+# Template file for 'harfbuzz'
+pkgname=harfbuzz
+version=2.3.1
+revision=1
+build_style=gnu-configure
+configure_args="--with-glib --with-freetype --with-cairo --with-icu --with-graphite2"
+hostmakedepends="automake glib-devel libtool pkg-config"
+makedepends="cairo-devel graphite-devel icu-devel"
+short_desc="OpenType text shaping engine"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="MIT"
+homepage="http://www.freedesktop.org/wiki/Software/HarfBuzz/"
+changelog="https://raw.githubusercontent.com/harfbuzz/harfbuzz/master/NEWS"
+distfiles="${FREEDESKTOP_SITE}/harfbuzz/release/${pkgname}-${version}.tar.bz2"
+checksum=f205699d5b91374008d6f8e36c59e419ae2d9a7bb8c5d9f34041b9a5abcae468
+
+pre_configure() {
+	autoreconf -fi
+}
+
+post_install() {
+	vlicense COPYING LICENSE
+}
+
+libharfbuzz_package() {
+	short_desc+=" - runtime library"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}
+
+harfbuzz-devel_package() {
+	depends="${makedepends} libharfbuzz>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.so"
+		vmove usr/share/gtk-doc
+	}
+}

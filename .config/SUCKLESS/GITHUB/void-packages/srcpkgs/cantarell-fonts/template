@@ -1,0 +1,22 @@
+# Template file for 'cantarell-fonts'
+pkgname=cantarell-fonts
+version=0.0.25
+revision=1
+noarch=yes
+build_style=gnu-configure
+configure_args="--with-configdir=/etc/fonts/conf.avail"
+hostmakedepends="pkg-config"
+depends="fontconfig"
+short_desc="Cantarell family of TrueType fonts"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="https://wiki.gnome.org/Projects/CantarellFonts"
+license="OFL-1.1"
+distfiles="${GNOME_SITE}/$pkgname/0.0/$pkgname-$version.tar.xz"
+checksum=14a228aa0b516dfc367b434a850f955a00c57fc549cbb05348e2b150196a737f
+
+post_install() {
+	vmkdir etc/fonts/conf.d
+	ln -s ../conf.avail/31-cantarell.conf ${DESTDIR}/etc/fonts/conf.d
+	vinstall ${FILESDIR}/21-cantarell-hinting.conf 644 etc/fonts/conf.avail
+	ln -s ../conf.avail/21-cantarell-hinting.conf ${DESTDIR}/etc/fonts/conf.d
+}

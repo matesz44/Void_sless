@@ -1,0 +1,27 @@
+# Template build file for 'camlp4'
+pkgname=camlp4
+version=4.07+1
+revision=1
+build_style=configure
+short_desc="Caml preprocessor and pretty-printer"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="LGPL-2.0-only"
+homepage="https://github.com/ocaml/camlp4"
+distfiles="${homepage}/archive/${version}.tar.gz"
+checksum=ecdb8963063f41b387412317685f79823a26b3f53744f0472058991876877090
+hostmakedepends="ocaml ocamlbuild"
+wrksrc="camlp4-${version/+/-}"
+nocross=yes
+nopie=yes
+
+do_build() {
+	make all camlp4/META
+}
+
+do_install() {
+	make \
+		BINDIR="$DESTDIR/usr/bin" \
+		LIBDIR="$DESTDIR/usr/lib/ocaml" \
+		PKGDIR="$DESTDIR/usr/lib/ocaml" \
+		install install-META
+}

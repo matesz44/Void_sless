@@ -1,0 +1,28 @@
+# Template file for 'dpkg'
+pkgname=dpkg
+version=1.19.4
+revision=1
+build_style=gnu-configure
+configure_args="--disable-start-stop-daemon --with-libz --with-libbz2
+ --with-liblzma"
+hostmakedepends="pkg-config perl"
+makedepends="zlib-devel bzip2-devel liblzma-devel ncurses-devel"
+depends="perl"
+checkdepends="gnupg perl-Test-Pod"
+short_desc="Debian Package Manager"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="http://packages.debian.org/dpkg"
+distfiles="${DEBIAN_SITE}/main/d/dpkg/dpkg_${version}.tar.xz"
+checksum=c15234e98655689586bff2d517a6fdc6135d139c54d52ae9cfa6a90007fee0ae
+
+dpkg-devel_package() {
+	short_desc+=" - development files"
+	depends="${makedepends}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+		vmove usr/lib/pkgconfig
+		vmove usr/share/man/man3
+	}
+}

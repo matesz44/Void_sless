@@ -1,0 +1,30 @@
+# Template file for 'toxcore'
+pkgname=toxcore
+version=0.2.9
+revision=2
+wrksrc="c-toxcore-${version}"
+build_style=cmake
+configure_args="-DMUST_BUILD_TOXAV=ON -DBUILD_TOXAV=ON -DBUILD_AV_TEST=OFF"
+hostmakedepends="pkg-config"
+makedepends="libconfig-devel libsodium-devel libvpx-devel opus-devel"
+short_desc="Encrypted peer-to-peer instant messenger protocol library"
+maintainer="Spencer Hill <spencernh77@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://tox.chat"
+changelog="https://raw.githubusercontent.com/TokTok/c-toxcore/master/CHANGELOG.md"
+distfiles="https://github.com/TokTok/c-toxcore/archive/v${version}.tar.gz"
+checksum=a8c962709447fb9b0cbb1a90ec1945a1b2d272b4d322356c48a4e3882b1267e7
+
+post_install() {
+	vsconf other/bootstrap_daemon/tox-bootstrapd.conf
+}
+
+toxcore-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove usr/lib/pkgconfig
+	}
+}

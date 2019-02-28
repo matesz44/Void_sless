@@ -1,0 +1,13 @@
+# Template file for 'gnome-tetravex'
+pkgname=gnome-tetravex
+version=3.22.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="glib intltool itstool pkg-config"
+makedepends="gtk+3-devel"
+short_desc="GNOME puzzle game where you align pieces with numbers"
+maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
+license="GPL-2"
+homepage="https://wiki.gnome.org/Apps/Tetravex"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=0a6d7ff5ffcd6c05454a919d46a2e389d6b5f87bc80e82c52c2f20d9d914e18d

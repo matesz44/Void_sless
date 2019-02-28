@@ -1,0 +1,45 @@
+# Template file for 'iptables'
+pkgname=iptables
+version=1.8.2
+revision=1
+build_style=gnu-configure
+configure_args="--enable-libipq --enable-shared --enable-devel --enable-bpf-compiler"
+hostmakedepends="pkg-config flex"
+makedepends="libpcap-devel libfl-devel libmnl-devel libnfnetlink-devel
+ libnetfilter_conntrack-devel libnftnl-devel"
+short_desc="Linux IPv[46] packet filtering ruleset"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://www.netfilter.org/"
+distfiles="${homepage}/projects/iptables/files/${pkgname}-${version}.tar.bz2"
+checksum=a3778b50ed1a3256f9ca975de82c2204e508001fc2471238c8c97f3d1c4c12af
+
+pre_build() {
+	rm include/linux/types.h
+}
+
+post_install() {
+	vsv iptables
+	vsv ip6tables
+	vinstall ${FILESDIR}/iptables-flush.scripts 755 usr/libexec iptables-flush
+
+	# Configuration files and rules.
+	for f in empty.rules simple_firewall.rules; do
+		vinstall ${FILESDIR}/${f} 644 etc/iptables
+	done
+	for f in filter mangle nat raw security; do
+		vinstall ${FILESDIR}/empty-${f}.rules 644 \
+			var/lib/iptables empty-${f}.rules
+	done
+}
+
+iptables-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove "usr/lib/*.so"
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/share/man/man3
+	}
+}

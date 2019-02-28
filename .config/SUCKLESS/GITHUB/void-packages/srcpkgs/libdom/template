@@ -1,0 +1,40 @@
+# Template file for 'libdom'
+pkgname=libdom
+reverts=20171013.0.3.2_1
+version=0.3.3
+revision=1
+hostmakedepends="pkg-config perl netsurf-buildsystem"
+makedepends="expat-devel libparserutils-devel libwapcaplet-devel libhubbub-devel"
+short_desc="Implementation of the W3C DOM, written in C"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="MIT"
+homepage="https://www.netsurf-browser.org"
+distfiles="https://download.netsurf-browser.org/libs/releases/libdom-${version}-src.tar.gz"
+checksum=e06a987d61d0783b81170ddb920d80802a1616aa7f1a7a458c6fd0564f3929a4
+
+post_extract() {
+	sed -i 's/_BSD_SOURCE/_DEFAULT_SOURCE/g' Makefile
+}
+
+do_build() {
+	make ${makejobs} COMPONENT_TYPE=lib-shared PREFIX=/usr
+	make ${makejobs} COMPONENT_TYPE=lib-static PREFIX=/usr
+}
+
+do_install() {
+	make COMPONENT_TYPE=lib-shared PREFIX=/usr DESTDIR=${DESTDIR} install
+	make COMPONENT_TYPE=lib-static PREFIX=/usr DESTDIR=${DESTDIR} install
+
+	vlicense COPYING
+}
+
+libdom-devel_package() {
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

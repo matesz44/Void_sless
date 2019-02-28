@@ -1,0 +1,30 @@
+# Template file for 'vicious'
+pkgname=vicious
+version=2.3.2
+revision=1
+noarch=yes
+depends="lua"
+short_desc="Modular widget library for window managers"
+maintainer="Steven R <dev@styez.com>"
+license="GPL-2.0-only"
+homepage="https://github.com/Mic92/vicious"
+distfiles="https://github.com/Mic92/vicious/archive/v${version}.tar.gz"
+checksum=696d5d114bbda7864662447b5abcadc4112890975937365282bfe0749e1bd673
+
+do_install() {
+	vdoc Changes.md
+	vdoc TODO
+	vdoc README.md
+
+	for f in *.lua; do
+		vinstall $f 644 "usr/share/lua/5.3/${pkgname}"
+	done
+
+	for f in widgets/*.lua; do
+		vinstall $f 644 "usr/share/lua/5.3/${pkgname}/widgets"
+	done
+
+	for f in contrib/*.lua; do
+		vinstall $f 644 "usr/share/lua/5.3/${pkgname}/contrib"
+	done
+}

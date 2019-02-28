@@ -1,0 +1,38 @@
+# Template file for 'libtermkey'
+pkgname=libtermkey
+version=0.21.1
+revision=1
+build_style=gnu-makefile
+hostmakedepends="libtool pkgconf perl"
+makedepends="unibilium-devel"
+short_desc="Library for processing keyboard entry from terminal-based programs"
+maintainer="Steve Prybylski <sa.prybylx@gmail.com>"
+license="MIT"
+homepage="http://www.leonerd.org.uk/code/libtermkey"
+distfiles="${homepage}/${pkgname}-${version}.tar.gz"
+checksum=cecbf737f35d18f433c8d7864f63c0f878af41f8bd0255a3ebb16010dc044d5f
+
+do_build() {
+	if [ "$CROSS_BUILD" ]; then
+		cp /usr/bin/libtool .
+		sed -e "s,CCLD=.*,CCLD=$CC,g;s,CC=.*,CC=$CC,g" -i libtool
+		sed -e 's,libtool,./libtool,g' -i Makefile
+	fi
+	make termkey.h libtermkey.la
+}
+
+post_install() {
+	vlicense LICENSE
+}
+
+libtermkey-devel_package() {
+	short_desc+=" - development files"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+		vmove usr/share/man/man3
+	}
+}

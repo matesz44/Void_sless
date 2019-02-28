@@ -1,0 +1,30 @@
+# Template file for 'libcap-pam'
+pkgname=libcap-pam
+version=2.26
+revision=1
+wrksrc="libcap-${version}"
+hostmakedepends="gperf perl pam-devel"
+makedepends="pam-devel attr-devel"
+conf_files="/etc/security/capability.conf"
+short_desc="POSIX.1e capabilities suite - PAM module"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="http://sites.google.com/site/fullycapable/"
+distfiles="${KERNEL_SITE}/libs/security/linux-privs/libcap2/libcap-${version}.tar.xz"
+checksum=b630b7c484271b3ba867680d6a14b10a86cfa67247a14631b14c06731d5a458b
+
+do_build() {
+	make CC="$CC" BUILD_CC=cc
+}
+
+do_install() {
+	_destdir=${wrksrc}/temp_install
+
+	make DESTDIR=${_destdir} MANDIR=/usr/share/man \
+		SBINDIR=/usr/sbin LIBDIR=/usr/lib \
+		RAISE_SETFCAP=no PKGCONFIGDIR=/usr/lib/pkgconfig install
+
+	vinstall pam_cap/capability.conf 644 etc/security
+	vmkdir usr/lib
+	mv ${_destdir}/usr/lib/security ${DESTDIR}/usr/lib
+}

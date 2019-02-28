@@ -1,0 +1,19 @@
+# Template file for 'jid'
+pkgname=jid
+version=0.7.3
+revision=1
+build_style=go
+go_import_path=github.com/simeji/jid
+go_package=github.com/simeji/jid/cmd/jid
+hostmakedepends="git"
+short_desc="Drill down JSON interactively by using filtering queries"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="MIT"
+homepage="https://github.com/simeji/jid"
+distfiles="https://github.com/simeji/jid/archive/v${version}.tar.gz"
+checksum=4565030bdf22f831007ecc214fbd14205855b3dff98f7acc8dc6e1f7a2591820
+
+post_install() {
+	vlicense LICENSE
+	vdoc README.md
+}

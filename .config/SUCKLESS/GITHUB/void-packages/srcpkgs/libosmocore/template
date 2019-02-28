@@ -1,0 +1,29 @@
+# Template file for 'libosmocore'
+pkgname=libosmocore
+version=1.0.1
+revision=1
+build_style=gnu-configure
+configure_args="--exec-prefix=/usr --libexecdir=/usr/lib
+ --docdir=/usr/share/doc/libosmocore"
+hostmakedepends="autoconf automake libtool git pkg-config python"
+makedepends="pcsclite-devel talloc-devel gnutls-devel"
+short_desc="Core libs for osmocom"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://bb.osmocom.org/trac/wiki/libosmocore"
+distfiles="https://git.osmocom.org/libosmocore/snapshot/libosmocore-${version}.tar.gz"
+checksum=29dcdbec549b64b9c5114fbf8251c8a8dc2f8f390919f0a545139d9373eea09c
+
+pre_configure() {
+	autoreconf -i
+}
+
+libosmocore-devel_package() {
+	depends="libosmocore>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}

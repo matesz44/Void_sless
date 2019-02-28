@@ -1,0 +1,61 @@
+# Template file for 'glusterfs'
+pkgname=glusterfs
+version=3.12.14
+revision=3
+build_style=gnu-configure
+configure_args="--disable-glupy --enable-crypt-xlator
+ --with-mountutildir=/usr/bin ac_cv_file__etc_debian_version=no
+ ac_cv_file__etc_SuSE_release=no ac_cv_file__etc_redhat_release=no"
+pycompile_dirs="/usr/libexec/glusterfs/python/syncdaemon"
+hostmakedepends="automake flex libtool pkg-config python"
+makedepends="acl-devel fuse-devel libaio-devel liblvm2app-devel libressl-devel
+ liburcu-devel libxml2-devel sqlite-devel"
+# python is required by gsyncd.
+depends="python"
+short_desc="Free and open source software scalable network filesystem (client)"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-or-later, LGPL-3.0-only"
+homepage="http://www.gluster.org/"
+distfiles="https://download.gluster.org/pub/gluster/glusterfs/${version%.*}/${version}/${pkgname}-${version}.tar.gz"
+checksum=a692c263eefecb9640e8a4154fe0c5bc1613a0b0ed3a92209ff0b628f5945509
+
+case "$XBPS_TARGET_MACHINE" in
+	*-musl) broken="not yet supported";;
+esac
+
+post_install() {
+	rm -rf ${DESTDIR}/var ${DESTDIR}/usr/share/glusterfs/scripts/gsync-sync-gfid
+	vsv glusterfsd
+}
+
+glusterfs-server_package() {
+	short_desc="${short_desc/client/server}"
+	depends="glusterfs-${version}_${revision}"
+	conf_files="
+		/etc/glusterfs/glusterfs-logrotate
+		/etc/glusterfs/glusterd.vol"
+	pkg_install() {
+		vmove etc/glusterfs
+		vmove usr/bin/glfsheal
+		vmove usr/bin/gluster
+		vmove usr/bin/glusterd
+		vmove usr/share/man/man8/gluster.8
+		vmove usr/share/man/man8/glusterd.8
+		vsv glusterd
+	}
+}
+glusterfs-devel_package() {
+	short_desc+=" - development files"
+	depends="libglusterfs>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}
+libglusterfs_package() {
+	short_desc+=" - runtime libraries"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}

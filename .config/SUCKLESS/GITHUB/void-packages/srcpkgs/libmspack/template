@@ -1,0 +1,23 @@
+# Template file for 'libmspack'
+pkgname=libmspack
+version=0.9.1alpha
+revision=1
+build_style=gnu-configure
+short_desc="Library for Microsoft compression formats"
+maintainer="Martin Riese <grauehaare@gmx.de>"
+license="LGPL-2.1-only"
+homepage="https://www.cabextract.org.uk/libmspack"
+distfiles="https://cabextract.org.uk/libmspack/libmspack-${version}.tar.gz"
+checksum=62a336d9c798638aaf3dceb43843320061544bbf35547c316b075b99112f2e40
+disable_parallel_build=yes
+
+libmspack-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

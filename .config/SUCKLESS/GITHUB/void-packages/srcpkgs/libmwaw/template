@@ -1,0 +1,33 @@
+# Template file for 'libmwaw'
+pkgname=libmwaw
+version=0.3.14
+revision=2
+build_style=gnu-configure
+configure_args="--disable-werror"
+hostmakedepends="pkg-config doxygen"
+makedepends="boost-devel zlib-devel librevenge-devel"
+short_desc="Import library for legacy Mac documents"
+maintainer="bra1nwave <brainwave@openmailbox.org>"
+license="LGPL-2.1-or-later, MPL-2.0"
+homepage="https://sourceforge.net/projects/libmwaw/"
+distfiles="${SOURCEFORGE_SITE}/libmwaw/libmwaw/${pkgname}-${version}/${pkgname}-${version}.tar.xz"
+checksum=aca8bf1ce55ed83adbea82c70d4c8bebe8139f334b3481bf5a6e407f91f33ce9
+
+libmwaw-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+	}
+}
+
+libmwaw-doc_package() {
+	noarch=yes
+	short_desc+=" - documentation"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/share/doc
+	}
+}

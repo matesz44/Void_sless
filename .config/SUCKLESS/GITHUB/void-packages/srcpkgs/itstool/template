@@ -1,0 +1,16 @@
+# Template file for 'itstool'
+pkgname=itstool
+version=2.0.5
+revision=1
+noarch=yes
+build_style=gnu-configure
+configure_args="PYTHON=/usr/bin/python3"
+hostmakedepends="python3 libxml2-python3"
+makedepends="$hostmakedepends"
+depends="$makedepends"
+short_desc="ITS Tool"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-3.0-or-later"
+homepage="http://itstool.org/"
+distfiles="http://files.itstool.org/itstool/${pkgname}-${version}.tar.bz2"
+checksum=100506f8df62cca6225ec3e631a8237e9c04650c77495af4919ac6a100d4b308

@@ -1,0 +1,5 @@
+#!/bin/sh
+install -d -m0755 -o inspircd -g inspircd /run/inspircd
+exec chpst -u inspircd inspircd \
+    --nofork --config /etc/inspircd/inspircd.conf \
+    --logfile /var/log/inspircd/ircd.log

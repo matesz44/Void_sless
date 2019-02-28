@@ -1,0 +1,13 @@
+# Template file for 'pavucontrol'
+pkgname=pavucontrol
+version=3.0
+revision=3
+build_style=gnu-configure
+hostmakedepends="pkg-config intltool"
+makedepends="gtkmm-devel libcanberra-devel gtk+3-devel pulseaudio-devel"
+short_desc="PulseAudio Volume Control"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2"
+homepage="http://freedesktop.org/software/pulseaudio/pavucontrol/"
+distfiles="${homepage}/${pkgname}-${version}.tar.xz"
+checksum=b3d2ea5a25fc88dcee80c396014f72df1b4742f8cfbbc5349c39d64a0d338890

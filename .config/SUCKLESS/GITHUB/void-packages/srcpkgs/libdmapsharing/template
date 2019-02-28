@@ -1,0 +1,26 @@
+# Template file for 'libdmapsharing'
+pkgname=libdmapsharing
+version=2.9.39
+revision=1
+build_style=gnu-configure
+configure_args="--with-mdns=avahi"
+hostmakedepends="pkg-config glib-devel"
+makedepends="gtk+-devel avahi-glib-libs-devel libsoup-devel
+ gst-plugins-base1-devel libgee08-devel"
+short_desc="A library that implements the DMAP family of protocols"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.1"
+homepage="http://www.flyn.org/projects/libdmapsharing/index.html"
+distfiles="http://www.flyn.org/projects/libdmapsharing/$pkgname-$version.tar.gz"
+checksum=a90dc0681ae81700e46efc539f70edb6edd936b782a9a695434bea660a43a5ef
+
+libdmapsharing-devel_package() {
+	depends="libsoup-devel libgee08-devel ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/share/gtk-doc
+		vmove "usr/lib/*.so"
+	}
+}

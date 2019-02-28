@@ -1,0 +1,20 @@
+# Template file for 'fvwm'
+pkgname=fvwm
+version=2.6.8
+revision=2
+build_style=gnu-configure
+hostmakedepends="libxslt pkg-config python"
+makedepends="fribidi-devel libXcursor-devel libXft-devel libXinerama-devel
+ libXpm-devel libXt-devel librsvg-devel perl readline-devel"
+depends="perl python"
+short_desc="An extremely powerful ICCCM-compliant window manager"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-2.0-or-later, MIT"
+homepage="http://fvwm.org/"
+distfiles="https://github.com/fvwmorg/fvwm/releases/download/${version}/fvwm-${version}.tar.gz"
+checksum=fb36c9235d157411efb7383d09d7d4d25a90fe02d0b2b4f752ca4acc7e9bf341
+nocross=yes
+
+post_install() {
+	vlicense COPYING
+}

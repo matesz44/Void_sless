@@ -1,0 +1,350 @@
+.Dd Feb 19, 2019
+.Dt NNN 1
+.Os
+.Sh NAME
+.Nm nnn
+.Nd the missing terminal file manager for X
+.Sh SYNOPSIS
+.Nm
+.Op Ar -b key
+.Op Ar -C
+.Op Ar -e
+.Op Ar -i
+.Op Ar -l
+.Op Ar -n
+.Op Ar -p file
+.Op Ar -s
+.Op Ar -S
+.Op Ar -v
+.Op Ar -h
+.Op Ar PATH
+.Sh DESCRIPTION
+.Nm
+(Noice is Not Noice) is a performance-optimized, feature-packed fork of noice (http://git.2f30.org/noice/) with seamless desktop integration, simplified navigation, \fInavigate-as-you-type\fR mode with auto select, disk usage analyzer mode, bookmarks, contexts, application launcher, familiar navigation shortcuts, subshell spawning and much more. It remains a simple and efficient file manager that stays out of your way.
+.Pp
+.Nm
+opens the current working directory by default if
+.Ar PATH
+is not specified.
+.Sh KEYBINDS
+.Pp
+NAVIGATION
+.Pp
+.Bl -tag -width "l, [Right], [Return] or C-mXXXX" -offset indent -compact
+.It Ic [Up], k
+Move to previous entry
+.It Ic [Down], j
+Move to next entry
+.It Ic [Left], h
+Go to parent directory
+.It Ic [Right], [Enter], l
+Open file or enter directory
+.It Ic [PgUp], ^U
+Scroll up half a page
+.It Ic [PgDn], ^D
+Scroll down half a page
+.It Ic [Home], g, ^A
+Move to the first entry
+.It Ic [End], G, ^E
+Move to the last entry
+.It Ic ~
+Change to the HOME directory
+.It Ic &
+Change to initial directory
+.It Ic \-
+Change to the last visited directory
+.It Ic \&.
+Toggle show hidden . (dot) files
+.It Ic /
+Change filter (more information below)
+.It Ic [Insert], ^T
+Toggle navigate-as-you-type mode
+.It Ic b
+Pin current directory
+.It Ic ^B
+Visit pinned directory
+.It Ic d
+Toggle detail view
+.It Ic Tab, ^I
+Next context, ask to create if none
+.It Ic ,, ^/
+Leader key
+.It Ic N, LeaderN
+Switch to context N
+.It Ic Esc
+Exit prompt
+.It Ic ^L
+Force a redraw, clear prompt
+.It Ic q
+Quit the current context
+.It Ic ^G
+Quit and change directory
+.It Ic Q, ^Q
+Quit
+.It Ic \&?
+Help and configuration screen
+.El
+.Pp
+FILES
+.Pp
+.Bl -tag -width "l, [Right], [Return] or C-mXXXX" -offset indent -compact
+.It Ic ^O
+Open with an application (takes 1 combined argument)
+.It Ic n
+Create a new file, directory or link(s) to selection
+.It Ic D
+Show entry details
+.It Ic ^R
+Rename selected entry
+.It Ic r
+Open directory in vidir
+.It Ic K, ^Y
+Toggle selection mode
+.It Ic Y
+Select all entries in dir
+.It Ic Space, ^K
+Select entry and copy absolute path
+.It Ic y
+Show selection list
+.It Ic P
+Copy files from selection
+.It Ic V
+Move files from selection
+.It Ic X
+Delete files from selection
+.It Ic ^X
+Delete entry
+.It Ic f
+Archive files
+.It Ic F
+List files in archive
+.It Ic ^F
+Extract archive in current directory
+.It Ic m, M
+Show brief/full media info
+.It Ic e
+Open entry in EDITOR (fallback vi)
+.It Ic p
+Open entry in PAGER (fallback less)
+.El
+.Pp
+ORDER TOGGLES
+.Pp
+.Bl -tag -width "l, [Right], [Return] or C-mXXXX" -offset indent -compact
+.It Ic ^J
+Toggle disk usage analyzer mode
+.It Ic S
+Toggle sort by apparent size
+.It Ic t
+Toggle sort by time modified
+.It Ic s
+Toggle sort by file size
+.El
+.Pp
+MISC
+.Pp
+.Bl -tag -width "l, [Right], [Return] or C-mXXXX" -offset indent -compact
+.It Ic \&!, ^]
+Spawn SHELL in current directory (fallback sh)
+.It Ic C
+Execute entry
+.It Ic R, ^V
+Run or pick a script to run
+.It Ic L
+Lock terminal
+.It Ic ^N
+Take note
+.It Ic ^P
+Show command prompt
+.El
+.Pp
+Backing up one directory level will set the cursor position at the
+directory you came out of.
+.Pp
+Help & settings, file details, media info and archive listing are shown in the
+PAGER. Please use the PAGER-specific keys in these screens.
+.Sh OPTIONS
+.Pp
+.Nm
+supports the following options:
+.Pp
+.Fl "b key"
+        specify bookmark key to open
+.Pp
+.Fl C
+        disable directory color
+.Pp
+.Fl e
+        use exiftool instead of mediainfo
+.Pp
+.Fl i
+        start in navigate-as-you-type mode
+.Pp
+.Fl l
+        start in light mode (fewer details)
+.Pp
+.Fl n
+        use version compare to sort files
+.Pp
+.Fl "p file"
+        copy (or \fIpick\fR) selection to file, or stdout if file='-'
+.Pp
+.Fl s
+        use substring match for filters instead of regex
+.Pp
+.Fl S
+        start in disk usage analyzer mode
+.Pp
+.Fl v
+        show version and exit
+.Pp
+.Fl h
+        show program help and exit
+.Sh CONFIGURATION
+.Nm
+uses \fIxdg-open\fR (on Linux) and \fIopen(1)\fR (on macOS) as the desktop opener.
+.Pp
+There is no configuration file. Settings work on environment variables. Please
+refer to the ENVIRONMENT section below.
+.Pp
+Configuring
+.Nm
+to change to the last visited directory on quit requires shell integration in a
+few easy steps. Please visit the project page (linked below) for the
+instructions.
+.Sh CONTEXTS
+Contexts serve the purpose of exploring multiple directories simultaneously. 4 contexts
+are available. The status of the contexts are shown in the top left corner:
+.Pp
+- the current context is in reverse
+.br
+- other used contexts are underlined
+.br
+- rest are unused
+.Pp
+To switch to a context press the Leader key followed by the context number (1-4).
+.Pp
+The first time a context is entered, it copies the state of the last visited context. Each context remembers its start directory and last visited directory.
+.Pp
+When a context is quit, the next active context is selected. If the last active context is quit, the program quits.
+.Sh FILTERS
+Filters support regexes by default to instantly (search-as-you-type) list the matching
+entries in the current directory.
+.Pp
+Common use cases:
+.Pp
+(1) To list all matches starting with the filter expression, start the expression
+with a '^' (caret) symbol.
+.br
+(2) Type '\\.mkv' to list all MKV files.
+.br
+(3) Use '.*' to match any character (\fIsort of\fR fuzzy search).
+.Pp
+There is a program option to filter entries by substring match.
+.Pp
+If
+.Nm
+is invoked as root or the environment variable \fBNNN_SHOW_HIDDEN\fR is set the default filter will also match hidden files.
+.Pp
+In the \fInavigate-as-you-type\fR mode directories are opened in filter mode,
+allowing continuous navigation. Works best with the \fBarrow keys\fR.
+.br
+In case of only one match and it's a directory, `nnn` auto selects the directory and enters it in this mode.
+.Sh SELECTION MODE
+The absolute path of a single file can be copied to clipboard by pressing \fI^K\fR if
+NNN_COPIER is set (see ENVIRONMENT section below).
+.Pp
+To select multiple files the selection mode should be enabled using \fI^Y\fR.
+In this mode it's possible to
+.Pp
+(1) cherry-pick individual files one by one by pressing <kbd>^K</kbd> on each entry (works across directories and contexts); or,
+.br
+(2) navigate to another file in the same directory to select a range of files.
+.Pp
+Pressing \fI^Y\fR again saves the selection to the list and exits the selection mode.
+The files in the list can now be copied, moved or removed using respective keyboard shortcuts.
+.Pp
+To list the selected files press \fIy\fR.
+.Sh ENVIRONMENT
+The SHELL, EDITOR (VISUAL, if defined) and PAGER environment variables take precedence
+when dealing with the !, e and p commands respectively. A single combination to arguments is supported for SHELL and PAGER.
+.Pp
+\fBNNN_BMS:\fR bookmark string as \fIkey_char:location\fR pairs (max 10) separated by
+\fI;\fR:
+.Bd -literal
+    export NNN_BMS='d:~/Documents;u:/home/user/Cam Uploads;D:~/Downloads/'
+
+    NOTE: Bookmark keys should be single-character to use them in combination with the Leader key.
+.Ed
+.Pp
+\fBNNN_OPENER:\fR specify a custom file opener.
+.Bd -literal
+    export NNN_OPENER=mimeopen
+.Ed
+.Pp
+\fBNNN_CONTEXT_COLORS:\fR string of color codes for each context, e.g.:
+.Bd -literal
+    export NNN_CONTEXT_COLORS='1234'
+
+    codes: 0-black, 1-red, 2-green, 3-yellow, 4-blue (default), 5-magenta, 6-cyan, 7-white
+.Ed
+.Pp
+\fBNNN_IDLE_TIMEOUT:\fR set idle timeout (in seconds) to invoke terminal locker (default: disabled).
+.Pp
+\fBNNN_COPIER:\fR system clipboard copier script.
+.Bd -literal
+    NOTE: File paths are copied to the tmp file \fBDIR/.nnncp\fR, where 'DIR' (by priority) is:
+    \fI$HOME\fR or, \fI$TMPDIR\fR or, \fI/tmp\fR.
+    The path is shown in the help and configuration screen.
+.Ed
+.Pp
+\fBNNN_SCRIPT:\fR \fIabsolute\fR path to a directory to select a script from or a single script to invoke with currently selected file name as argument 1.
+.Bd -literal
+    export NNN_SCRIPT=/home/user/scripts
+    OR
+    export NNN_SCRIPT=/usr/local/bin/nscript.sh
+.Ed
+.Pp
+\fBNNN_NOTE:\fR \fIabsolute\fR path to a note file.
+.Bd -literal
+    export NNN_NOTE='/home/user/.mynotes'
+.Ed
+.Pp
+\fBNNN_TMPFILE:\fR when cd on quit is pressed, the absolute path of the current open directory is written to this file. A wrapper script can read this file and cd into it once the program quits.
+.Bd -literal
+    export NNN_TMPFILE=/tmp/nnn
+.Ed
+.Pp
+\fBNNN_USE_EDITOR:\fR use EDITOR (VISUAL takes preference, preferably CLI, fallback vi) to handle text
+files.
+.Bd -literal
+    export NNN_USE_EDITOR=1
+.Ed
+.Pp
+\fBNNN_SHOW_HIDDEN:\fR show hidden files.
+.Bd -literal
+    export NNN_SHOW_HIDDEN=1
+.Ed
+.Pp
+\fBNNN_NO_AUTOSELECT:\fR disable directory auto-selection in \fInavigate-as-you-type\fR mode.
+.Bd -literal
+    export NNN_NO_AUTOSELECT=1
+.Ed
+.Pp
+\fBNNN_RESTRICT_NAV_OPEN:\fR disable file open on \fBRight\fR or \fBl\fR keys (\fBEnter\fR opens files).
+.Bd -literal
+    export NNN_RESTRICT_NAV_OPEN=1
+.Ed
+.Pp
+\fBNNN_RESTRICT_0B:\fR restrict opening 0-byte files due to unexpected behaviour; use \fIedit\fR or \fIopen with\fR to open the file.
+.Bd -literal
+    export NNN_RESTRICT_0B=1
+.Ed
+.Sh KNOWN ISSUES
+If you are using urxvt you might have to set backspace key to DEC.
+.Sh AUTHORS
+.An Lazaros Koromilas Aq Mt lostd@2f30.org ,
+.An Dimitris Papastamos Aq Mt sin@2f30.org ,
+.An Arun Prakash Jana Aq Mt engineerarun@gmail.com .
+.Sh HOME
+.Em https://github.com/jarun/nnn

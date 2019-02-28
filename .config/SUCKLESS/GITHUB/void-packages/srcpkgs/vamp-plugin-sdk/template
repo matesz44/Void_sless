@@ -1,0 +1,40 @@
+# Template file for 'vamp-plugin-sdk'
+pkgname=vamp-plugin-sdk
+version=2.7.1
+revision=2
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="libsndfile-devel"
+short_desc="The Vamp audio analysis plugin system"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="BSD"
+homepage="http://www.vamp-plugins.org/"
+distfiles="https://code.soundsoftware.ac.uk/attachments/download/2206/${pkgname}-${version}.tar.gz"
+checksum=c6fef3ff79d2bf9575ce4ce4f200cbf219cbe0a21cfbad5750e86ff8ae53cb0b
+
+post_extract() {
+	# don't run test target by default, fixes cross build.
+	sed -i 's/TARGETS="sdk plugins host rdfgen test"/TARGETS="sdk plugins host rdfgen"/' configure
+}
+
+post_install() {
+	vlicense COPYING LICENSE
+}
+
+libvamp-plugin-sdk_package() {
+	short_desc+=" - Runtime libraries"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}
+
+vamp-plugin-sdk-devel_package() {
+	depends="libsndfile-devel libvamp-plugin-sdk>=${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+	}
+}

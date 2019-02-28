@@ -1,0 +1,22 @@
+# Template file for 'earlyoom'
+pkgname=earlyoom
+version=1.2
+revision=1
+build_style=gnu-makefile
+make_check_target=test
+hostmakedepends="pandoc"
+checkdepends="go"
+short_desc="Userspace Early OOM Daemon for Linux"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="MIT"
+homepage="https://github.com/rfjakob/earlyoom"
+distfiles="https://github.com/rfjakob/${pkgname}/archive/v${version}.tar.gz"
+checksum=ce4e8b435eda9bd1427b6606558356249486a405850b9869c0006e7fbd454c5f
+CFLAGS="-DVERSION='\"${version}\"'"
+
+do_install() {
+	vbin earlyoom
+	vman earlyoom.1
+	vsv earlyoom
+	vlicense LICENSE
+}

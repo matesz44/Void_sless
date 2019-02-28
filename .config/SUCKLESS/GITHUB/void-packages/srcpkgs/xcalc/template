@@ -1,0 +1,17 @@
+# Template file for 'xcalc'
+pkgname=xcalc
+version=1.0.7
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config xorg-util-macros"
+makedepends="libXaw-devel"
+short_desc="Scientific calculator for X"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="MIT"
+homepage="http://www.x.org/archive/X11R6.8.1/doc/xcalc.1.html"
+distfiles="${XORG_SITE}/app/${pkgname}-${version}.tar.bz2"
+checksum=70d271d1655f90ed0d4011f58022c441e1832f01eb3450c691799b131b557f21
+
+post_install() {
+	vlicense COPYING
+}

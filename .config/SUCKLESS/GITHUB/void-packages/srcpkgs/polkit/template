@@ -1,0 +1,59 @@
+# Template file for 'polkit'
+pkgname=polkit
+version=0.115
+revision=3
+build_style=gnu-configure
+configure_args="$(vopt_enable gir introspection) --disable-systemd
+ --disable-libsystemd-login --disable-libelogind --disable-static
+ --with-authfw=pam  --with-os-type=void --with-mozjs=mozjs-52.0"
+make_dirs="
+ /etc/polkit-1/rules.d 0700 polkitd polkitd
+ /usr/share/polkit-1/rules.d 0700 polkitd polkitd"
+hostmakedepends="autoconf-archive automake gettext-devel git glib-devel
+ gobject-introspection gtk-doc intltool libtool pkg-config"
+makedepends="libglib-devel mozjs52-devel pam-devel"
+short_desc="Authorization Toolkit"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.freedesktop.org/wiki/Software/polkit"
+distfiles="${FREEDESKTOP_SITE}/${pkgname}/releases/${pkgname}-${version}.tar.gz"
+checksum=2f87ecdabfbd415c6306673ceadc59846f059b18ef2fce42bac63fe283f12131
+system_accounts="polkitd"
+
+# Package build options
+build_options="gir"
+# Disable gir for cross builds.
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default+=" gir"
+fi
+
+pre_configure() {
+	autoreconf -fi
+	# Drop requirement of /sys/fs/cgroup/systemd test in configure... WTF.
+	sed -e 's,/sys/fs/cgroup/systemd/,/sys/fs/cgroup,g' -i configure
+}
+
+post_configure() {
+	if [ "$CROSS_BUILD" ]; then
+		sed -e "s#-include \(/usr/include/mozjs-52/js/RequiredDefines\.h\)#-include ${XBPS_CROSS_BASE}\1#" \
+			-i $(find -name Makefile)
+	fi
+}
+
+post_install() {
+	vinstall ${FILESDIR}/polkit-1.pam 644 etc/pam.d polkit-1
+	vsv polkitd
+}
+
+polkit-devel_package() {
+	depends="libglib-devel polkit>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		if [ "$build_option_gir" ]; then
+			vmove "usr/share/gir-*"
+		fi
+		vmove "usr/lib/*.so"
+	}
+}

@@ -1,0 +1,26 @@
+# Template build file for 'libpciaccess'.
+pkgname=libpciaccess
+version=0.14
+revision=2
+build_style=gnu-configure
+short_desc="X11 PCI Access library"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="MIT"
+homepage="http://xorg.freedesktop.org/"
+distfiles="${XORG_SITE}/lib/$pkgname-$version.tar.bz2"
+checksum=3df543e12afd41fea8eac817e48cbfde5aed8817b81670a4e9e493bb2f5bf2a4
+
+post_install() {
+	vlicense COPYING
+}
+
+libpciaccess-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

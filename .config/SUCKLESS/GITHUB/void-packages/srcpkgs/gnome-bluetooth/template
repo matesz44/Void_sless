@@ -1,0 +1,35 @@
+# Template file for 'gnome-bluetooth'
+pkgname=gnome-bluetooth
+version=3.28.2
+revision=1
+build_style=meson
+configure_args="-Dicon-update=false -Dgtk_doc=false
+ -Dintrospection=$(vopt_if gir true false)"
+hostmakedepends="pkg-config intltool itstool $(vopt_if gir gobject-introspection) glib-devel"
+makedepends="libXi-devel gtk+3-devel libnotify-devel dconf-devel
+ gvfs-devel bluez eudev-libudev-devel libcanberra-devel"
+depends="bluez>=5 dconf>=0.20 gvfs>=1.20 hicolor-icon-theme desktop-file-utils"
+short_desc="The GNOME Bluetooth Subsystem"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+homepage="https://wiki.gnome.org/Projects/GnomeBluetooth"
+license="GPL-2.0-or-later, LGPL-2.1-or-later"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=1f4961ac33b5f9ce5e6e01ea2c08ad29cc98ed2b8878e38da867235b28a50732
+
+build_options="gir"
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default+=" gir"
+fi
+
+gnome-bluetooth-devel_package() {
+	depends="glib-devel gtk+3-devel ${sourcepkg}>=${version}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
+	}
+}

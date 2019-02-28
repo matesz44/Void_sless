@@ -1,0 +1,25 @@
+# Template file for 'bftpd'
+pkgname=bftpd
+version=5.0
+revision=1
+wrksrc="$pkgname"
+build_style=gnu-configure
+configure_args="--enable-libz"
+makedepends="zlib-devel"
+short_desc="A simple FTP server"
+maintainer="Norbert Vegh <vegh@norvegh.com>"
+license="GPL-2"
+homepage="http://bftpd.sourceforge.net/"
+checksum=177b905e9da308d7b341cabef315c909e0e0ca3c44e63d1e9c74fdf396c64fe1
+distfiles="${SOURCEFORGE_SITE}/bftpd/bftpd-${version}.tar.gz"
+
+pre_build() {
+	sed -i "s|LDFLAGS=$|LDFLAGS=${LDFLAGS}|" Makefile
+}
+
+do_install() {
+	sed -i 's,sbin,bin,g' Makefile
+	make PREFIX=/usr DESTDIR=${DESTDIR} install
+	vsv bftpd
+	vconf bftpd.conf
+}

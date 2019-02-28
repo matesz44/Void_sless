@@ -1,0 +1,14 @@
+# Template file for 'xastir'
+pkgname=xastir
+version=2.1.0
+revision=1
+wrksrc="Xastir-Release-${version}"
+only_for_archs="i686 x86_64 ppc64le"
+build_style=gnu-configure
+makedepends="libXrender-devel libXt-devel libXp-devel libcurl-devel pcre-devel lesstif-devel libax25-devel"
+short_desc="X Amateur Station Tracking and Information Reporting"
+maintainer="Michael Aldridge <maldridge@voidlinux.org>"
+license="GPL-2"
+homepage="http://xastir.org"
+distfiles="https://github.com/Xastir/Xastir/archive/Release-${version}.tar.gz"
+checksum=a481e6a6c035954041904352ec58f52240c06874a30dfb810001da489d40f43a

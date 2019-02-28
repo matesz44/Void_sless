@@ -1,0 +1,58 @@
+blind-tee (and tee(1)) is too slow (bottleneck) and must be reimplemented
+using tee(2) and splice(2). cat(1) may also be too slow, if this is the
+case, add blind-splice that just copies stdin to stdout using splice(2).
+
+blind-transform		affine transformation by matrix multiplication, -[xy] for tiling, -s for
+				improve quality on downscaling (pixels' neighbours must not change)
+blind-apply-map		remap pixels (distortion) using the X and Y values, -[xy] for tiling, -s for
+				improve quality on downscaling (pixels' neighbours must not change)
+blind-find-frame	a graphical tool for locating frames, should highlight key frames, and
+				play audio. Should support both regular videos files and uivf
+				finding key frames: ffprobe -show_frames (lists all frames)
+blind-invert-chroma	invert the chroma
+blind-from-sent		convert a sent presentation to a one-frame-per-slide blind video
+
+blind-sigmoid		https://en.wikipedia.org/wiki/Sigmoid_function
+blind-kirsch		https://en.wikipedia.org/wiki/Kirsch_operator
+blind-gaussian-noise	https://en.wikipedia.org/wiki/Gaussian_noise
+blind-threshold		https://en.wikipedia.org/wiki/Thresholding_(image_processing)
+...			https://en.wikipedia.org/wiki/Balanced_histogram_thresholding
+blind-otsu		https://en.wikipedia.org/wiki/Otsu%27s_method
+blind-sobel		https://en.wikipedia.org/wiki/Sobel_operator
+blind-scharr		https://en.wikipedia.org/wiki/Sobel_operator#Alternative_operators
+blind-prewitt		https://en.wikipedia.org/wiki/Prewitt_operator
+blind-roberts-cross	https://en.wikipedia.org/wiki/Roberts_cross
+---			https://en.wikipedia.org/wiki/Foreground_detection
+---			https://en.wikipedia.org/wiki/Noise_reduction#In_images
+---			https://en.wikipedia.org/wiki/Dark-frame_subtraction
+---			https://en.wikipedia.org/wiki/Video_denoising
+---			https://en.wikipedia.org/wiki/Canny_edge_detector
+---			https://en.wikipedia.org/wiki/Deriche_edge_detector
+---			https://en.wikipedia.org/wiki/Edge_detection
+blind-apply-icc		apply ICC profile to video
+blind-convex-gradient	create a gradient in the shape of a convex lens
+blind-concave-gradient	create a gradient in the shape of a concave lens
+			(convexo-concave gradient is not necessary is blind-convex-gradient
+			 or blind-concave-gradient can be combined with blind-arithm for this)
+blind-preview		a graphical tool for previewing the output of a pipeline
+				should display the output for a selected frame or image
+				should have sliders to tune environment variables
+---			tool from creating blockwise transitions
+
+Add [-j jobs] to blind-from-video, blind-to-video, blind-convert, and blind-apply-kernel.
+
+long double is slightly faster than long.
+long double (xyza q) could be added as another format.
+unsigned char (xyza 8) could be added as another format, it's probably good for previewing
+
+blind-{convert,{from,to}-video} add options to cache result of:
+-	last pixel
+-	same pixel in previous frame
+
+REGRESSIONS:
+	blind-gauss-blur		transparency pixels become dark green
+
+HELP REQUIRED:
+	blind-z-map			create a Z-map video from two or more videos
+	blind-track			track the movement of a point
+	blind-transition-mosaic		gradually turn a mosaic pattern into another

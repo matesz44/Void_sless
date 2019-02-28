@@ -1,0 +1,13 @@
+# Template file for 'tudu'
+pkgname=tudu
+version=0.10.2
+revision=1
+build_style=gnu-configure
+conf_files="/etc/tudurc"
+makedepends="ncurses-devel"
+short_desc="A command line interface to manage hierarchical todos"
+maintainer="Eivind Uggedal <eivind@uggedal.com>"
+license="GPL-3"
+homepage="http://code.meskio.net/tudu/"
+distfiles="http://code.meskio.net/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=d5e32ce04033470d2315d97cb8d44d88f19c93bfba16f61bf0681b16da6656f7

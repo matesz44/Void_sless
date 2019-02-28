@@ -1,0 +1,56 @@
+# Template file for 'sane'
+pkgname=sane
+version=1.0.27
+revision=2
+wrksrc="sane-backends-${version}"
+build_style=gnu-configure
+build_options="snmp"
+configure_args="--disable-locking --enable-avahi --enable-ipv6 --enable-pthread
+ --with-usb --docdir=/usr/share/doc/sane ac_cv_func_mmap_fixed_mapped=yes
+ $(vopt_with snmp)"
+hostmakedepends="pkg-config"
+makedepends="avahi-libs-devel libjpeg-turbo-devel tiff-devel libgphoto2-devel
+ v4l-utils-devel libusb-devel libressl-devel $(vopt_if snmp net-snmp-devel)"
+depends="$(vopt_if snmp net-snmp)"
+conf_files="/etc/sane.d/*.conf"
+short_desc="Scanner Access Now Easy"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="http://www.sane-project.org/"
+license="GPL-2"
+distfiles="https://fossies.org/linux/misc/sane-backends-${version}.tar.xz"
+checksum=9483e6789dae8117371059c95caaeda3e67dc25130f1d69ebfe926c5422e67b9
+
+post_install() {
+	# fix hp officejets
+	echo "#hpaio" >> ${DESTDIR}/etc/sane.d/dll.conf
+
+	vinstall ${FILESDIR}/saned.xinetd 644 etc/xinetd.d saned.conf
+	vinstall ${wrksrc}/tools/sane-backends.pc 644 usr/lib/pkgconfig
+
+	# generate udev file
+	cd tools
+	mkdir -p udev
+	make udev/libsane.rules
+	# install udev file
+	vinstall udev/libsane.rules 644 usr/lib/udev/rules.d 49-sane.rules
+	# fix udev rules
+	sed -i 's|NAME="%k", ||g' ${DESTDIR}/usr/lib/udev/rules.d/49-sane.rules
+}
+
+libsane_package() {
+	short_desc+=" - runtime shared library"
+	pkg_install() {
+		vmove usr/lib/libsane.so.*
+	}
+}
+sane-devel_package() {
+	depends="libsane>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/bin/sane-config
+		vmove usr/share/man/man1/sane-config.1
+		vmove usr/lib/pkgconfig
+		vmove usr/lib/*.so
+	}
+}

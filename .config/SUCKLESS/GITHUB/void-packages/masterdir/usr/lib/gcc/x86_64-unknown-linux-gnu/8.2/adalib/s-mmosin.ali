@@ -1,0 +1,167 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_ALLOCATORS
+RV NO_EXCEPTIONS
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_LOCAL_ALLOCATORS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U system.mmap.os_interface%b  s-mmosin.adb	917e91ec NE OL PK
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.io_exceptions%s	a-ioexce.ads		a-ioexce.ali
+W system%s		system.ads		system.ali
+W system.mmap%s		s-mmap.adb		s-mmap.ali
+W system.mmap.unix%s	s-mmauni.ads		s-mmauni.ali
+W system.os_lib%s	s-os_lib.adb		s-os_lib.ali
+
+U system.mmap.os_interface%s  s-mmosin.ads	1f56acd1 NE OL PK
+W system%s		system.ads		system.ali
+W system.mmap%s		s-mmap.adb		s-mmap.ali
+W system.os_lib%s	s-os_lib.adb		s-os_lib.ali
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-except.ads		20180111085525 291912d5 ada.exceptions%s
+D a-ioexce.ads		20170908151217 e4a01f64 ada.io_exceptions%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D a-uncdea.ads		20170908151217 eff36322 ada.unchecked_deallocation%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-mmap.ads		20180111085525 e1b5e14b system.mmap%s
+D s-mmosin.ads		20180111085525 a9e083d6 system.mmap.os_interface%s
+D s-mmosin.adb		20180111085525 3176db72 system.mmap.os_interface%b
+D s-mmauni.ads		20180111085525 fc7ef464 system.mmap.unix%s
+D s-os_lib.ads		20180111085525 5703ce4c system.os_lib%s
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+D s-string.ads		20180111085525 8fe54fb7 system.strings%s
+D s-traent.ads		20180111085525 005bf670 system.traceback_entries%s
+X 1 ada.ads
+16K9*Ada 20e8 12|32r6 116r16 135r16 180r16
+X 3 a-ioexce.ads
+18K13*IO_Exceptions 30e22 12|32w10 116r20 135r20 180r20
+25X4*Device_Error 12|116r34 135r34 180r34
+X 6 interfac.ads
+38K9*Interfaces 184e15 12|185r26 204r27
+X 7 i-c.ads
+18K20*C 230e17 12|185r37 204r38
+35I9*int<integer>
+60M9*size_t 12|185r39 204r40
+X 8 system.ads
+37K9*System 156e11 11|32r6 36r9 39r16 52r26 57r7 59r16 77r42 84r24 105r5
+. 12|33w6 33r18 35r6 35r25 36r6 36r28 38r14 45r6 105r42 112r10 115r10 128r24
+. 132r10 183r24 229r5
+67M9*Address 11|52r33
+69m4*Null_Address{67M9} 11|59r23
+X 10 s-mmap.ads
+96K16*Mmap 8|37k9 10|283e16 11|36r16 105r12 12|36r13 36r35 38r21 45r13 183r31
+. 229r12
+126M9*File_Size<7|60M9> 11|47r16 53r17 77r24 83r24 89r31 102r34 12|41r14
+. 41r32 66r20 86r20 105r24 127r24 145r31 167r36 179r19 212r34 216r14 224r14
+. 224r32
+X 11 s-mmosin.ads
+36K21*OS_Interface 10|96k16 11|105l17 105e29 12|38b26 229l17 229t29
+38R9*System_File 49e14 56r38 63r55 69r55 72r35 76r24 82r24 88r24 12|55r55
+. 75r55 93r35 104r24 126r24 144r24
+39i7*Fd{14|183I9} 12|63m10 83m10 95r19 96m12 111r19 112r35 131r19 132r36
+. 188r31
+41b7*Mapped{boolean} 12|64m10 84m10
+44b7*Write{boolean} 12|65m10 85m10 130r27 152r15
+47m7*Length{10|126M9} 12|66m10 86m10
+51R9*System_Mapping 54e14 58r38 91r28 99r24 12|147r28 198r24
+52m7*Address{8|67M9} 12|183m13 204r18
+53m7*Length{10|126M9} 12|189m13 204r56
+56r4*Invalid_System_File{38R9} 12|60r17 80r17
+58r4*Invalid_System_Mapping{51R9} 12|205r18
+61V13*Open_Read{38R9} 62>7 63>7 12|53b13 67l8 67t17
+62a7 Filename{string} 12|54b7 57r20
+63b7 Use_Mmap_If_Available{boolean} 12|55b7 64r20
+67V13*Open_Write{38R9} 68>7 69>7 12|73b13 87l8 87t18
+68a7 Filename{string} 12|74b7 77r26
+69b7 Use_Mmap_If_Available{boolean} 12|75b7 84r20
+72U14*Close 72=21 12|93b14 97l8 97t13
+72r21 File{38R9} 12|93b21 95r14 96m7
+75V13*Read_From_Disk{17|45P9} 76>7 77>7 77>15 12|103b13 119l8 119t22
+76r7 File{38R9} 12|104b7 111r14 112r30
+77m7 Offset{10|126M9} 12|105b7 111r37
+77m15 Length{10|126M9} 12|105b15 107r59 112r68 113r21
+81U14*Write_To_Disk 82>7 83>7 83>15 84>7 12|125b14 137l8 137t21
+82r7 File{38R9} 12|126b7 130r22 131r14 132r31
+83m7 Offset{10|126M9} 12|127b7 131r37
+83m15 Length{10|126M9} 12|127b15 132r69 133r21
+84p7 Buffer{17|45P9} 12|128b7 132r40
+87U14*Create_Mapping 88>7 89=7 89=15 90>7 91<7 12|143b14 191l8 191t22
+88r7 File{38R9} 12|144b7 152r10 188r26
+89m7 Offset{10|126M9} 12|145b7 167r49 169m10 169r27 175r46 184r33
+89m15 Length{10|126M9} 12|145b15 175m10 175r20 176m10 176r27 179r10 185r47
+. 189r24
+90b7 Mutable{boolean} 12|146b7 157r13
+91r7 Mapping{51R9} 12|147b7 182m10
+98U14*Dispose_Mapping 99=7 12|197b14 206l8 206t23
+99r7 Mapping{51R9} 12|198b7 204r10 204r48 205m7
+102V13*Get_Page_Size{10|126M9} 12|176s36 212b13 217l8 217t21 226s30
+X 12 s-mmosin.adb
+40V13 Align{10|126M9} 41>7 169s20 176s20 223b13 227l8 227t13
+41m7 Addr{10|126M9} 224b7 226r14 226r21
+44V13 Is_Mapping_Available=45:23{boolean} 64s51 84s51
+56i7 Fd{14|183I9} 59r10 63r20 66r44
+76i7 Fd{14|183I9} 79r10 83r20 86r44
+107p7 Buffer{14|67P12} 112r39 115m31 115r31 118r14
+149i7 Prot{13|40I9} 153m10 156m10 158m13 158r21 186r26
+150i7 Flags{13|46I9} 154m10 160m10 187r26
+167m10 Queried_Offset{10|126M9} 175r29
+200i7 Ignored{integer} 201r28 203m7
+213V16*Internal{integer} 214b<c,getpagesize>25 216s25
+X 13 s-mmauni.ads
+38K21*Unix 12|36w18 36r40 45r18 183r36 13|69e21
+40I9*Mmap_Prot<7|35I9> 12|149r15
+43i4*PROT_READ{40I9} 12|153r19 156r18
+44i4*PROT_WRITE{40I9} 12|153r31 158r28
+46I9*Mmap_Flags<7|35I9> 12|150r15
+49i4*MAP_SHARED{46I9} 12|154r19
+50i4*MAP_PRIVATE{46I9} 12|160r19
+52I9*off_t<long_integer> 12|184r26
+54V13*Mmap{8|67M9} 12|183s41
+55m19 Length{7|60M9} 12|185r16
+56i19 Prot{40I9} 12|186r16
+57i19 Flags{46I9} 12|187r16
+58i19 Fd{14|183I9} 12|188r16
+59i19 Offset{52I9} 12|184r16
+62V13*Munmap{integer} 12|203s18
+66V13*Is_Mapping_Available{boolean} 12|45r23
+X 14 s-os_lib.ads
+56K16*OS_Lib 11|32w13 39r23 57r14 12|35w13 35r32 112r17 132r17 14|1114e18
+67P12*String_Access{17|45P9} 12|107r16
+183I9*File_Descriptor<integer> 11|39r30 12|56r21 76r21
+191i4*Invalid_FD{183I9} 11|57r21 12|59r15 79r15 96r18
+202U14*Close 12|95s7
+278n18*Binary{278E9} 12|57r30 77r36
+367V13*File_Length{long_integer} 12|66s31 86s31
+509N4*Seek_Set 12|111r46 131r46
+512U14*Lseek 12|111s7 131s7
+568V13*Open_Read{183I9} 12|57s9
+574V13*Open_Read_Write{183I9} 12|77s9
+581V13*Read{integer} 12|112s24
+651V13*Write{integer} 12|132s24
+X 17 s-string.ads
+42K16*Strings 11|77r49 84r31 12|105r49 115r17 128r31 17|63e19
+45P9*String_Access(string) 11|77r57 84r39 12|105r57 128r39
+49U14*Free[5|20] 12|115s25
+

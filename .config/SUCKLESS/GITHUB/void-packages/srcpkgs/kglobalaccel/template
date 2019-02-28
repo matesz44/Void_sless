@@ -1,0 +1,25 @@
+# Template file for 'kglobalaccel'
+pkgname=kglobalaccel
+version=5.55.0
+revision=1
+build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules pkg-config qt5-qmake qt5-host-tools qt5-tools"
+makedepends="kservice-devel"
+short_desc="KDE Global desktop keyboard shortcuts"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-or-later"
+homepage="https://projects.kde.org/projects/frameworks/kglobalaccel"
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=e4c31aa5abb56be283691b7e7d08498b8cec85d960d760c9a188af2dcdedcdb0
+
+kglobalaccel-devel_package() {
+	short_desc+=" - development"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/qt5/mkspecs
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.so"
+	}
+}

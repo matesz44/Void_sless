@@ -1,0 +1,13 @@
+# Template file for 'mpop'
+pkgname=mpop
+version=1.4.3
+revision=1
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="gnutls-devel libidn2-devel"
+short_desc="POP3 client"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-3.0-or-later"
+homepage="https://marlam.de/mpop/"
+distfiles="https://marlam.de/mpop/releases/mpop-${version}.tar.xz"
+checksum=4b42eb174c9bdff02757740459379060577c504d8044ab9543f291ddb33328b6

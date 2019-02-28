@@ -1,0 +1,31 @@
+# Template file for 'xfce4-panel'
+pkgname=xfce4-panel
+version=4.12.2
+revision=1
+build_style=gnu-configure
+configure_args="--disable-static --enable-gio-unix --enable-gtk3"
+hostmakedepends="xfce4-dev-tools pkg-config intltool gettext-devel glib-devel"
+makedepends="gtk+3-devel libxfce4ui-devel xfconf-devel
+ dbus-glib-devel libwnck2-devel garcon-devel exo-devel"
+short_desc="Next generation panel for the XFCE desktop environment"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="https://xfce.org/"
+license="GPL-2"
+distfiles="https://archive.xfce.org/src/xfce/$pkgname/${version%.*}/$pkgname-$version.tar.bz2"
+checksum=42058abb81b8f87691d3999627447de71c3285bcf055f308aab5cefab2de0ce9
+
+pre_configure() {
+	mkdir m4
+	NOCONFIGURE=1 xdt-autogen
+}
+
+xfce4-panel-devel_package() {
+	depends="libxfce4ui-devel ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/share/gtk-doc
+		vmove usr/lib/*.so
+	}
+}

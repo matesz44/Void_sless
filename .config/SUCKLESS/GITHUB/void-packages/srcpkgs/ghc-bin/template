@@ -1,0 +1,46 @@
+# Template file for 'ghc-bin'
+pkgname=ghc-bin
+version=8.6.3
+revision=1
+wrksrc="ghc-${version%[!0-9]}"
+hostmakedepends="ncurses perl libffi libnuma"
+depends="ncurses perl gcc libffi-devel gmp-devel"
+short_desc="Glorious Haskell Compiler - precompiled binaries"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="BSD"
+homepage="http://www.haskell.org/ghc/"
+only_for_archs="i686 x86_64 x86_64-musl"
+nostrip=yes
+noshlibprovides=yes
+conflicts="ghc>=0 ghc-doc>=0"
+case "$XBPS_TARGET_MACHINE" in
+x86_64)
+	distfiles="https://downloads.haskell.org/~ghc/${version%[!0-9]}/ghc-${version}-x86_64-deb8-linux.tar.xz"
+	checksum=291ca565374f4d51cc311488581f3279d3167a064fabfd4a6722fe2bd4532fd5
+	;;
+x86_64-musl)
+	# create with "make binary-dist"
+	distfiles="https://alpha.de.repo.voidlinux.org/distfiles/ghc-${version}-x86_64-void-linux-musl.tar.xz"
+	checksum=aab928f239607faa2221b8bcebcc5d19d12bb0292cc38927939e74fedf9b2acc
+	;;
+i686)
+	distfiles="https://downloads.haskell.org/~ghc/${version%[!0-9]}/ghc-${version}-i386-deb8-linux.tar.xz"
+	checksum=b57070ba8c70b1333a3e47ce124baf791be39c20a592954772532fd6dd51882f
+	;;
+esac
+
+do_configure() {
+	./configure --prefix=/usr
+}
+
+do_install() {
+	ln -sf /usr/lib/libncursesw.so.6 libtinfo.so.5
+	export LD_LIBRARY_PATH=$PWD:$LD_LIBRARY_PATH
+
+	make install DESTDIR="$DESTDIR"
+
+	# Fake libtinfo into rpath of ghc:
+	ln -sf /usr/lib/libncursesw.so.6 \
+		$DESTDIR/usr/lib/ghc-${version%[!0-9]}/rts/libtinfo.so.5
+	vlicense LICENSE
+}

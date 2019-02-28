@@ -1,0 +1,34 @@
+# Template file for 'python-dateutil'
+pkgname=python-dateutil
+version=2.7.5
+revision=1
+noarch=yes
+build_style=python-module
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python-six tzdata"
+pycompile_module="dateutil"
+short_desc="Extensions to the standard Python2 datetime module"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
+homepage="https://github.com/dateutil/dateutil"
+license="Apache-2.0, BSD-3-Clause"
+distfiles="${PYPI_SITE}/p/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=88f9287c0174266bb0d8cedd395cfba9c58e87e5ad86b2ce58859bc11be3cf02
+
+pre_build() {
+	# don't install zoneinfo tarball
+	sed -i '/package_data=/d' setup.py
+}
+post_install() {
+	vlicense LICENSE
+}
+
+python3-dateutil_package() {
+	noarch=yes
+	depends="python3-six tzdata"
+	pycompile_module="dateutil"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

@@ -1,0 +1,75 @@
+# Template file for 'mumble'
+pkgname=mumble
+version=1.2.19
+revision=14
+hostmakedepends="Ice pkg-config protobuf qt-host-tools qt-qmake"
+makedepends="Ice-devel MesaLib-devel avahi-compat-libs-devel boost-devel
+ libcap-devel libressl-devel libsndfile-devel opus-devel protobuf-devel
+ pulseaudio-devel qt-devel speech-dispatcher-devel speex-devel"
+depends="desktop-file-utils qt-plugin-sqlite"
+short_desc="Open source, low-latency, high quality voice chat for gaming"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="BSD-3-Clause"
+homepage="http://mumble.sourceforge.net/"
+distfiles="https://github.com/mumble-voip/${pkgname}/releases/download/${version}/${pkgname}-${version}.tar.gz"
+checksum=f047fb707ad93948b0bc913ec0a89cd5480d87e840c4ff2519608fc8a2dac0e8
+
+CXXFLAGS="-std=c++11"
+
+do_configure() {
+	if [ "$CROSS_BUILD" ]; then
+		for i in ${XBPS_CROSS_BASE}/usr/include/Qt*; do
+			CXXFLAGS+=" -I$i"
+		done
+	fi
+	# Needs bundled celt for some reason
+	qmake-qt4 -recursive main.pro \
+		CONFIG+="bundled-celt no-bundled-opus no-update no-bundled-speex no-g15 \
+			no-xevie pulseaudio no-embed-qt-translations" \
+		DEFINES+="PLUGIN_PATH=/usr/lib/mumble" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" \
+		PREFIX=/usr \
+		LIB=/usr/lib \
+		QMAKE_CC=$CC QMAKE_CXX=$CXX QMAKE_LINK=$CXX \
+		QMAKE_CFLAGS="${CFLAGS}" \
+		QMAKE_CXXFLAGS="${CXXFLAGS}" \
+		QMAKE_LFLAGS="${LDFLAGS}"
+	# qmake-qt4 ignores CXXFLAGS and LDFLAGS thus patch the Makefiles
+	sed -i */Makefile* */*/Makefile* \
+		-e "s;^\(LFLAGS.*=.*\);& $LDFLAGS;" \
+		-e "s;^\(CXXFLAGS.*=.*\);& $CXXFLAGS;"
+}
+
+do_build() {
+	make ${makejobs} release \
+		CC="$CC" CXX="$CXX" LINK="$CXX"
+}
+
+do_install() {
+	vlicense LICENSE
+	vmkdir usr/lib/mumble
+	vmkdir usr/share/applications
+	vmkdir usr/share/icons/hicolor/scalable/apps
+
+	vbin ${wrksrc}/release/murmurd
+	vbin ${wrksrc}/scripts/mumble-overlay
+	vman ${wrksrc}/man/murmurd.1
+	vman ${wrksrc}/man/murmur-user-wrapper.1
+
+	vbin ${wrksrc}/release/mumble
+	vman ${wrksrc}/man/mumble.1
+	cp ${wrksrc}/release/*.so* ${DESTDIR}/usr/lib/mumble
+	cp ${wrksrc}/release/plugins/* ${DESTDIR}/usr/lib/mumble
+
+	cp ${wrksrc}/scripts/mumble.desktop ${DESTDIR}/usr/share/applications
+	cp ${wrksrc}/icons/mumble.svg ${DESTDIR}/usr/share/icons/hicolor/scalable/apps
+
+}
+
+murmur_package() {
+	depends="mumble-${version}_${revision}"
+	short_desc+=" - The murmur server (for mumble)"
+	pkg_install() {
+		vmove usr/bin/murmurd
+		vmove "usr/share/man/man1/murmurd*"
+	}
+}

@@ -1,0 +1,50 @@
+# Template file for 'racket'
+pkgname=racket
+version=7.2
+revision=1
+build_style=gnu-configure
+build_wrksrc=src
+hostmakedepends="gsfonts"
+makedepends="sqlite-devel gtk+-devel"
+depends="gtk+"
+short_desc="A programmable programming language"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
+license="LGPL-3"
+homepage="http://racket-lang.org/"
+distfiles="http://mirror.racket-lang.org/installers/${version}/${pkgname}-${version}-src.tgz"
+checksum=e42d1ff0bb8c6b483a720387e5e9e68d39c1386cfdb14c565fc9d517e3049889
+nostrip=yes
+
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" --enable-racket=/usr/bin/racket"
+	hostmakedepends+=" racket sqlite-devel"
+fi
+
+case "$XBPS_TARGET_MACHINE" in
+*-musl)
+	makedepends+=" libucontext-devel";;
+i686)
+	broken="make[1]: *** [Makefile:177: install-3m] Aborted";;
+esac
+
+pre_configure() {
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		export CFLAGS+=" -D_GNU_SOURCE"
+		export LIBS+=" -lucontext"
+		;;
+	esac
+}
+
+post_install() {
+	vlicense COPYING-libscheme.txt
+}
+
+racket-doc_package() {
+	noarch=yes
+	short_desc+=" -- documentation"
+	depends="racket>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/share/doc/racket
+	}
+}

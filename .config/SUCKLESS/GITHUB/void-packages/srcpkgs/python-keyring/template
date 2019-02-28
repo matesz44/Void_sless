@@ -1,0 +1,41 @@
+# Template file for 'python-keyring'
+pkgname=python-keyring
+version=16.0.0
+revision=1
+noarch=yes
+wrksrc="keyring-${version}"
+build_style=python-module
+pycompile_module="keyring"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python-setuptools python-SecretStorage python-entrypoints"
+short_desc="Python2 interface to the system keyring service"
+maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
+license="MIT"
+homepage="https://github.com/jaraco/keyring"
+changelog="https://raw.githubusercontent.com/jaraco/keyring/master/CHANGES.rst"
+distfiles="https://github.com/jaraco/keyring/archive/${version}.tar.gz"
+checksum=d7521547b053ad5bd0ed2529b39acd7f2bca14058bf9b93060cb8733564cdb36
+alternatives="keyring:keyring:/usr/bin/keyring2"
+
+pre_build() {
+	sed -e '/setuptools_scm/d' \
+		-e "s/use_scm_version=True,/version=\"${version}\",/" \
+		-i setup.py
+}
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-keyring_package() {
+	noarch=yes
+	pycompile_module="keyring"
+	depends="python3-setuptools python3-SecretStorage python3-entrypoints"
+	short_desc="${short_desc/Python2/Python3}"
+	alternatives="keyring:keyring:/usr/bin/keyring3"
+	pkg_install() {
+		vmove usr/bin/keyring3
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

@@ -1,0 +1,34 @@
+# Template file for 'libmatekbd'
+pkgname=libmatekbd
+version=1.20.2
+revision=1
+build_style=gnu-configure
+configure_args="--disable-static $(vopt_enable gir introspection)"
+hostmakedepends="mate-common pkg-config intltool itstool glib-devel gobject-introspection"
+makedepends="libICE-devel gtk+3-devel libxklavier-devel iso-codes"
+depends="dconf iso-codes"
+short_desc="MATE keyboard library"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://mate-desktop.org"
+distfiles="https://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=21c3e307af2caf7fb552cfb1ea615b84acaa9f9993e7b988e3da6aa2e15d3fd0
+
+build_options="gir"
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default="gir"
+fi
+
+pre_configure() {
+	autoreconf -fi
+}
+
+libmatekbd-devel_package() {
+	short_desc+=" - development files"
+	depends="gtk+3-devel libxklavier-devel ${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+	}
+}

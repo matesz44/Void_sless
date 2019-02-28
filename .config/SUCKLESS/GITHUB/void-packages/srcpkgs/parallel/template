@@ -1,0 +1,19 @@
+# Template file for 'parallel'
+pkgname=parallel
+version=20190122
+revision=1
+noarch=yes
+build_style=gnu-configure
+depends="perl"
+checkdepends="perl"
+short_desc="Shell tool for executing jobs in parallel"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-3.0-or-later"
+homepage="https://www.gnu.org/software/parallel/"
+distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=ae735f201a8ceeff2ace48ff779bda9d19846e629bcc02ea7c8768a42394190c
+
+pre_configure() {
+	# no html and pdf doc
+	sed -i -e '/^all-am:/s,$(DATA),,;/^install-data-am:/s,install-docDATA,,' src/Makefile.in
+}

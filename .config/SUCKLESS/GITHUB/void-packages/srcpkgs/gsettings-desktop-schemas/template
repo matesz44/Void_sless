@@ -1,0 +1,36 @@
+# Template file for 'gsettings-desktop-schemas'
+pkgname=gsettings-desktop-schemas
+version=3.28.1
+revision=2
+build_style=gnu-configure
+build_helper="gir"
+configure_args="$(vopt_enable gir introspection)"
+hostmakedepends="pkg-config intltool glib-devel"
+makedepends="libglib-devel"
+short_desc="Collection of GSettings schemas"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="LGPL-2.1-or-later"
+homepage="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
+distfiles="${GNOME_SITE}/${pkgname}/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=f88ea6849ffe897c51cfeca5e45c3890010c82c58be2aee18b01349648e5502f
+
+# Package build options
+build_options="gir"
+
+case "$XBPS_TARGET_MACHINE" in
+	i686-musl|x86_64-musl) build_options_default+=" gir" ;;
+	*-musl) ;;
+	*) build_options_default+=" gir" ;;
+esac
+
+gsettings-desktop-schemas-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/share/pkgconfig
+		if [ "$build_option_gir" ]; then
+			vmove usr/share/gir-1.0
+		fi
+	}
+}

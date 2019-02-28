@@ -1,0 +1,31 @@
+# Template file for 'python-serpent'
+pkgname=python-serpent
+version=1.27
+revision=2
+noarch=yes
+wrksrc="${pkgname#*-}-${version}"
+build_style=python-module
+pycompile_module="serpent.py"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python"
+short_desc="Serialization library based on ast.literal_eval (Python2)"
+maintainer="pulux <pulux@pf4sh.de>"
+license="MIT"
+homepage="https://pypi.org/project/serpent/"
+distfiles="${PYPI_SITE}/s/serpent/serpent-${version}.tar.gz"
+checksum=6f8dc4317fb5b5a9629b5e518846bc9fee374b8171533726dc68df52b36ee912
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-serpent_package() {
+	noarch=yes
+	depends="python3"
+	pycompile="serpent.py"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

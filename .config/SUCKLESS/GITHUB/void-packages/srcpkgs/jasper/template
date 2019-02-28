@@ -1,0 +1,34 @@
+# Template file for 'jasper'
+pkgname=jasper
+version=2.0.14
+revision=2
+patch_args="-Np1"
+wrksrc="${pkgname}-version-${version}"
+build_style=cmake
+makedepends="libjpeg-turbo-devel"
+short_desc="Software-based reference implementation of the JPEG-2000 codec"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="http://www.ece.uvic.ca/~mdadams/jasper"
+license="JasPer-2.0"
+distfiles="https://github.com/mdadams/jasper/archive/version-${version}.tar.gz"
+checksum=85266eea728f8b14365db9eaf1edc7be4c348704e562bb05095b9a077cf1a97b
+
+post_install() {
+	vlicense LICENSE
+}
+
+libjasper_package() {
+	short_desc+=" - shared library"
+	pkg_install() {
+		vmove "usr/lib/*.so.*"
+	}
+}
+jasper-devel_package() {
+	depends="libjpeg-turbo-devel libjasper>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}

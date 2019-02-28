@@ -1,0 +1,24 @@
+# Template file for 'libksysguard'
+pkgname=libksysguard
+version=5.15.1
+revision=1
+build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules kauth qt5-host-tools qt5-qmake"
+makedepends="qt5-webkit-devel plasma-framework-devel"
+short_desc="KDE libksysguard"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.1-or-later"
+homepage="https://projects.kde.org/projects/plasma/libksysguard"
+distfiles="${KDE_SITE}/plasma/${version}/${pkgname}-${version}.tar.xz"
+checksum=7affcb4d6b583a6e863439a8d2af3993a3e0277b4e2996e753386182bd018156
+
+libksysguard-devel_package() {
+	short_desc+=" - development"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.so"
+	}
+}

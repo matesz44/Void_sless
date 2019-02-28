@@ -1,0 +1,26 @@
+# Template file for 'konsole'
+pkgname=konsole
+version=18.12.2
+revision=1
+build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="pkg-config extra-cmake-modules kcoreaddons qt5-devel qt5-qmake kdoctools kconfig"
+makedepends="kinit-devel knewstuff-devel knotifyconfig-devel kparts-devel
+ kpty-devel"
+short_desc="KDE's Terminal Emulator"
+maintainer="John <johnz@posteo.net>"
+license="GPL-2.0-or-later, LGPL-2.0-or-later, GFDL-1.2-or-later"
+homepage="https://www.kde.org/applications/system/konsole/"
+distfiles="${KDE_SITE}/applications/${version}/src/konsole-${version}.tar.xz"
+checksum=5ed541d963184b6d851660c1f0c6708708cba8832718c1a407b2480794cdab56
+replaces="konsole5>=0"
+
+if [ "$CROSS_BUILD" ]; then
+	configure_args+=" -DDESKTOPTOJSON_EXECUTABLE=/usr/bin/desktoptojson"
+fi
+
+konsole5_package() {
+	build_style=meta
+	short_desc+=" (transitional dummy package)"
+	depends="konsole>=${version}_${revision}"
+}

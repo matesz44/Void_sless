@@ -1,0 +1,26 @@
+# Template file for 'python-terminado'
+pkgname=python-terminado
+version=0.8.1
+revision=1
+noarch=yes
+wrksrc="terminado-${version}"
+build_style=python-module
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python-ptyprocess python-tornado"
+pycompile_module="terminado"
+short_desc="Terminals served to term.js using Tornado websockets (Python2)"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
+homepage="https://github.com/takluyver/terminado"
+license="BSD"
+distfiles="${PYPI_SITE}/t/terminado/terminado-${version}.tar.gz"
+checksum=55abf9ade563b8f9be1f34e4233c7b7bde726059947a593322e8a553cc4c067a
+
+python3-terminado_package() {
+	noarch=yes
+	depends="python3-ptyprocess python3-tornado"
+	pycompile_module="terminado"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+	}
+}

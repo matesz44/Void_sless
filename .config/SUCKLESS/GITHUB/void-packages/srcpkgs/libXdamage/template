@@ -1,0 +1,28 @@
+# Template build file for 'libXdamage'.
+pkgname=libXdamage
+version=1.1.4
+revision=6
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="xorgproto libXfixes-devel"
+short_desc="The Xdamage extension Library"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+distfiles="${XORG_SITE}/lib/${pkgname}-${version}.tar.bz2"
+homepage="http://xorg.freedesktop.org/"
+license="MIT/X11"
+checksum=7c3fe7c657e83547f4822bfde30a90d84524efb56365448768409b77f05355ad
+
+post_install() {
+	vlicense COPYING
+}
+
+libXdamage-devel_package() {
+	depends="xorgproto libX11-devel libXfixes-devel ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

@@ -1,0 +1,24 @@
+# Template file for 'alsa-utils'
+pkgname=alsa-utils
+version=1.1.8
+revision=1
+build_style=gnu-configure
+configure_args="--with-udev-rules-dir=/usr/lib/udev/rules.d --disable-alsaconf
+ --with-alsactl-lock-dir=/run/lock"
+hostmakedepends="pkg-config xmlto"
+makedepends="libsamplerate-devel ncurses-devel"
+depends="alsa-lib"
+make_dirs="/var/lib/alsa 0750 root root"
+short_desc="Advanced Linux Sound Architecture (ALSA) utilities"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="http://www.alsa-project.org"
+distfiles="ftp://ftp.alsa-project.org/pub/utils/${pkgname}-${version}.tar.bz2"
+checksum=fd9bf528922b3829a91913b89a1858c58a0b24271a7b5f529923aa9ea12fa4cf
+
+post_install() {
+	# Install required udev rules file.
+	make -C alsactl 90-alsa-restore.rules
+	vinstall alsactl/90-alsa-restore.rules 644 usr/lib/udev/rules.d
+	vsv alsa
+}

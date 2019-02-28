@@ -1,0 +1,24 @@
+# Template file for 'pysolfc'
+pkgname=pysolfc
+version=2.6.1
+revision=1
+arch="noarch"
+wrksrc="PySolFC-${pkgname}-${version}"
+build_style=python3-module
+pycompile_module=pysollib
+hostmakedepends="python3-pygame python3-random2 python3-six python3-tkinter"
+depends="pysolfc-cardsets ${hostmakedepends}"
+short_desc="Python solitaire game collection"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="GPL-3.0"
+homepage="http://pysolfc.sourceforge.net/"
+distfiles="https://github.com/shlomif/PySolFC/archive/${pkgname}-${version}.tar.gz"
+checksum=fc14cacec4a671c921d0e0ee94f841e70897f419e6f917f5afafc26c4b2eec88
+
+post_build() {
+	make mo rules
+}
+post_install() {
+	mv ${DESTDIR}/usr/bin/pysol{.py,}
+	sed -i "s|pysol.py|pysol|g" ${DESTDIR}/usr/share/applications/pysol.desktop
+}

@@ -1,0 +1,51 @@
+# Template file for 'ladspa-sdk'
+pkgname=ladspa-sdk
+version=1.13
+revision=8
+noarch=yes
+wrksrc=ladspa_sdk
+makedepends="libsndfile-progs"
+short_desc="Linux Audio Developer's Simple Plugin API (LADSPA)"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+homepage="http://www.ladspa.org/"
+license="LGPL-2.1"
+distfiles="${DEBIAN_SITE}/main/l/${pkgname}/${pkgname}_${version}.orig.tar.gz"
+checksum=b5ed3f4f253a0f6c1b7a1f4b8cf62376ca9f51d999650dd822650c43852d306b
+
+do_build() {
+	make CC=$CC CPP=$CXX LD=$LD -C src
+}
+
+do_install() {
+	vmkdir usr/include
+	vcopy src/ladspa.h usr/include
+}
+
+ladspa-sdk-doc_package() {
+	depends="ladspa-sdk"
+	short_desc+="- Documentation"
+	noarch=yes
+	pkg_install() {
+		vmkdir usr/share/doc
+		cd ${wrksrc}/doc
+		rm ladspa.h.txt
+		ln -s /usr/include/ladspa.h ladspa.h.txt
+		vcopy ${wrksrc}/doc usr/share/doc/ladspa
+	}
+}
+
+ladspa-sdk-example-plugins_package() {
+	short_desc+=" - Example plugins"
+	pkg_install() {
+		vmkdir usr/lib/ladspa
+		vcopy "${wrksrc}/plugins/*.so*" usr/lib/ladspa
+	}
+}
+
+ladspa-sdk-progs_package() {
+	short_desc+=" - Example programs"
+	pkg_install() {
+		vmkdir usr
+		vcopy ${wrksrc}/bin usr
+	}
+}

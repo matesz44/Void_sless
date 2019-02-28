@@ -1,0 +1,39 @@
+# Template file for 'cgmanager'
+pkgname=cgmanager
+version=0.41
+revision=3
+build_style=gnu-configure
+configure_args="--sbindir=/usr/bin --with-distro=void --with-pamdir=/usr/lib/security"
+hostmakedepends="automake libtool pkg-config"
+makedepends="pam-devel dbus-devel libnih-devel"
+depends="dbus"
+short_desc="A daemon for managing Linux control groups"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2"
+homepage="https://linuxcontainers.org/cgmanager/introduction/"
+distfiles="https://linuxcontainers.org/downloads/cgmanager/cgmanager-${version}.tar.gz"
+checksum=29b155befb3ac233d5d29dbca7c791c8138bab01bfa78ea4757ebb88ce23b458
+
+pre_configure() {
+	autoreconf -fi
+}
+post_install() {
+	vsv $pkgname
+}
+
+libcgmanager_package() {
+	short_desc+=" - runtime library"
+	pkg_install() {
+		vmove usr/lib/*.so.*
+	}
+}
+libcgmanager-devel_package() {
+	short_desc+=" - development files"
+	depends="${makedepends} lib${sourcepkg}-${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.a
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+	}
+}

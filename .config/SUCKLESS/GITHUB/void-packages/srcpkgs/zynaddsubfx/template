@@ -1,0 +1,43 @@
+# Template file for 'zynaddsubfx'
+pkgname=zynaddsubfx
+version=3.0.3
+revision=1
+build_style=cmake
+nocross="Builds lv2-ttl-generator for the target, not host and fails to run it"
+configure_args="-DDefaultOutput=jack -DDefaultInput=jack -DGuiModule=fltk"
+hostmakedepends="doxygen fltk pkg-config"
+makedepends="fltk-devel fftw-devel liblo-devel libXpm-devel mxml-devel
+ jack-devel portaudio-devel"
+depends="zynaddsubfx-data>=0"
+short_desc="Open Source software synthesizer"
+maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
+license="GPL-2"
+homepage="http://zynaddsubfx.sourceforge.net/"
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}/${version}/${pkgname}-${version}.tar.bz2"
+checksum=11de448f9664076e9e8f2bcb8f7f45bf54a13516b7d6693da1ef8c511b8ed7c1
+
+post_build() {
+	local ext
+	for ext in Spliter Controller; do
+		cd ${wrksrc}/ExternalPrograms/${ext}
+		sed -i Makefile \
+			-e 's;`fltk-config --cflags`;& ${CFLAGS};' \
+			-e 's;`fltk-config --ldflags`;& ${LDFLAGS};' \
+			-e 's;gcc ;${CC} ;'
+		# Build external program
+		make ${makejobs}
+	done
+}
+post_install() {
+	# Install external programs
+	vbin ${wrksrc}/ExternalPrograms/Spliter/spliter
+	vdoc ${wrksrc}/ExternalPrograms/Spliter/readme.txt SPLITER.txt
+	vbin ${wrksrc}/ExternalPrograms/Controller/controller
+}
+zynaddsubfx-data_package() {
+	short_desc+=" - data"
+	noarch=yes
+	pkg_install() {
+		vmove usr/share/${sourcepkg}
+	}
+}

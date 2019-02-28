@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dirs</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/bin</string>
+		</dict>
+	</array>
+	<key>files</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr/bin/chroot-git</string>
+			<key>mtime</key>
+			<integer>1545060082</integer>
+			<key>sha256</key>
+			<string>005f16e3ce05655e7c5eb39305f13dad0f83a24d9967ad96055da854971ad3a6</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,18 @@
+# Template file for 'clsync'
+pkgname=clsync
+version=0.4.2
+revision=1
+build_style=gnu-configure
+only_for_archs="x86_64 i686 ppc64le"
+hostmakedepends="automake libtool pkg-config"
+makedepends="glib-devel"
+short_desc="File live sync daemon based on inotify/kqueue/bsm"
+maintainer="Diogo Leal <diogo@diogoleal.com>"
+license="GPL-3"
+homepage="http://ut.mephi.ru/oss/clsync"
+distfiles="https://github.com/xaionaro/clsync/archive/v${version}.tar.gz"
+checksum=1af63b86c1d0bd663311f2129792446dc8fc4def5559f76658b51b69a8d0c3bd
+
+pre_configure() {
+	autoreconf -i
+}

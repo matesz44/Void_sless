@@ -1,0 +1,25 @@
+# Template file for 'kjobwidgets'
+pkgname=kjobwidgets
+version=5.55.0
+revision=1
+build_style=cmake
+configure_args="-DBUILD_TESTING=OFF"
+hostmakedepends="extra-cmake-modules qt5-host-tools qt5-tools qt5-qmake"
+makedepends="kcoreaddons-devel kwidgetsaddons-devel qt5-x11extras-devel"
+short_desc="KDE Widgets for showing progress of asynchronous jobs"
+maintainer="John <johnz@posteo.net>"
+license="LGPL-2.0-only, LGPL-2.0-or-later"
+homepage="https://projects.kde.org/projects/frameworks/kjobwidgets"
+distfiles="${KDE_SITE}/frameworks/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=7e09a6817817ae0c40a897ae9e56e7657980115c95ae07101016d92bc9497ddd
+
+kjobwidgets-devel_package() {
+	short_desc+=" - development"
+	depends="${makedepends} ${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/qt5/mkspecs
+		vmove usr/lib/cmake
+		vmove "usr/lib/*.so"
+	}
+}

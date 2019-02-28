@@ -1,0 +1,50 @@
+# Template file for 'hledger'
+pkgname=hledger
+version=1.10
+revision=1
+build_style=haskell-stack
+stackage="lts-12.0"
+nocross=yes # Can't yet cross compile Haskell
+short_desc="Simple, precise, plain text accounting"
+maintainer="Inokentiy Babushkin <twk@twki.de>"
+license="GPL-3.0-or-later"
+homepage="http://hledger.org/"
+makedepends="zlib-devel ncurses-devel"
+wrksrc="${pkgname}-${pkgname}-${version}"
+distfiles="https://github.com/simonmichael/${pkgname}/archive/${pkgname}-${version}.tar.gz"
+checksum=460b7bfd91748abf1cd501471c983e99323f31f4b0bb43b02eab777ad465d8c2
+nopie_files="/usr/bin/hledger"
+
+post_install() {
+	vman hledger/hledger.1
+	for manpage in hledger-lib/*.5; do
+		vman $manpage
+	done
+}
+
+hledger-ui_package() {
+	nopie_files="/usr/bin/hledger-ui"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/bin/hledger-ui
+		vman hledger-ui/hledger-ui.1
+	}
+}
+
+hledger-web_package() {
+	nopie_files="/usr/bin/hledger-web"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/bin/hledger-web
+		vman hledger-web/hledger-web.1
+	}
+}
+
+hledger-api_package() {
+	nopie_files="/usr/bin/hledger-api"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/bin/hledger-api
+		vman hledger-api/hledger-api.1
+	}
+}

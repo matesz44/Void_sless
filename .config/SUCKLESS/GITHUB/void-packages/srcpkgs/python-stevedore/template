@@ -1,0 +1,31 @@
+# Template file for 'python-stevedore'
+pkgname=python-stevedore
+version=1.30.0
+revision=1
+noarch=yes
+wrksrc="stevedore-${version}"
+build_style=python-module
+pycompile_module="stevedore"
+hostmakedepends="python-setuptools python3-setuptools python-pbr python3-pbr"
+depends="python-six"
+short_desc="Manage dynamic plugins for Python2 applications"
+maintainer="Alessio Sergi <al3hex@gmail.com>"
+homepage="https://git.openstack.org/cgit/openstack/stevedore"
+license="Apache-2.0"
+distfiles="${PYPI_SITE}/s/stevedore/stevedore-${version}.tar.gz"
+checksum=b92bc7add1a53fb76c634a178978d113330aaf2006f9498d9e2414b31fbfc104
+
+pre_build() {
+	# remove dependency on pbr; it's not a runtime dependency
+	sed -i '/pbr/d' requirements.txt
+}
+
+python3-stevedore_package() {
+	noarch=yes
+	depends="python3-six"
+	pycompile_module="stevedore"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+	}
+}

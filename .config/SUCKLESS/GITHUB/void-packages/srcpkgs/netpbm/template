@@ -1,0 +1,77 @@
+# Template file for 'netpbm'
+pkgname=netpbm
+# from http://svn.code.sf.net/p/netpbm/code/advanced/doc/HISTORY
+version=10.85.02
+revision=1
+_githash=e91b7794264ef6af3856fd54373def89d3a949a9
+_githash_guide=598441aa09a2e3b2fa45abb8a758ff76c68f9c9e
+create_wrksrc=yes
+build_wrksrc="netpbm-mirror-${_githash}"
+hostmakedepends="pkg-config perl python flex"
+makedepends="libX11-devel libjpeg-turbo-devel libpng-devel libxml2-devel
+ tiff-devel zlib-devel"
+short_desc="Toolkit for manipulation of graphic images"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="BSD,GPL-2,custom"
+homepage="http://netpbm.sourceforge.net/"
+nocross=yes
+distfiles="https://github.com/chneukirchen/netpbm-mirror/archive/${_githash}.tar.gz
+ https://github.com/chneukirchen/netpbm-mirror/archive/${_githash_guide}.tar.gz"
+checksum="e3f73bb8c13f900ab5f2426285841c3072aef679a268ca3bc8a88eb21c232847
+ 991fb11f0f4216416c6f9464a15126b84f97d867e77dd08dd7bc415a92610928"
+
+post_extract() {
+	cd $build_wrksrc
+	for p in ${FILESDIR}/*.patch; do
+		patch -Np1 -i $p
+	done
+
+	cd ../netpbm-mirror-${_githash_guide}
+	sed -i 's/ id="pammixmulti"//g' pammixmulti.html
+}
+
+do_configure() {
+	cat config.mk.in ${FILESDIR}/config.mk >config.mk
+	if [ "$XBPS_TARGET_MACHINE" = "i686" -o "$XBPS_TARGET_MACHINE" = "x86_64" ]; then
+		echo "WANT_SSE = Y" >>config.mk
+	fi
+	sed -i 's|misc|share/netpbm|' common.mk
+	sed -i 's|/link|/lib|' lib/Makefile
+	sed -i 's|install.manwebmain install.manweb install.man|install.man|' GNUmakefile
+}
+
+do_build() {
+	make ${makejobs} CC=$CC CFLAGS="$CFLAGS" LDFLAGS_FOR_BUILD=
+	make MAKEMAN="${PWD}/buildtools/makeman" USERGUIDE=. \
+		-C ../netpbm-mirror-${_githash_guide} \
+		-f "${PWD}/buildtools/manpage.mk" manpages
+}
+
+do_install() {
+	make pkgdir=$DESTDIR/usr PKGMANDIR=share/man install-run install-dev
+	vmkdir usr/share/man/man1
+	vmkdir usr/share/man/man3
+	vmkdir usr/share/man/man5
+	make MAKEMAN="${PWD}/buildtools/makeman" MANDIR="$DESTDIR/usr/share/man" USERGUIDE=. \
+		-C ../netpbm-mirror-${_githash_guide} \
+		-f "${PWD}/buildtools/manpage.mk" installman
+	vlicense doc/copyright_summary LICENSE
+}
+
+libnetpbm_package() {
+	replaces="${sourcepkg}<10.66.03_2"
+	short_desc+=" - runtime libraries"
+	pkg_install() {
+		vmove usr/lib/*.so.*
+	}
+}
+
+libnetpbm-devel_package() {
+	replaces="${sourcepkg}<10.66.03_2"
+	depends="libnetpbm>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+	}
+}

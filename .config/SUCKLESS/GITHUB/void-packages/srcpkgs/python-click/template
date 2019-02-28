@@ -1,0 +1,31 @@
+# Template file for 'python-click'
+pkgname=python-click
+version=6.7
+revision=2
+noarch=yes
+wrksrc="click-${version}"
+build_style="python-module"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python"
+pycompile_module="click"
+short_desc="Python2 package for creating beautiful command line interfaces"
+maintainer="Oliver Kiddle <okiddle@yahoo.co.uk>"
+license="3-clause-BSD"
+homepage="http://click.pocoo.org/"
+distfiles="${PYPI_SITE}/c/click/click-${version}.tar.gz"
+checksum=f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-click_package() {
+	noarch=yes
+	pycompile_module="click"
+	depends="python3"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

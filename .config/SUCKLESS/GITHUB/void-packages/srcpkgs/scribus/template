@@ -1,0 +1,23 @@
+# Template file for 'scribus'
+pkgname=scribus
+version=1.4.7
+revision=1
+build_style=cmake
+hostmakedepends="pkg-config qt-devel"
+makedepends="qt-devel zlib-devel cairo-devel lcms2-devel cups-devel libxml2-devel
+ hyphen-devel ghostscript-devel boost-devel python-devel"
+depends="ghostscript"
+short_desc="Open Source DTP (Desktop Publishing) application"
+maintainer="Enno Boland <gottox@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="https://scribus.net"
+distfiles="$SOURCEFORGE_SITE/scribus/scribus/${version}/scribus-${version}.tar.xz"
+checksum=42d335b4a59c26c8ae1e3f601676baa3c42b035b8cde326d195f7a30078e5fec
+
+pre_configure() {
+	sed -i 's#^Icon=scribus#^Icon=/usr/share/scribus/icons/scribus.png#' scribus.desktop
+}
+post_install() {
+	vinstall scribus.desktop 644 usr/share/applications
+	rm -rf ${DESTDIR}/usr/include
+}

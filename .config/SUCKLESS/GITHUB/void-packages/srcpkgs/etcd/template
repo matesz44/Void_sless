@@ -1,0 +1,27 @@
+# Template file for 'etcd'
+pkgname=etcd
+version=3.3.9
+revision=3
+build_style=go
+short_desc="Distributed reliable key-value store"
+maintainer="Andrea Brancaleoni <abc@pompel.me>"
+license="Apache-2.0"
+hostmakedepends="git glide"
+go_import_path="github.com/coreos/etcd"
+go_package="${go_import_path} ${go_import_path}/etcdctl"
+homepage="https://coreos.com/etcd/docs/latest/"
+distfiles="https://${go_import_path}/archive/v${version}.tar.gz"
+checksum=96639d35772108004da53e568489ce7572171d39ee507245848cc42fbd3a3032
+conf_files="/etc/sv/etcd/conf"
+system_accounts="etcd"
+make_dirs="/var/lib/etcd 0755 etcd etcd"
+
+pre_build() {
+	cd $GOSRCPATH
+	glide install
+}
+
+post_install() {
+	vlicense LICENSE
+	vsv etcd
+}

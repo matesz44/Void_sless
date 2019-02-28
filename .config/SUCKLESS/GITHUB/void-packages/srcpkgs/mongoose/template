@@ -1,0 +1,29 @@
+# Template file for 'mongoose'
+pkgname=mongoose
+version=6.13
+revision=2
+build_style=gnu-makefile
+make_use_env=compliant
+makedepends="libressl-devel"
+short_desc="An Easy to use Web server"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-only"
+homepage="https://cesanta.com/"
+distfiles="https://github.com/cesanta/mongoose/archive/${version}.tar.gz"
+checksum=ec7956b8f2845f6c22e19ab38a0c32c9b379087f0038c7db661b34812f225911
+
+mongoose-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.so"
+	}
+}
+
+mongoose-doc_package() {
+	short_desc+=" - documentation"
+	pkg_install() {
+		vmove usr/share
+	}
+}

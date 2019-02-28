@@ -1,0 +1,45 @@
+# Template file for 'calibre'
+pkgname=calibre
+version=3.39.1
+revision=1
+build_style=python2-module
+pycompile_dirs="/usr/lib/calibre/"
+make_build_args="gui"
+hostmakedepends="pkg-config python-dateutil python-devel python-msgpack qt5-qmake"
+makedepends="glib-devel libchmlib-devel libinput-devel libmagick-devel libmtp-devel
+ libpodofo-devel libwmf-devel libxkbcommon-devel python-PyQt5-devel
+ qt5-devel sqlite-devel tslib-devel"
+depends="desktop-file-utils optipng poppler-utils python-CherryPy python-Pillow
+ python-PyQt5-svg python-PyQt5-webkit python-Pygments python-apsw
+ python-css-parser python-cssselect python-dateutil python-dbus
+ python-dnspython python-html5-parser python-mechanize python-msgpack
+ python-netifaces python-psutil python-regex"
+short_desc="Ebook management application"
+maintainer="bra1nwave <brainwave@openmailbox.org>"
+license="GPL-3.0-only"
+homepage="https://calibre-ebook.com"
+distfiles="https://download.calibre-ebook.com/${version}/calibre-${version}.tar.xz"
+checksum=50bb56ca9455464495c646688722cb07199ed74a3a2eb3dc4f3b3e609be68121
+nocross=yes
+
+do_configure() {
+	# Remove unneeded files and libs
+	rm -rf resources/${pkgname}-portable.* \
+		src/cherrypy \
+		src/chardet
+
+	# Desktop integration (e.g. enforce arch defaults)
+	sed -e "/self.create_uninstaller()/,/os.rmdir(config_dir)/d" \
+		-e "/cc(\['xdg-desktop-menu', 'forceupdate'\])/d" \
+		-e "/cc(\['xdg-mime', 'install', MIME\])/d" \
+		-e "s/'ctc-posml'/'text' not in mt and 'pdf' not in mt and 'xhtml'/" \
+		-e "s/^Name=calibre/Name=Calibre/g" \
+		-i  src/calibre/linux.py
+}
+
+do_install() {
+	vinstall ${FILESDIR}/calibre.desktop 644 usr/share/applications
+	vinstall ${FILESDIR}/calibre-viewer.desktop 644 usr/share/applications
+	python2 setup.py \
+		install --prefix=/usr --staging-root=${DESTDIR}/usr
+}

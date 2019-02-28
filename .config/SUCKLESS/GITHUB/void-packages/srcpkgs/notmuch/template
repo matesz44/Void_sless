@@ -1,0 +1,105 @@
+# Template file for 'notmuch'
+pkgname=notmuch
+version=0.28.2
+revision=2
+hostmakedepends="perl pkg-config python-devel python3-Sphinx python3-devel"
+makedepends="bash-completion gmime3-devel talloc-devel xapian-core-devel"
+short_desc="Thread-based email index, search, and tagging"
+maintainer="Jan S. <jan.schreib@gmail.com>"
+license="GPL-3.0-or-later"
+homepage="https://notmuchmail.org"
+distfiles="https://notmuchmail.org/releases/notmuch-${version}.tar.gz"
+checksum=85a6498033451e188bcebbb3a4841e77c8d07b7fb1db89f17a74d6038f73e931
+
+subpackages="libnotmuch libnotmuch-devel notmuch-mutt notmuch-python notmuch-python3"
+
+case "$XBPS_TARGET_MACHINE" in
+	i686*|x86_64*|ppc64*)
+		makedepends+=" emacs"
+		subpackages+=" notmuch-emacs"
+		_args="--emacslispdir=/usr/share/emacs/site-lisp/notmuch
+			--emacsetcdir=/usr/share/emacs/site-lisp/notmuch"
+		;;
+	armv7l-musl) broken="https://build.voidlinux.org/builders/armv7l-musl_builder/builds/15480/steps/shell_3/logs/stdio";;
+	*) _args="--without-emacs";;
+esac
+
+do_configure() {
+	# fool the endianess test
+	sed -i 's|\(util_byte_order\)=.*|\1=1234|' configure
+	./configure --prefix=/usr \
+		--bashcompletiondir=/usr/share/bash-completion/completions \
+		--zshcompletiondir=/usr/share/zsh/site-functions ${_args}
+}
+
+do_build() {
+	make ${makejobs} V=1
+	make -C contrib/notmuch-mutt
+	make -C bindings
+	cd bindings/python
+	python2 setup.py build --build-base=build-2
+	python3 setup.py build --build-base=build-3
+}
+
+do_install() {
+	make DESTDIR=${DESTDIR} install
+	cd bindings/python
+	python2 setup.py build --build-base=build-2 \
+		install --prefix=/usr --root=${DESTDIR}
+	python3 setup.py build --build-base=build-3 \
+		install --prefix=/usr --root=${DESTDIR}
+}
+
+libnotmuch_package() {
+	short_desc+=" - runtime library"
+	pkg_install() {
+		vmove usr/lib/*.so.*
+	}
+}
+
+libnotmuch-devel_package() {
+	short_desc+=" - development files"
+	depends="libnotmuch-${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+	}
+}
+
+notmuch-emacs_package() {
+	archs=noarch
+	short_desc+=" - Emacs interface"
+	depends="${sourcepkg}-${version}_${revision} virtual?emacs"
+	pkg_install() {
+		vmove usr/share/emacs/site-lisp
+	}
+}
+
+notmuch-mutt_package() {
+	archs=noarch
+	short_desc+=" - Mutt interface"
+	depends="${sourcepkg}-${version}_${revision} perl-Mail-Box perl-MailTools
+	 perl-String-ShellQuote perl-Term-ReadLine-Gnu perl-File-Which"
+	pkg_install() {
+		vbin contrib/notmuch-mutt/notmuch-mutt
+		vman contrib/notmuch-mutt/notmuch-mutt.1
+	}
+}
+
+notmuch-python_package() {
+	depends="libnotmuch-devel>=${version}_${revision}"
+	short_desc+=" - Python2 bindings"
+	pycompile_module="notmuch"
+	pkg_install() {
+		vmove ${py2_sitelib}
+	}
+}
+
+notmuch-python3_package() {
+	depends="libnotmuch-devel>=${version}_${revision}"
+	short_desc+=" - Python3 bindings"
+	pycompile_module="notmuch"
+	pkg_install() {
+		vmove ${py3_sitelib}
+	}
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>dirs</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/share</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/share/licenses</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/share/licenses/libstdc++</string>
+		</dict>
+	</array>
+	<key>files</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib/libstdc++.so.6.0.25</string>
+			<key>mtime</key>
+			<integer>1548151019</integer>
+			<key>sha256</key>
+			<string>3e499a36521214448f9ace280262bba5d8f632dd47fb647645e92b92818c4e64</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/share/licenses/libstdc++/RUNTIME.LIBRARY.EXCEPTION</string>
+			<key>mtime</key>
+			<integer>1548151019</integer>
+			<key>sha256</key>
+			<string>9d6b43ce4d8de0c878bf16b54d8e7a10d9bd42b75178153e3af6a815bdc90f74</string>
+		</dict>
+	</array>
+	<key>links</key>
+	<array>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib/libstdc++.so</string>
+			<key>mtime</key>
+			<integer>1548151019</integer>
+			<key>target</key>
+			<string>/usr/lib/libstdc++.so.6.0.25</string>
+		</dict>
+		<dict>
+			<key>file</key>
+			<string>/usr/lib/libstdc++.so.6</string>
+			<key>mtime</key>
+			<integer>1548151019</integer>
+			<key>target</key>
+			<string>/usr/lib/libstdc++.so.6.0.25</string>
+		</dict>
+	</array>
+</dict>
+</plist>

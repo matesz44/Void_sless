@@ -1,0 +1,14 @@
+# Template file for 'mate-common'
+pkgname=mate-common
+version=1.18.0
+revision=1
+noarch=yes
+build_style=gnu-configure
+hostmakedepends="pkg-config intltool itstool"
+depends="automake libtool intltool pkg-config gtk-doc gettext-devel glib-devel yelp-tools"
+short_desc="Common development macros for MATE"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="LGPL-2"
+homepage="http://mate-desktop.org"
+distfiles="http://pub.mate-desktop.org/releases/${version%.*}/${pkgname}-${version}.tar.xz"
+checksum=d77c44546e748f94cf93707ab3593146109401c9bcde533fc308863f9ca20580

@@ -1,0 +1,21 @@
+# Template file for 'fontmanager'
+pkgname=fontmanager
+version=0.7.4.2
+revision=1
+wrksrc="master-${version}"
+build_style=gnu-configure
+disable_parallel_build=yes
+hostmakedepends="automake pkg-config gobject-introspection yelp-tools
+ vala-devel glib-devel gettext-devel libtool"
+makedepends="json-glib-devel sqlite-devel gtk+3-devel cairo-devel libxml2-devel
+ freetype-devel fontconfig-devel gettext-devel"
+short_desc="Simple font management for GTK+ desktop environments"
+maintainer="Antonio Malcolm <antonio@antoniomalcolm.com>"
+license="GPL-3.0-or-later"
+homepage="https://fontmanager.github.io/"
+distfiles="https://github.com/FontManager/master/archive/${version}.tar.gz"
+checksum=f7aff9c5fbd6dfcb921107e5c669cacd6e28cfbb25238bb27d1aac97041bbcce
+
+pre_configure() {
+	NOCONFIGURE=1 ./autogen.sh
+}

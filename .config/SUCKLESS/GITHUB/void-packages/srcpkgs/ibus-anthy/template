@@ -1,0 +1,28 @@
+# Template file for 'ibus-anthy'
+pkgname=ibus-anthy
+version=1.5.10
+revision=1
+build_style=gnu-configure
+configure_args="--libexec=/usr/lib/ibus $(vopt_enable gir introspection)"
+hostmakedepends="automake gettext-devel $(vopt_if gir gobject-introspection) intltool pkg-config swig"
+makedepends="anthy-devel ibus-devel python-gobject-devel"
+depends="ibus"
+short_desc="Japanese input method Anthy IMEngine for IBus Framework"
+maintainer="7185 <7185@free.fr>"
+license="LGPL-2.1-or-later"
+homepage="https://github.com/ibus/ibus/wiki"
+distfiles="https://github.com/ibus/${pkgname}/archive/${version}.tar.gz"
+checksum=fee0919d8b148815c033ea4c87c6ee464c6ba146da0adbccbef18a11fe7dbb26
+
+# Package build options
+build_options="gir"
+
+# Disable gir for cross builds.
+if [ -z "$CROSS_BUILD" ]; then
+	build_options_default="gir"
+fi
+
+pre_configure() {
+	autoreconf -fi
+	intltoolize -f
+}

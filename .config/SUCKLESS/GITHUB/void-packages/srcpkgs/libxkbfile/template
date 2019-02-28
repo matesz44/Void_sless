@@ -1,0 +1,27 @@
+# Template build for 'libxkbfile'.
+pkgname=libxkbfile
+version=1.0.9
+revision=2
+build_style=gnu-configure
+hostmakedepends="pkg-config"
+makedepends="xorgproto libX11-devel"
+short_desc="The xkbfile Library from X.org"
+license="MIT"
+homepage="${XORG_SITE}"
+distfiles="${XORG_SITE}/lib/$pkgname-$version.tar.bz2"
+checksum=51817e0530961975d9513b773960b4edd275f7d5c72293d5a151ed4f42aeb16a
+
+post_install() {
+	vlicense COPYING
+}
+
+libxkbfile-devel_package() {
+	depends="xorgproto libX11-devel ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+	}
+}

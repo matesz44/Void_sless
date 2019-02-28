@@ -1,0 +1,31 @@
+# Template file for 'python-Werkzeug'
+pkgname=python-Werkzeug
+version=0.14.1
+revision=1
+noarch=yes
+wrksrc="${pkgname#*-}-${version}"
+build_style=python-module
+pycompile_module="werkzeug"
+hostmakedepends="python-setuptools python3-setuptools"
+depends="python"
+short_desc="The Swiss Army knife of Python web development (Python2)"
+maintainer="Markus Berger <pulux@pf4sh.de>"
+homepage="http://werkzeug.pocoo.org"
+license="3-clause-BSD"
+distfiles="${PYPI_SITE}/W/Werkzeug/Werkzeug-${version}.tar.gz"
+checksum=c3fd7a7d41976d9f44db327260e263132466836cef6f91512889ed60ad26557c
+
+post_install() {
+	vlicense LICENSE
+}
+
+python3-Werkzeug_package() {
+	noarch=yes
+	depends="python3"
+	pycompile_module="werkzeug"
+	short_desc="${short_desc/Python2/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+		vlicense LICENSE
+	}
+}

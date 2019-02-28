@@ -1,0 +1,115 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_DISPATCHING_CALLS
+RV NO_FINALIZATION
+RV NO_IMPLICIT_CONDITIONALS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_ELABORATION_CODE
+RV SPARK_05
+
+U ada.synchronous_barriers%b  a-synbar.adb	056ab70e NE OL PK
+W ada%s			ada.ads			ada.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+
+U ada.synchronous_barriers%s  a-synbar.ads	743cebfc EE OL PF PR PK
+W ada%s			ada.ads			ada.ali
+W ada.finalization%s	a-finali.ads		a-finali.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W system%s		system.ads		system.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.storage_elements%s  s-stoele.adb	s-stoele.ali
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-except.ads		20180111085525 291912d5 ada.exceptions%s
+D a-finali.ads		20180111085525 bf4f806b ada.finalization%s
+D a-stream.ads		20180111085525 119b8fb3 ada.streams%s
+D a-synbar.ads		20180111085525 af1f0ba9 ada.synchronous_barriers%s
+D a-synbar.adb		20180111085525 fe54ad3c ada.synchronous_barriers%b
+D a-tags.ads		20180111085525 491b781d ada.tags%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-finroo.ads		20180111085525 4ff27390 system.finalization_root%s
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-secsta.ads		20180111085525 283dec34 system.secondary_stack%s
+D s-soflin.ads		20180111085525 a7318a92 system.soft_links%s
+D s-stache.ads		20180111085525 a37c21ec system.stack_checking%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+D s-stoele.ads		20180111085525 2dc34a04 system.storage_elements%s
+D s-stoele.adb		20180111085525 ed88f8fb system.storage_elements%b
+D s-traent.ads		20180111085525 005bf670 system.traceback_entries%s
+X 1 ada.ads
+16K9*Ada 20e8 5|39r14 42r9 77r10 84r5 6|40r14 111r5
+X 3 a-finali.ads
+40K13*Finalization 68e21 5|39w18 77r14
+50H9*Limited_Controlled<13|40R9> 66e55 5|77r27
+X 5 a-synbar.ads
+42K13*Synchronous_Barriers 1|16k9 5|43r25 57E4 84l9 84e29 6|40b18 111l9 111t29
+45I12*Barrier_Limit{positive} 47r50 76r50
+47R9*Synchronous_Barrier<3|50R9> 47d30 51r28 76c9 80e19 82r54 83r54 6|69r52
+. 76r54 92r28
+47i30 Release_Threshold{45I12} 76r30 6|83r41
+50U14*Wait_For_Release 51=7 52<7 6|91b14 109l8 109t24
+51r7 The_Barrier{47R9} 6|92b7 104m23 104r23
+52b7 Notified{boolean} 6|93b7 108m7
+57N4 SIZEOF_PTHREAD_BARRIER_T 69r53
+63E9 pthread_barrier_t_view 63e60 65r35
+63n36 size_based{63E9} 65r61 68r18
+63n48 align_based{63E9} 70r18
+65R9 pthread_barrier_t 65d28 73e17 74r28 79r36 6|47r33 56r33 61r33
+65e28*Kind{63E9} 67r15
+69a16*size{10|79A9}
+71i16*align{10|37I9}
+79r12*POSIX_Barrier{65R9} 6|72m50 81m31 104m35
+82U25 Initialize<3|53p14> 82=37 6|76b25 85l8 85t18
+82r37 Barrier{47R9} 6|76b37 81m23 81r23 83r33
+83U25 Finalize<3|54p14> 83=37 6|69b25 74l8 74t16
+83r37 Barrier{47R9} 6|69b35 72m42 72r42
+X 6 a-synbar.adb
+46V13 pthread_barrier_init{10|35I9} 47^7 48>7 49>7 50b<c,pthread_barrier_init>22
+. 80s9
+47p7 barrier(5|65R9) 81r12
+48m7 attr{11|67M9} 82r12
+49m7 count{10|43M9} 83r12
+55V13 pthread_barrier_destroy{10|35I9} 56^7 57b<c,pthread_barrier_destroy>22
+. 72s17
+56p7 barrier(5|65R9)
+60V13 pthread_barrier_wait{10|35I9} 61^7 62b<c,pthread_barrier_wait>22 103s9
+61p7 barrier(5|65R9) 104r12
+70i7 Result{10|35I9} 72m7 73r22
+77i7 Result{10|35I9} 79m7 84r22
+95i7 Result{10|35I9} 102m7 106r10 106r29 108r20
+97N7 PTHREAD_BARRIER_SERIAL_THREAD 106r38 108r29
+X 9 interfac.ads
+38K9*Interfaces 5|40r14 69r23 71r24 6|38r6 38r24 9|184e15
+X 10 i-c.ads
+18K20*C 5|40w25 69r34 71r35 6|38w17 38r35 10|230e17
+35I9*int<integer> 6|49r34 56r59 61r59 70r16 77r16 95r16
+37I9*long<long_integer> 5|71r37
+43M9*unsigned 6|49r17 83r23
+72E9*char<character>
+79A9*char_array(72E9)<60M9> 5|69r36
+X 11 system.ads
+37K9*System 5|38w6 58r10 6|48r17 48r35 82r23 11|156e11
+67M9*Address 6|48r24
+69m4*Null_Address{67M9} 6|48r42 82r30
+72N4*Word_Size 5|58r17
+

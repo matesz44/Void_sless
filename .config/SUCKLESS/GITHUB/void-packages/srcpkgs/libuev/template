@@ -1,0 +1,33 @@
+# Template file for 'libuev'
+pkgname=libuev
+version=2.2.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake libtool"
+short_desc="Lightweight event loop library"
+maintainer="Duncaen <duncaen@voidlinux.org>"
+license="MIT"
+homepage="https://github.com/troglobit/libuev"
+distfiles="https://github.com/troglobit/libuev/archive/v${version}.tar.gz"
+checksum=09d1ff980461f51ac99c50d0f235fd7ddbba06ee3ac4a4cdc60c823048c22945
+
+pre_configure() {
+	./autogen.sh
+}
+
+post_install() {
+	vlicense LICENSE
+	rm -f ${DESTDIR}/usr/share/doc/libuev/LICENSE
+}
+
+libuev-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove usr/share/doc
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+	}
+}

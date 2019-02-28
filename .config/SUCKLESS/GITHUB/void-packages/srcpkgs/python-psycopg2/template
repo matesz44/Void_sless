@@ -1,0 +1,25 @@
+# Template file for 'python-psycopg2'
+pkgname=python-psycopg2
+version=2.7.7
+revision=1
+wrksrc="psycopg2-${version}"
+build_style=python-module
+pycompile_module="psycopg2"
+# Require postgresql-libs-devel to find executable: pg_config
+hostmakedepends="python-devel python3-devel postgresql-libs-devel"
+# Require postgresql-libs-devel for libpq-fe.h
+makedepends="python-devel python3-devel postgresql-libs-devel"
+short_desc="PostgreSQL adapter for Python2"
+maintainer="Toyam Cox <Vaelatern@voidlinux.org>"
+license="LGPL-3.0-or-later"
+homepage="http://initd.org/psycopg"
+distfiles="${PYPI_SITE}/p/psycopg2/psycopg2-${version}.tar.gz"
+checksum=f4526d078aedd5187d0508aa5f9a01eae6a48a470ed678406da94b4cd6524b7e
+
+python3-psycopg2_package() {
+	pycompile_module="psycopg2"
+	short_desc="${short_desc/Python/Python3}"
+	pkg_install() {
+		vmove usr/lib/python3*
+	}
+}

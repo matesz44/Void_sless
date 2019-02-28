@@ -1,0 +1,34 @@
+# Template file for 'nettle'
+pkgname=nettle
+version=3.4.1
+revision=1
+build_style=gnu-configure
+configure_args="--enable-shared"
+hostmakedepends="m4"
+makedepends="gmp-devel"
+short_desc="A low-level cryptographic library"
+maintainer="maxice8 <thinkabit.ukim@gmail.com>"
+license="GPL-2.0-or-later, GPL-3.0-or-later"
+homepage="http://www.lysator.liu.se/~nisse/nettle/"
+distfiles="${GNU_SITE}/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=f941cf1535cd5d1819be5ccae5babef01f6db611f9b5a777bae9c7604b8a92ad
+
+
+nettle-devel_package() {
+	depends="gmp-devel ${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/lib/pkgconfig
+		vmove usr/share/info
+	}
+}
+
+nettle-tools_package() {
+	short_desc+=" - bundled tools"
+	pkg_install() {
+		vmove usr/bin
+	}
+}

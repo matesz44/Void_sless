@@ -1,0 +1,34 @@
+# Template file for 'glibmm'
+pkgname=glibmm
+version=2.58.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="glib-devel perl pkg-config"
+makedepends="libglib-devel libsigc++-devel"
+short_desc="C++ bindings for GLib"
+maintainer="Rasmus Thomsen <rasmus.thomsen@protonmail.com>"
+license="LGPL-2.1-or-later"
+homepage="https://www.gtkmm.org"
+distfiles="${GNOME_SITE}/glibmm/${version%.*}/glibmm-${version}.tar.xz"
+checksum=d34189237b99e88228e6f557f7d6e62f767fe356f395a244f5ad0e486254b645
+
+glibmm-doc_package() {
+	noarch=yes
+	short_desc+=" - documentation"
+	pkg_install() {
+		vmove usr/share/doc
+		vmove usr/share/devhelp
+	}
+}
+
+glibmm-devel_package() {
+	depends="${makedepends} glibmm>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/lib/glibmm-2.4
+		vmove usr/lib/giomm-2.4
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.so"
+	}
+}

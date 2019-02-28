@@ -1,0 +1,25 @@
+# Template file for 'lily'
+pkgname=lily
+version=1.7
+revision=1
+wrksrc="lily-v${version}"
+build_style=cmake
+short_desc="Interpreted language with a focus on expressiveness and type safety"
+maintainer="Diogo Leal <diogo@diogoleal.com>"
+license="MIT"
+homepage="https://gitlab.com/FascinatedBox/lily"
+distfiles="https://gitlab.com/FascinatedBox/lily/-/archive/v${version}/lily-v${version}.tar.bz2"
+checksum=4df3b07e91b62434cc3419856ed504947cc8d5f3f35a5896ed459c761a137045
+
+post_install() {
+	vlicense license.txt
+}
+
+lily-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+	}
+}

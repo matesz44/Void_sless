@@ -1,0 +1,18 @@
+# Template file for 'font-unifont-bdf'
+pkgname=font-unifont-bdf
+version=11.0.03
+revision=1
+noarch=yes
+create_wrksrc=yes
+depends="font-util"
+short_desc="GNU Unifont Glyphs"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-2.0-or-later"
+homepage="http://unifoundry.com/unifont.html"
+distfiles="http://unifoundry.com/pub/unifont/unifont-${version}/font-builds/unifont-${version}.bdf.gz"
+checksum=4bd52ca12beee34cccce64b436aa4b806a508908464aed88e2533ea6ac17af6b
+font_dirs=/usr/share/fonts/misc
+
+do_install() {
+	vinstall unifont-${version}.bdf 644 usr/share/fonts/misc unifont.bdf
+}

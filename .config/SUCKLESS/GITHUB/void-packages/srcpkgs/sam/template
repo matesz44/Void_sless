@@ -1,0 +1,41 @@
+# Template file for 'sam'
+pkgname=sam
+version=20180707
+revision=1
+_githash=cd8efea6bc572a31b1a325f4201ac52cf6760d7e
+wrksrc="${pkgname}-${_githash}"
+makedepends="libXft-devel libXi-devel libXt-devel"
+short_desc="Screen editor with structural regular expressions"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="MIT-like"
+homepage="http://www.deadpixi.com/an-updated-version-of-sam"
+distfiles="https://github.com/deadpixi/${pkgname}/archive/${_githash}.tar.gz"
+checksum=45e9ddffea47b4d2cc42fb77255445d2bade71e59370851c455a95ea361a92ba
+disable_parallel_build=yes
+CFLAGS="-std=c99"
+
+post_extract() {
+	sed -i 's/ -sf / -sfr /' doc/Makefile
+	sed -i '/Straddc/s/int/wchar_t/g' sam/sam.h
+}
+do_build() {
+	case "$XBPS_TARGET_MACHINE" in
+		i686*|armv*) USE64BITS=0;;
+		x86_64*|aarch64*|ppc64*) USE64BITS=1;;
+		*) msg_error "Unknown word length for $XBPS_TARGET_MACHINE";;
+	esac
+
+	make ${makejobs} CC="${CC} ${CFLAGS}" DESTDIR=/usr LDFLAGS="$LDFLAGS" \
+		INCLUDES=-I${XBPS_CROSS_BASE}/usr/include/freetype2 \
+		RXSAMNAME=rsam TERMNAME=/usr/bin/samterm USE64BITS=${USE64BITS}
+}
+
+do_install() {
+	vmkdir usr/bin
+	vmkdir usr/share/man/man1
+	make install DESTDIR=${DESTDIR}/usr
+
+	vlicense LICENSE
+	vdoc doc/se.ps
+	vdoc doc/sam.tut.ms
+}

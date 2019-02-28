@@ -1,0 +1,100 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_IMPLEMENTATION_ATTRIBUTES
+
+U system.linux%s	s-linux.ads		3dce974e NE OL PR PK
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W system%s		system.ads		system.ali
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-linux.ads		20180111085525 2fda6ad1 system.linux%s
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+X 3 interfac.ads
+38K9*Interfaces 184e15 7|38r6 47r27 48r27 49r27 50r27
+X 4 i-c.ads
+18K20*C 230e17 7|38w17 47r38 48r38 49r38 50r38
+35I9*int<integer> 7|50r40
+37I9*long<long_integer> 7|47r40 48r40 49r40
+X 5 system.ads
+37K9*System 156e11 7|40r9 127r5
+X 7 s-linux.ads
+40K16*Linux 5|37k9 7|127l12 127e17
+47I12*long{4|37I9} 54r17
+48I12*suseconds_t{4|37I9} 60r17
+49I12*time_t{4|37I9} 53r17 59r17
+50I12*clockid_t{4|35I9}
+52R9*timespec 55e14 56r26
+53i7*tv_sec{49I12}
+54i7*tv_nsec{47I12}
+58R9*timeval 61e14 62r26
+59i7*tv_sec{49I12}
+60i7*tv_usec{48I12}
+68N4*EAGAIN
+69N4*EINTR
+70N4*EINVAL
+71N4*ENOMEM
+72N4*EPERM
+73N4*ETIMEDOUT
+79N4*SIGHUP
+80N4*SIGINT
+81N4*SIGQUIT
+82N4*SIGILL
+83N4*SIGTRAP
+84N4*SIGIOT
+85N4*SIGABRT
+86N4*SIGFPE
+87N4*SIGKILL
+88N4*SIGBUS
+89N4*SIGSEGV
+90N4*SIGPIPE
+91N4*SIGALRM
+92N4*SIGTERM
+93N4*SIGUSR1
+94N4*SIGUSR2
+95N4*SIGCLD
+96N4*SIGCHLD
+97N4*SIGPWR
+98N4*SIGWINCH
+99N4*SIGURG
+100N4*SIGPOLL
+101N4*SIGIO
+102N4*SIGLOST
+103N4*SIGSTOP
+104N4*SIGTSTP
+105N4*SIGCONT
+106N4*SIGTTIN
+107N4*SIGTTOU
+108N4*SIGVTALRM
+109N4*SIGPROF
+110N4*SIGXCPU
+111N4*SIGXFSZ
+112N4*SIGUNUSED
+113N4*SIGSTKFLT
+114N4*SIGLTHRRES
+115N4*SIGLTHRCAN
+116N4*SIGLTHRDBG
+120N4*sa_handler_pos
+121N4*sa_mask_pos 122r39
+122N4*sa_flags_pos
+124N4*SA_SIGINFO
+125N4*SA_ONSTACK
+

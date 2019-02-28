@@ -1,0 +1,28 @@
+# Template file for 'discount'
+pkgname=discount
+version=2.2.4
+revision=1
+build_style=configure
+configure_script="./configure.sh"
+configure_args="--prefix=/usr --shared --pkg-config"
+short_desc="C implementation of John Gruber's Markdown"
+maintainer="Leah Neukirchen <leah@vuxu.org>"
+license="BSD-3-Clause"
+homepage="http://www.pell.portland.or.us/~orc/Code/discount"
+distfiles="${homepage}/${pkgname}-${version}.tar.bz2"
+checksum=74fd1e3cc2b4eacf7325d3fd89df38b589db60d5dd0f4f14a0115f7da5e230a5
+
+do_install() {
+	make DESTDIR=${DESTDIR} install install.man
+	vlicense COPYRIGHT
+}
+discount-devel_package() {
+	short_desc+=" - development files"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/*.so
+		vmove usr/lib/pkgconfig
+		vmove usr/share/man/man3
+	}
+}

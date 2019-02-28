@@ -1,0 +1,30 @@
+# Template file for 's6-rc'
+pkgname=s6-rc
+version=0.4.1.0
+revision=1
+build_style=gnu-configure
+makedepends="execline-devel skalibs-devel s6-devel"
+configure_args="--libdir=/usr/lib --includedir=/usr/include --with-sysdeps=${XBPS_CROSS_BASE}/usr/lib/skalibs/sysdeps --with-lib=${XBPS_CROSS_BASE}/usr/lib"
+short_desc="Service manager of the s6 init system"
+maintainer="Orphaned <orphan@voidlinux.org>"
+license="ISC"
+homepage="https://skarnet.org/software/${pkgname}/"
+distfiles="https://skarnet.org/software/${pkgname}/${pkgname}-${version}.tar.gz"
+checksum=42b915d291946ad8f59a17f63b6bc95a94b4dea1c86e0659a9ec2650623f83f6
+
+post_install() {
+	vlicense COPYING
+	vdoc README
+	vcopy "doc/*" usr/share/doc/${pkgname}
+	vmkdir usr/share/examples/${pkgname}
+	vcopy "examples/source/*" usr/share/examples/${pkgname}/
+}
+
+s6-rc-doc_package() {
+	noarch=yes
+	short_desc+=" - documentation"
+	depends="${sourcepkg}>=${version}_${revision}"
+	pkg_install() {
+		vmove usr/share/doc
+	}
+}

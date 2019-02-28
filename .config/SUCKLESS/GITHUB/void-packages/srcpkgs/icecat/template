@@ -1,0 +1,119 @@
+# Template file for 'icecat'
+pkgname=icecat
+version=60.3.0
+revision=3
+short_desc="GNU version of the Firefox browser"
+maintainer="Jürgen Buchmüller <pullmoll@t-online.de>"
+homepage="https://www.gnu.org/software/${pkgname}/"
+license="MPL-1.1, GPL-2, LGPL-2.1"
+distfiles="${GNU_SITE}/${pkgname}/${version}/${pkgname}-${version}-gnu1.tar.bz2"
+checksum=6145327092b4b195a4f63d0e86f4857eeba5607ffeb69b6f3bceb36e89a19645
+
+lib32disabled=yes
+nocross="rustc error[E0463]: can't find crate for 'std'"
+
+hostmakedepends="autoconf213 cargo cbindgen clang llvm nodejs perl pkg-config
+ python unzip yasm zip"
+makedepends="gtk+-devel hunspell-devel libXt-devel libatomic-devel
+ libevent-devel libnotify-devel libvpx5-devel nss-devel rust-std sqlite-devel
+ $(vopt_if alsa 'alsa-lib-devel') $(vopt_if dbus 'dbus-glib-devel')
+ $(vopt_if gtk3 'gtk+3-devel') $(vopt_if pulseaudio 'pulseaudio-devel')
+ $(vopt_if startup_notification 'startup-notification-devel')
+ $(vopt_if xscreensaver 'libXScrnSaver-devel')"
+depends="desktop-file-utils hicolor-icon-theme nss>=3.19"
+
+build_options="alsa dbus gtk3 pulseaudio startup_notification xscreensaver"
+build_options_default="alsa dbus gtk3 pulseaudio startup_notification xscreensaver"
+
+CXXFLAGS="-Wno-class-memaccess -Wno-unused-function"
+
+post_extract() {
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		cp "${FILESDIR}/stab.h" toolkit/crashreporter/google-breakpad/src/
+		patch -Np0 -i ${FILESDIR}/musl-cmsghdr.patch
+		;;
+	esac
+	# Google API key (see http://www.chromium.org/developers/how-tos/api-keys)
+	# Note: This is for Void Linux use ONLY.
+	echo -n "AIzaSyCIFdBA7eQP43R6kXRwTq7j6Mvj1ITze90" > google-api-key
+}
+do_build() {
+	local triplet
+	cp ${FILESDIR}/mozconfig .mozconfig
+
+	if [ "$CROSS_BUILD" ]; then
+		echo "ac_add_options --host=${XBPS_CROSS_TRIPLET}" >>.mozconfig
+		echo "ac_add_options --target=${XBPS_CROSS_TRIPLET}" >>.mozconfig
+	else
+		echo "ac_add_options --host=${XBPS_TRIPLET}" >>.mozconfig
+		echo "ac_add_options --target=${XBPS_TRIPLET}" >>.mozconfig
+	fi
+
+	case "$XBPS_TARGET_MACHINE" in
+	*-musl)
+		echo "ac_add_options --disable-jemalloc" >>.mozconfig
+		echo "ac_add_options --disable-gold" >>.mozconfig
+		echo "ac_add_options --enable-release" >>.mozconfig
+		;;
+	esac
+
+	if [ "$CROSS_BUILD" ]; then
+		export HOST_CFLAGS="${XBPS_CFLAGS}"
+		export HOST_CXXFLAGS="${XBPS_CXXFLAGS}"
+		echo "ac_cv_sqlite_secure_delete=yes" >> .mozconfig
+		echo "ac_cv_sqlite_threadsafe=yes" >> .mozconfig
+		echo "ac_cv_sqlite_enable_fts3=yes" >> .mozconfig
+		echo "ac_cv_sqlite_dbstat_vtab=yes" >> .mozconfig
+		echo "ac_cv_sqlite_enable_unlock_notify=yes" >> .mozconfig
+		echo "ac_cv_prog_hostcxx_works=1" >> .mozconfig
+		echo "ac_add_options --target=$XBPS_CROSS_TRIPLET" >>.mozconfig
+	fi
+
+	case "$XBPS_TARGET_MACHINE" in
+	i686*)
+		export CFLAGS+=" -D_FILE_OFFSET_BITS=64"
+		export CXXFLAGS+=" -D_FILE_OFFSET_BITS=64"
+		;;
+	esac
+
+	export LDFLAGS+=" -Wl,-rpath=/usr/lib/icecat"
+
+	export MOZ_BUILD_DATE=$(date --date "@$SOURCE_DATE_EPOCH" "+%Y%m%d%H%M%S")
+	export MOZ_MAKE_FLAGS="${makejobs}"
+
+	cat >>.mozconfig <<EOF
+ac_add_options --with-google-api-keyfile="${wrksrc}/google-api-key"
+ac_add_options $(vopt_enable alsa)
+ac_add_options $(vopt_enable dbus)
+ac_add_options $(vopt_enable dbus necko-wifi)
+ac_add_options $(vopt_enable pulseaudio)
+ac_add_options $(vopt_enable startup_notification startup-notification)
+EOF
+
+	./mach build
+}
+do_install() {
+	DESTDIR="${DESTDIR}" ./mach install
+
+	vinstall ${FILESDIR}/vendor.js 644 usr/lib/icecat/defaults/pref
+	vinstall ${FILESDIR}/icecat.desktop 644 usr/share/applications
+
+	for i in 16x16 22x22 24x24 32x32 48x48 256x256; do
+		vinstall ${wrksrc}/browser/branding/official/default${i%x*}.png 644 \
+			usr/share/icons/hicolor/${i}/apps icecat.png
+	done
+	vinstall ${wrksrc}/browser/branding/official/default256.png 644 \
+		usr/share/pixmaps icecat.png
+
+	# Use system-provided dictionaries
+	rm -rf ${DESTDIR}/usr/lib/icecat/{dictionaries,hyphenation}
+	ln -s /usr/share/hunspell ${DESTDIR}/usr/lib/icecat/dictionaries
+	ln -s /usr/share/hyphen ${DESTDIR}/usr/lib/icecat/hyphenation
+
+	# https://bugzilla.mozilla.org/show_bug.cgi?id=658850
+	ln -sf icecat ${DESTDIR}/usr/lib/icecat/icecat-bin
+
+	# Remove the development files - noone uses them and the subpkg was broken
+	rm -rf ${DESTDIR}/usr/{include,lib/icecat-devel,share/idl}
+}

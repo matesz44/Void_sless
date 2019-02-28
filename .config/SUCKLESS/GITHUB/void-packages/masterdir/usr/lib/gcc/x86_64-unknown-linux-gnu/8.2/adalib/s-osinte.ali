@@ -1,0 +1,503 @@
+V "GNAT Lib v8"
+A -gnatwa
+A -nostdinc
+A -O2
+A -Wextra
+A -Wall
+A -g
+A -gnatp
+A -gnatg
+A -mtune=generic
+A -march=x86-64
+P ZX
+
+RN
+RV NO_ACCESS_SUBPROGRAMS
+RV NO_FIXED_POINT
+RV NO_LONG_LONG_INTEGERS
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_UNCHECKED_CONVERSION
+RV NO_IMPLEMENTATION_ATTRIBUTES
+RV NO_IMPLEMENTATION_PRAGMAS
+RV SPARK_05
+
+U system.os_interface%b	s-osinte.adb		b541254b NE OL PK
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W system%s		system.ads		system.ali
+
+U system.os_interface%s	s-osinte.ads		92cce835 BN NE OL PR PK
+W ada%s			ada.ads			ada.ali
+W ada.unchecked_conversion%s
+W interfaces%s		interfac.ads		interfac.ali
+W interfaces.c%s	i-c.adb			i-c.ali
+W system%s		system.ads		system.ali
+W system.linux%s	s-linux.ads		s-linux.ali
+W system.os_constants%s	s-oscons.ads		s-oscons.ali
+Z system.unsigned_types%s  s-unstyp.ads		s-unstyp.ali
+L "-lpthread"
+L "-lrt"
+
+D ada.ads		20170911084841 76789da1 ada%s
+D a-unccon.ads		20170908151217 0e9b276f ada.unchecked_conversion%s
+D interfac.ads		20180111085525 5ab55268 interfaces%s
+D i-c.ads		20170908151217 5421119b interfaces.c%s
+D system.ads		20180111085525 4635ec04 system%s
+D s-exctab.ads		20180111085525 54135002 system.exception_table%s
+D s-linux.ads		20180111085525 2fda6ad1 system.linux%s
+D s-oscons.ads		20190122111334 67013218 system.os_constants%s
+D s-osinte.ads		20180111085525 c6986a0c system.os_interface%s
+D s-osinte.adb		20180111085525 27f85edc system.os_interface%b
+D s-parame.ads		20180111085525 f896c45c system.parameters%s
+D s-stalib.ads		20180111085525 09bd3940 system.standard_library%s
+D s-unstyp.ads		20180111085525 34867c83 system.unsigned_types%s
+X 1 ada.ads
+16K9*Ada 20e8 9|41r6 289r6 295r10
+X 2 a-unccon.ads
+20v14*Unchecked_Conversion 9|41w10 289r10 295r14
+X 3 interfac.ads
+38K9*Interfaces 184e15 9|42r6 53r30 54r30 55r30 56r30 57r30 58r30 59r30 60r30
+. 61r30 62r30 257r42 621r31 635r26 641r37 647r41 653r42 659r38 665r43 671r39
+. 677r37 10|42r6 42r24 79r42 82r14
+77M9*Unsigned_64 9|677r48
+X 4 i-c.ads
+18K20*C 230e17 9|42w17 53r41 54r41 55r41 56r41 57r41 58r41 59r41 60r41 61r41
+. 62r41 257r53 621r42 635r37 641r48 647r52 653r53 659r49 665r54 671r50 10|42w17
+. 42r35 79r53 82r25
+35I9*int<integer> 9|53r43 257r55 647r54 653r55 10|79r55 82r27
+36I9*short<short_integer> 9|55r43
+37I9*long<long_integer> 9|56r43
+43M9*unsigned 9|57r43
+44M9*unsigned_short 9|58r43
+45M9*unsigned_long 9|59r43 621r44 641r50 659r51 665r56 671r52
+47M9*unsigned_char 9|60r43
+50M12*plain_char{47M9} 9|61r43
+60M9*size_t 9|62r43
+72E9*char<character> 9|54r43
+79A9*char_array(72E9)<60M9> 9|635r39
+X 5 system.ads
+37K9*System 156e11 9|43r6 44r6 46r9 71r28 72r28 73r28 74r28 75r28 76r28 86r29
+. 87r29 88r29 89r29 90r29 91r29 92r29 93r29 94r29 95r29 96r29 97r29 98r29
+. 99r29 100r29 101r29 102r29 103r29 104r29 105r29 106r29 107r29 108r29 109r29
+. 110r29 111r29 112r29 113r29 114r29 115r29 116r29 117r29 118r29 119r29 120r29
+. 121r29 122r29 123r29 183r21 186r21 202r29 203r29 222r25 223r25 224r25 225r25
+. 257r14 285r22 285r45 289r32 313r18 324r30 519r23 522r37 528r29 537r15 540r62
+. 543r55 681r5 10|43r14 79r14 109r5
+67M9*Address 9|183r28 186r28 285r29 285r52 289r39 313r25 324r37 331r56 519r30
+. 522r44 528r36 537r22 540r69 543r62 10|49r56
+69m4*Null_Address{67M9} 10|53r14
+108I12*Any_Priority{integer} 9|257r21 10|79r21
+X 7 s-linux.ads
+40K16*Linux 127e17 9|43w13 71r35 72r35 73r35 74r35 75r35 76r35 86r36 87r36
+. 88r36 89r36 90r36 91r36 92r36 93r36 94r36 95r36 96r36 97r36 98r36 99r36
+. 100r36 101r36 102r36 103r36 104r36 105r36 106r36 107r36 108r36 109r36 110r36
+. 111r36 112r36 113r36 114r36 115r36 116r36 117r36 118r36 119r36 120r36 121r36
+. 122r36 123r36 202r36 203r36 222r32 223r32 224r32 225r32 625r21 626r21 627r21
+47I12*long{4|37I9}
+49I12*time_t{4|37I9} 9|222r38
+50I12*clockid_t{4|35I9} 9|225r38
+52R9*timespec 55e14 9|223r38
+53i7*tv_sec{49I12} 10|71r27 105m24
+54i7*tv_nsec{47I12} 10|71r50 106m24
+58R9*timeval 61e14 9|224r38
+68N4*EAGAIN 9|71r41
+69N4*EINTR 9|72r41
+70N4*EINVAL 9|73r41
+71N4*ENOMEM 9|74r41
+72N4*EPERM 9|75r41
+73N4*ETIMEDOUT 9|76r41
+79N4*SIGHUP 9|86r42
+80N4*SIGINT 9|87r42
+81N4*SIGQUIT 9|88r42
+82N4*SIGILL 9|89r42
+83N4*SIGTRAP 9|90r42
+84N4*SIGIOT 9|91r42
+85N4*SIGABRT 9|92r42
+86N4*SIGFPE 9|93r42
+87N4*SIGKILL 9|94r42
+88N4*SIGBUS 9|95r42
+89N4*SIGSEGV 9|96r42
+90N4*SIGPIPE 9|97r42
+91N4*SIGALRM 9|98r42
+92N4*SIGTERM 9|99r42
+93N4*SIGUSR1 9|100r42
+94N4*SIGUSR2 9|101r42
+95N4*SIGCLD 9|102r42
+96N4*SIGCHLD 9|103r42
+97N4*SIGPWR 9|104r42
+98N4*SIGWINCH 9|105r42
+99N4*SIGURG 9|106r42
+100N4*SIGPOLL 9|107r42
+101N4*SIGIO 9|108r42
+102N4*SIGLOST 9|109r42
+103N4*SIGSTOP 9|110r42
+104N4*SIGTSTP 9|111r42
+105N4*SIGCONT 9|112r42
+106N4*SIGTTIN 9|113r42
+107N4*SIGTTOU 9|114r42
+108N4*SIGVTALRM 9|115r42
+109N4*SIGPROF 9|116r42
+110N4*SIGXCPU 9|117r42
+111N4*SIGXFSZ 9|118r42
+112N4*SIGUNUSED 9|119r42
+113N4*SIGSTKFLT 9|120r42
+114N4*SIGLTHRRES 9|121r42
+115N4*SIGLTHRCAN 9|122r42
+116N4*SIGLTHRDBG 9|123r42
+120N4*sa_handler_pos 9|625r27
+121N4*sa_mask_pos 9|626r27
+122N4*sa_flags_pos 9|627r27
+124N4*SA_SIGINFO 9|202r42
+125N4*SA_ONSTACK 9|203r42
+X 8 s-oscons.ads
+44K16*OS_Constants 367e24 9|44w13 619r18 638r31 644r31 650r31 656r31 662r31
+. 668r31 674r31
+320N4*SIZEOF_sigset 9|619r31
+351N4*PTHREAD_ATTR_SIZE 9|638r44
+352N4*PTHREAD_MUTEXATTR_SIZE 9|650r44
+353N4*PTHREAD_MUTEX_SIZE 9|656r44
+354N4*PTHREAD_CONDATTR_SIZE 9|644r44
+355N4*PTHREAD_COND_SIZE 9|674r44
+356N4*PTHREAD_RWLOCKATTR_SIZE 9|662r44
+357N4*PTHREAD_RWLOCK_SIZE 9|668r44
+X 9 s-osinte.ads
+46K16*OS_Interface 5|37k9 9|618E9 681l12 681e24 10|43b21 109l12 109t24
+53I12*int{4|35I9} 68r26 83r23 84r24 158r68 161r68 164r55 167r70 170r56 175r18
+. 176r18 177r18 185r21 215r43 228r58 233r42 242r29 266r53 276r32 277r59 314r18
+. 321r36 347r73 350r68 354r14 356r38 364r49 368r49 373r50 376r75 379r72 382r74
+. 386r50 390r50 399r14 399r26 405r51 409r47 412r76 415r76 418r76 422r48 426r48
+. 431r48 434r72 437r71 442r46 448r41 464r18 464r30 469r21 469r33 473r24 479r16
+. 480r50 485r16 485r28 489r32 497r50 501r50 506r21 506r33 512r34 519r46 537r38
+. 548r47 593r29 600r42 609r42 627r53 633r22
+54E12*char{4|72E9}
+55I12*short{4|36I9}
+56I12*long{4|37I9} 242r41 10|106r35
+57M12*unsigned{4|43M9} 679r30
+58M12*unsigned_short{4|44M9}
+59M12*unsigned_long{4|45M9} 193r13 194r13 195r13 196r13 197r13 198r13 277r32
+. 291r26 295r36
+60M12*unsigned_char{4|47M9} 619r53
+61M12*plain_char{4|50M12}
+62M12*size_t{4|60M9} 315r18 512r19 577r32 581r37 581r52 589r32 593r42 599r20
+. 608r20
+68V13*errno{53I12} 69b<c,__get_errno>22
+71N4*EAGAIN
+72N4*EINTR
+73N4*EINVAL
+74N4*ENOMEM
+75N4*EPERM
+76N4*ETIMEDOUT
+82N4*Max_Interrupt 83r38
+83I9*Signal<4|35I9> 84r8 129r51 158r53 161r53 167r55 213r14 266r38 347r58
+. 350r53
+86N4*SIGHUP
+87N4*SIGINT
+88N4*SIGQUIT
+89N4*SIGILL
+90N4*SIGTRAP 132r7
+91N4*SIGIOT
+92N4*SIGABRT 125r30
+93N4*SIGFPE
+94N4*SIGKILL 145r7
+95N4*SIGBUS 136r7
+96N4*SIGSEGV
+97N4*SIGPIPE
+98N4*SIGALRM
+99N4*SIGTERM
+100N4*SIGUSR1
+101N4*SIGUSR2
+102N4*SIGCLD
+103N4*SIGCHLD
+104N4*SIGPWR
+105N4*SIGWINCH
+106N4*SIGURG
+107N4*SIGPOLL
+108N4*SIGIO
+109N4*SIGLOST
+110N4*SIGSTOP 145r16
+111N4*SIGTSTP 138r25
+112N4*SIGCONT
+113N4*SIGTTIN 138r7
+114N4*SIGTTOU 138r16
+115N4*SIGVTALRM 152r39
+116N4*SIGPROF 142r7
+117N4*SIGXCPU
+118N4*SIGXFSZ
+119N4*SIGUNUSED 152r50
+120N4*SIGSTKFLT
+121N4*SIGLTHRRES 148r7
+122N4*SIGLTHRCAN 148r19
+123N4*SIGLTHRDBG 148r31
+125N4*SIGADAABORT
+129A9*Signal_Set(83I9)<integer> 131r24 152r24
+131a4*Unmasked{129A9}
+152a4*Reserved{129A9}
+156A9*sigset_t(60M12) 158r37 161r37 164r38 167r39 170r39 184r21 347r35 355r21
+. 356r21 618c9 620r26 621r8
+158V13*sigaddset{53I12} 158^24 158>47 159b<c,sigaddset>22
+158p24 set(156A9)
+158i47 sig{83I9}
+161V13*sigdelset{53I12} 161^24 161>47 162b<c,sigdelset>22
+161p24 set(156A9)
+161i47 sig{83I9}
+164V13*sigfillset{53I12} 164^25 165b<c,sigfillset>22
+164p25 set(156A9)
+167V13*sigismember{53I12} 167^26 167>49 168b<c,sigismember>22
+167p26 set(156A9)
+167i49 sig{83I9}
+170V13*sigemptyset{53I12} 170^26 171b<c,sigemptyset>22
+170p26 set(156A9)
+173A9*union_type_3<string>(character)<integer> 178r18
+174R9*siginfo_t 179e14 180r26
+175i7*si_signo{53I12}
+176i7*si_code{53I12}
+177i7*si_errno{53I12}
+178a7*X_data{173A9}
+182R9*struct_sigaction 187e14 188r26 190r44 624r8
+183m7*sa_handler{5|67M9} 625r7
+184a7*sa_mask{156A9} 626r7
+185i7*sa_flags{53I12} 627r7
+186m7*sa_restorer{5|67M9}
+190P9*struct_sigaction_ptr(182R9) 214r14 215r14
+192R9*Machine_State 199e14 200r41
+193m7*eip{59M12}
+194m7*ebx{59M12}
+195m7*esp{59M12}
+196m7*ebp{59M12}
+197m7*esi{59M12}
+198m7*edi{59M12}
+200P9*Machine_State_Ptr(192R9)
+202N4*SA_SIGINFO
+203N4*SA_ONSTACK
+205N4*SIG_BLOCK
+206N4*SIG_UNBLOCK
+207N4*SIG_SETMASK
+209N4*SIG_DFL
+210N4*SIG_IGN
+212V13*sigaction{53I12} 213>7 214>7 215>7 216b<c,sigaction>22
+213i7 sig{83I9}
+214p7 act{190P9}
+215p7 oact{190P9}
+222I12*time_t{7|49I12} 10|90r11 94r12
+223R12*timespec{7|52R9} 228r41 233r25 236r31 239r47 448r24 10|69r31 89r47
+. 105r14
+224R12*timeval{7|58R9}
+225I12*clockid_t{7|50I12} 228r18 232r18
+227V13*clock_gettime{53I12} 228>7 228^29 229b<c,clock_gettime>22
+228i7 clock_id{225I12}
+228p29 tp(223R12)
+231V13*clock_getres{53I12} 232>7 233^7 234b<c,clock_getres>22
+232i7 clock_id{225I12}
+233p7 res(223R12)
+236V13*To_Duration{duration} 236>26 237r19 10|69b13 72l8 72t19
+236r26 TS{223R12} 10|69b26 71r24 71r47
+239V13*To_Timespec{223R12} 239>26 240r19 10|89b13 107l8 107t19
+239o26 D{duration} 10|89b26 94r39 95r12
+242V13*sysconf{56I12} 242>22 243b<c,sysconf>22
+242i22 name{53I12}
+245N4*SC_CLK_TCK
+246N4*SC_NPROCESSORS_ONLN
+252N4*SCHED_OTHER
+253N4*SCHED_FIFO
+254N4*SCHED_RR
+256V13*To_Target_Priority{4|35I9} 257>7 10|78b13 83l8 83t26
+257i7 Prio{5|108I12} 10|79b7 82r32
+264I9*pid_t<4|35I9> 266r25 269r27 633c9
+266V13*kill{53I12} 266>19 266>32 267b<c,kill>22
+266i19 pid{264I9}
+266i32 sig{83I9}
+269V13*getpid{264I9} 270b<c,getpid>22
+272N4*PR_SET_NAME
+273N4*PR_GET_NAME
+275V13*prctl{53I12} 276>7 277>7 277>13 277>19 277>25 278b<c,prctl>22
+276i7 option{53I12}
+277m7 arg2{59M12}
+277m13 arg3{59M12}
+277m19 arg4{59M12}
+277m25 arg5{59M12}
+284P9*Thread_Body(5|67M9) 285>16 286r26 289r48 518r23
+285m16 arg{5|67M9}
+288V13*Thread_Body_Access[2|20]{284P9}
+291M9*pthread_t<4|45M9> 292r25 295r51 331r38 350r36 478r16 516r30 525r33
+. 598r20 10|49r38
+292M12*Thread_Id{291M9}
+294V13*To_pthread_t[2|20]{291M9}
+297R9*pthread_mutex_t 372r22 376r51 379r48 382r50 442r22 447r24 655c9 657e14
+. 658r26 659r8
+298R9*pthread_rwlock_t 404r22 409r22 412r51 415r51 418r51 667c9 669e14 670r26
+. 671r8
+299R9*pthread_cond_t 430r21 434r49 437r48 441r22 446r24 673c9 675e14 676r26
+. 677r8
+300R9*pthread_attr_t 484r23 497r27 501r27 505r28 511r26 517r30 607r27 637c9
+. 639e14 640r26 641r8
+301R9*pthread_mutexattr_t 364r21 368r21 373r22 463r25 468r28 649c9 651e15
+. 652r26 653r8
+302R9*pthread_rwlockattr_t 386r21 390r21 398r21 405r22 661c9 663e14 664r26
+. 665r8
+303R9*pthread_condattr_t 422r21 426r21 431r21 643c9 645e14 646r26 647r8
+304M9*pthread_key_t<4|43M9> 536r15 540r40 547r27 679c9
+306N4*PTHREAD_CREATE_DETACHED
+312R9*stack_t 316e14 317r26 320r29 321r20
+313m7*ss_sp{5|67M9}
+314i7*ss_flags{53I12}
+315m7*ss_size{62M12}
+319V13*sigaltstack{53I12} 320^7 321^7 322b<c,sigaltstack>22
+320p7 ss(312R9)
+321p7 oss(312R9)
+324m4*Alternate_Stack{5|67M9} 325m22 325r22
+328N4*Alternate_Stack_Size
+331V13*Get_Stack_Base{5|67M9} 331>29 332r19 10|49b13 54l8 54t22
+331m29 thread{291M9} 10|49b29 50r29
+339U14*pthread_init 340r19 10|60b14 63l8 63t20
+347V13*sigwait{53I12} 347^22 347^45 348b<c,sigwait>22
+347p22 set(156A9)
+347p45 sig(83I9)
+350V13*pthread_kill{53I12} 350>27 350>47 351b<c,pthread_kill>22
+350m27 thread{291M9}
+350i47 sig{83I9}
+353V13*pthread_sigmask{53I12} 354>7 355^7 356^7 357b<c,pthread_sigmask>22
+354i7 how{53I12}
+355p7 set(156A9)
+356p7 oset(156A9)
+363V13*pthread_mutexattr_init{53I12} 364^7 365b<c,pthread_mutexattr_init>22
+364p7 attr(301R9)
+367V13*pthread_mutexattr_destroy{53I12} 368^7 369b<c,pthread_mutexattr_destroy>22
+368p7 attr(301R9)
+371V13*pthread_mutex_init{53I12} 372^7 373^7 374b<c,pthread_mutex_init>22
+372p7 mutex(297R9)
+373p7 attr(301R9)
+376V13*pthread_mutex_destroy{53I12} 376^36 377b<c,pthread_mutex_destroy>22
+376p36 mutex(297R9)
+379V13*pthread_mutex_lock{53I12} 379^33 380b<c,pthread_mutex_lock>22
+379p33 mutex(297R9)
+382V13*pthread_mutex_unlock{53I12} 382^35 383b<c,pthread_mutex_unlock>22
+382p35 mutex(297R9)
+385V13*pthread_rwlockattr_init{53I12} 386^7 387b<c,pthread_rwlockattr_init>22
+386p7 attr(302R9)
+389V13*pthread_rwlockattr_destroy{53I12} 390^7 391b<c,pthread_rwlockattr_destroy>22
+390p7 attr(302R9)
+393N4*PTHREAD_RWLOCK_PREFER_READER_NP
+394N4*PTHREAD_RWLOCK_PREFER_WRITER_NP
+395N4*PTHREAD_RWLOCK_PREFER_WRITER_NONRECURSIVE_NP
+397V13*pthread_rwlockattr_setkind_np{53I12} 398^7 399>7 401b<c,pthread_rwlockattr_setkind_np>10
+398p7 attr(302R9)
+399i7 pref{53I12}
+403V13*pthread_rwlock_init{53I12} 404^7 405^7 406b<c,pthread_rwlock_init>22
+404p7 mutex(298R9)
+405p7 attr(302R9)
+408V13*pthread_rwlock_destroy{53I12} 409^7 410b<c,pthread_rwlock_destroy>22
+409p7 mutex(298R9)
+412V13*pthread_rwlock_rdlock{53I12} 412^36 413b<c,pthread_rwlock_rdlock>22
+412p36 mutex(298R9)
+415V13*pthread_rwlock_wrlock{53I12} 415^36 416b<c,pthread_rwlock_wrlock>22
+415p36 mutex(298R9)
+418V13*pthread_rwlock_unlock{53I12} 418^36 419b<c,pthread_rwlock_unlock>22
+418p36 mutex(298R9)
+421V13*pthread_condattr_init{53I12} 422^7 423b<c,pthread_condattr_init>22
+422p7 attr(303R9)
+425V13*pthread_condattr_destroy{53I12} 426^7 427b<c,pthread_condattr_destroy>22
+426p7 attr(303R9)
+429V13*pthread_cond_init{53I12} 430^7 431^7 432b<c,pthread_cond_init>22
+430p7 cond(299R9)
+431p7 attr(303R9)
+434V13*pthread_cond_destroy{53I12} 434^35 435b<c,pthread_cond_destroy>22
+434p35 cond(299R9)
+437V13*pthread_cond_signal{53I12} 437^34 438b<c,pthread_cond_signal>22
+437p34 cond(299R9)
+440V13*pthread_cond_wait{53I12} 441^7 442^7 443b<c,pthread_cond_wait>22
+441p7 cond(299R9)
+442p7 mutex(297R9)
+445V13*pthread_cond_timedwait{53I12} 446^7 447^7 448^7 449b<c,pthread_cond_timedwait>22
+446p7 cond(299R9)
+447p7 mutex(297R9)
+448p7 abstime(223R12)
+451b4*Relative_Timed_Wait{boolean}
+458N4*PTHREAD_PRIO_NONE
+459N4*PTHREAD_PRIO_INHERIT
+460N4*PTHREAD_PRIO_PROTECT
+462V13*pthread_mutexattr_setprotocol{53I12} 463^7 464>7 465b<c,pthread_mutexattr_setprotocol>22
+463p7 attr(301R9)
+464i7 protocol{53I12}
+467V13*pthread_mutexattr_setprioceiling{53I12} 468^7 469>7 470b<c,pthread_mutexattr_setprioceiling>22
+468p7 attr(301R9)
+469i7 prioceiling{53I12}
+472R9*struct_sched_param 474e14 475r26 480r23
+473i7*sched_priority{53I12}
+477V13*pthread_setschedparam{53I12} 478>7 479>7 480^7 481b<c,pthread_setschedparam>22
+478m7 thread{291M9}
+479i7 policy{53I12}
+480p7 param(472R9)
+483V13*pthread_attr_setschedpolicy{53I12} 484^7 485>7 487b<c,pthread_attr_setschedpolicy>10
+484p7 attr(300R9)
+485i7 policy{53I12}
+489V13*sched_yield{53I12} 490b<c,sched_yield>22
+496V13*pthread_attr_init{53I12} 497^7 498b<c,pthread_attr_init>22
+497p7 attributes(300R9)
+500V13*pthread_attr_destroy{53I12} 501^7 502b<c,pthread_attr_destroy>22
+501p7 attributes(300R9)
+504V13*pthread_attr_setdetachstate{53I12} 505^7 506>7 508b<c,pthread_attr_setdetachstate>10
+505p7 attr(300R9)
+506i7 detachstate{53I12}
+510V13*pthread_attr_setstacksize{53I12} 511^7 512>7 513b<c,pthread_attr_setstacksize>22
+511p7 attr(300R9)
+512m7 stacksize{62M12}
+515V13*pthread_create{53I12} 516^7 517^7 518>7 519>7 520b<c,pthread_create>22
+516p7 thread(291M9)
+517p7 attributes(300R9)
+518p7 start_routine{284P9}
+519m7 arg{5|67M9}
+522U14*pthread_exit 522>28 523b<c,pthread_exit>22
+522m28 status{5|67M9}
+525V13*pthread_self{291M9} 526b<c,pthread_self>22
+528V13*lwp_self{5|67M9} 529b<c,__gnat_lwp_self>22
+535V13*pthread_setspecific{53I12} 536>7 537>7 538b<c,pthread_setspecific>22
+536m7 key{304M9}
+537m7 value{5|67M9}
+540V13*pthread_getspecific{5|67M9} 540>34 541b<c,pthread_getspecific>22
+540m34 key{304M9}
+543P9*destructor_pointer 543>49 544r26 548r20
+543m49 arg{5|67M9}
+546V13*pthread_key_create{53I12} 547^7 548>7 549b<c,pthread_key_create>22
+547p7 key(304M9)
+548p7 destructor{543P9}
+555N4*CPU_SETSIZE 561r34 562r27
+561A9*bit_field(boolean)<integer> 562r8 563r17 564r26 567r14
+566R9*cpu_set_t 568e14 569r26 571r37
+567a7*bits{561A9}
+571P9*cpu_set_t_ptr(566R9) 577r47 585r33 589r49 593r59 600r20 609r20
+577V13*CPU_ALLOC{571P9} 577>24 578b<c,__gnat_cpu_alloc>22
+577m24 count{62M12}
+581V13*CPU_ALLOC_SIZE{62M12} 581>29 582b<c,__gnat_cpu_alloc_size>22
+581m29 count{62M12}
+585U14*CPU_FREE 585>24 586b<c,__gnat_cpu_free>22
+585p24 cpuset{571P9}
+589U14*CPU_ZERO 589>24 589>40 590b<c,__gnat_cpu_zero>22
+589m24 count{62M12}
+589p40 cpuset{571P9}
+593U14*CPU_SET 593>23 593>34 593>50 594b<c,__gnat_cpu_set>22
+593i23 cpu{53I12}
+593m34 count{62M12}
+593p50 cpuset{571P9}
+597V13*pthread_setaffinity_np{53I12} 598>7 599>7 600>7 601b<c,pthread_setaffinity_np>22
+. 602r26
+598m7 thread{291M9}
+599m7 cpusetsize{62M12}
+600p7 cpuset{571P9}
+606V13*pthread_attr_setaffinity_np{53I12} 607^7 608>7 609>7 610b<c,pthread_attr_setaffinity_np>22
+. 612r26
+607p7 attr(300R9)
+608m7 cpusetsize{62M12}
+609p7 cpuset{571P9}
+635A12 char_array{4|79A9}<4|60M9> 638r14 644r14 650r14 656r14 662r14 668r14
+. 674r14
+638a7*Data{4|79A9}
+644a7*Data{4|79A9}
+650a7*Data{4|79A9}
+656a7*Data{4|79A9}
+662a7*Data{4|79A9}
+668a7*Data{4|79A9}
+674a7*Data{4|79A9}
+X 10 s-osinte.adb
+90i7 S{9|222I12} 94m7 95r26 101m10 101r15 105r34
+91o7 F{duration} 95m7 100r10 102m10 102r15 106r60
+

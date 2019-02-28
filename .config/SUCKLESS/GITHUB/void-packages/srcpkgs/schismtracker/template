@@ -1,0 +1,17 @@
+# Template file for 'schismtracker'
+pkgname=schismtracker
+version=20181223
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake SDL-devel"
+makedepends="SDL-devel libXv-devel"
+short_desc="Sample-based music composition tool"
+maintainer="allan <mail@may.mooo.com>"
+license="GPL-2.0-or-later"
+homepage="http://schismtracker.org"
+distfiles="https://github.com/schismtracker/schismtracker/archive/${version}.tar.gz"
+checksum=fc32930c611fdb78face87dbe8a3c62e70088fd8d4ad803140e0b9a0b2e72ad7
+
+pre_configure() {
+	autoreconf -fi
+}

@@ -1,0 +1,32 @@
+# Template file for 'xterm'
+pkgname=xterm
+version=344
+revision=1
+build_style=gnu-configure
+configure_args="--enable-wide-chars --enable-88-color --enable-broken-osc
+ --enable-256-color --enable-luit --enable-paste64 --enable-ansi-color
+ --enable-mini-luit --enable-readline-mouse --enable-broken-st
+ --enable-narrowproto --libdir=/etc --enable-load-vt-fonts
+ --with-app-defaults=/usr/share/X11/app-defaults --enable-i18n
+ --disable-full-tgetent --disable-imake --enable-doublechars
+ --enable-freetype --enable-tcap-query --enable-logging --enable-dabbrev
+ --with-pkg-config=yes --enable-exec-xterm --with-utempter"
+hostmakedepends="pkg-config"
+makedepends="libXaw-devel libXft-devel libutempter-devel libxkbfile-devel
+ ncurses-devel"
+short_desc="X Terminal Emulator"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="MIT"
+homepage="http://invisible-island.net/xterm/"
+changelog="http://invisible-island.net/xterm/xterm.log.html"
+distfiles="https://invisible-mirror.net/archives/xterm/xterm-${version}.tgz"
+checksum=ccceb8f6119ae24ab422d7ce7c5713114d304c856daf0d922efc198b56accdf5
+
+post_install() {
+	for f in {u,}xterm.desktop; do
+		vinstall $f 644 usr/share/applications
+	done
+
+	sed -n '2,32p' < Makefile.in > LICENSE
+	vlicense LICENSE
+}

@@ -1,0 +1,29 @@
+# Template file for 'libcdio'
+pkgname=libcdio
+version=2.0.0
+revision=1
+build_style=gnu-configure
+hostmakedepends="automake libtool pkg-config"
+makedepends="ncurses-devel libcddb-devel"
+short_desc="CD-ROM access library"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="GPL-3"
+homepage="http://www.gnu.org/software/libcdio/"
+distfiles="${GNU_SITE}/$pkgname/$pkgname-$version.tar.gz"
+checksum=1b481b5da009bea31db875805665974e2fc568e2b2afa516f4036733657cf958
+
+pre_configure() {
+	autoreconf -fi
+}
+
+libcdio-devel_package() {
+	depends="libcddb-devel libcdio>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.a"
+		vmove "usr/lib/*.so"
+		vmove usr/share
+	}
+}

@@ -1,0 +1,18 @@
+# Template file for 'shellcheck'
+pkgname=shellcheck
+version=0.6.0
+revision=1
+build_style=haskell-stack
+stackage="lts-13.2"
+short_desc="Static analysis tool for shell scripts"
+maintainer="Diogo Leal <diogo@diogoleal.com>"
+license="GPL-3.0-or-later"
+homepage="https://www.shellcheck.net/"
+distfiles="https://github.com/koalaman/shellcheck/archive/v${version}.tar.gz"
+checksum=78f90aa8e618dc468bc1c36b6929216dc7a0c2679cd157e50919f7d8cc1899bc
+nocross=yes
+nopie_files="/usr/bin/shellcheck"
+
+post_install() {
+	vdoc shellcheck.1.md
+}

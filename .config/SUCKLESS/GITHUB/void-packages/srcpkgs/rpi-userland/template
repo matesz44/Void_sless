@@ -1,0 +1,79 @@
+# Template file for 'rpi-userland'
+_githash="e5803f2c986cbf8c919c60278b3231dcdf4271a6"
+_gitshort="${_githash:0:7}"
+
+pkgname=rpi-userland
+version=20190114
+revision=1
+wrksrc="userland-${_githash}"
+build_style=cmake
+configure_args="-DCMAKE_INSTALL_RPATH=/opt/vc/lib"
+short_desc="Raspberry Pi GPU userland libraries and utilities (git ${_gitshort})"
+maintainer="Juan RP <xtraeme@voidlinux.org>"
+license="BSD-3-Clause"
+homepage="https://github.com/raspberrypi/userland"
+distfiles="https://github.com/raspberrypi/userland/archive/${_githash}.tar.gz"
+checksum=9424ffa45ef888fb61483c63fd66532c1c648e071fea72c93762efbb3c2a8669
+
+LDFLAGS="-Wl,--no-as-needed"
+only_for_archs="armv6l armv6l-musl armv7l armv7l-musl"
+
+shlib_provides="
+ libEGL.so
+ libGLESv2.so
+ libOpenVG.so
+ libWFC.so
+ libbcm_host.so
+ libbrcmEGL.so
+ libbrcmGLESv2.so
+ libbrcmOpenVG.so
+ libbrcmWFC.so
+ libcontainers.so
+ libdebug_sym.so
+ libdtovl.so
+ libmmal.so
+ libmmal_components.so
+ libmmal_core.so
+ libmmal_util.so
+ libmmal_vc_client.so
+ libopenmaxil.so
+ libvchiq_arm.so
+ libvcos.so
+ libvcsm.so"
+
+pre_configure() {
+	for f in $(find ${wrksrc} -type f -name CMakeLists.txt); do
+		sed -i 's,-Werror,,g' $f
+	done
+}
+post_install() {
+	vlicense LICENCE
+	vmkdir usr/lib/pkgconfig
+	vcopy ${FILESDIR}/*.pc usr/lib/pkgconfig
+	rm -rf ${DESTDIR}/etc
+	rm -rf ${DESTDIR}/opt/vc/share
+
+	case "$XBPS_TARGET_MACHINE" in
+		*-musl)
+			vmkdir etc
+			echo /lib:/usr/local/lib:/usr/lib:/opt/vc/lib > ${DESTDIR}/etc/ld-musl-armhf.path
+			;;
+		*)
+			vmkdir etc/ld.so.conf.d
+			echo /opt/vc/lib > ${DESTDIR}/etc/ld.so.conf.d/rpi-userland.conf
+			;;
+	esac
+}
+
+rpi-userland-devel_package() {
+	provides="rpi-firmware-pcfiles-1_1"
+	replaces="rpi-firmware-pcfiles>=0"
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove opt/vc/include
+		vmove opt/vc/src
+		vmove opt/vc/lib/*.a
+		vmove usr/lib/pkgconfig
+	}
+}

@@ -1,0 +1,13 @@
+# Template file for 'Gifsicle'
+pkgname=Gifsicle
+version=1.91
+revision=1
+build_style=gnu-configure
+wrksrc="gifsicle-${version}"
+makedepends="libX11-devel"
+short_desc="Command-line GIF manipulation tool"
+maintainer="ColdPhoenix <coldphoenix@interia.pl>"
+license="GPL-2"
+homepage="https://www.lcdf.org/gifsicle"
+distfiles="${homepage}/gifsicle-${version}.tar.gz"
+checksum=0a4ee602aa244cdcdd86a250a6b39c94d8343cf526b8fae862d8a0efc337a800
