@@ -1,0 +1,2 @@
+${HOME}/.scripts/base/prompt "Are u sure u want 2 shutdown?" "sudo -A shutdown -h now"
+

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+browser=${BROWSER:-firefox}
+pgrep -x dmenu && exit
+
+choice=$(echo "👈" | dmenu -nb "#000000" -i -p "StackOverflow:") || exit 1
+
+if [ "$choice" = "👈"  ]; then
+    exit 1
+else
+    $browser "https://stackoverflow.com/search?q=$choice"
+
+fi

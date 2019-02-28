@@ -1,0 +1,9 @@
+#!/bin/sh
+SCRIPTDIR=$HOME/.scripts/openable
+pgrep -x dmenu && exit
+
+choice=$(ls $SCRIPTDIR | dmenu -l 20 -nb "#000000" -i -p "MENU:") || exit 1
+
+[ "$choice" != "" ] || exit
+
+$SCRIPTDIR/"$choice"

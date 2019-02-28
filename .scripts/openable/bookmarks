@@ -1,0 +1,12 @@
+#!/bin/sh
+
+browser=${BROWSER:-firefox}
+
+pgrep -x dmenu && exit
+
+choice=$(cat $HOME/.config/textfiles/bookmarks.txt | dmenu -l 20 -nb "#000000" -i -p "Open Bookmark" | awk '{print $2}') || exit 1
+
+[ "$choice" != "" ] || exit
+
+$browser "$choice"
+

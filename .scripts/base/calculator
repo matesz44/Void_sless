@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "Welcome 2 the Calculator." && bc -lq
