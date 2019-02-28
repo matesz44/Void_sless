@@ -1,0 +1,7 @@
+YouTube             https://www.youtube.com
+FaceBook            https://www.facebook.com
+LukeSmith_Github    https://github.com/LukeSmithxyz/voidrice
+Sabaton-zene        https://www.youtube.com/watch?v=joZaJqyl2S0&list=RDp1SlBlB5pzU&index=2
+SUCKLESS            https://suckless.org
+VOID                https://voidlinux.org
+ARCH                https://wiki.archlinux.org
